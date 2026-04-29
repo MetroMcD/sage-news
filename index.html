@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sage news – Wissen, was wirklich zählt.</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+
+<style>
+:root {
+  --sn-blue-950: #061b49;
+  --sn-blue-900: #082b6f;
+  --sn-blue-800: #0a3b93;
+  --sn-blue-600: #0d6ecf;
+  --sn-blue-400: #38a9f5;
+  --sn-blue-200: #bfe8ff;
+  --sn-blue-100: #e8f7ff;
+  --sn-white: #ffffff;
+  --sn-ink: #07172f;
+  --sn-muted: #5f728a;
+  --sn-border: #d6e9f8;
+  --sn-accent-yellow: #ffc82e;
+  --sn-bg: #f4f9fe;
+  --sn-card-bg: #ffffff;
+  --sn-radius: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--sn-bg);
+  color: var(--sn-ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { min-height: 100vh; }
+
+/* ── Article prose ───────────────────────────────────────────── */
+.prose { font-size: 15px; line-height: 1.75; color: var(--sn-ink); }
+.prose h1,.prose h2,.prose h3 { font-weight: 800; color: var(--sn-ink); margin: 1.5em 0 .6em; line-height: 1.25; }
+.prose h2 { font-size: 18px; border-bottom: 1.5px solid var(--sn-border); padding-bottom: 6px; }
+.prose h3 { font-size: 16px; }
+.prose p  { margin-bottom: 1em; }
+.prose ul,.prose ol { padding-left: 1.4em; margin-bottom: 1em; }
+.prose li { margin-bottom: .35em; }
+.prose strong { font-weight: 700; color: var(--sn-ink); }
+.prose a { color: var(--sn-blue-600); text-decoration: underline; }
+.prose blockquote { border-left: 3px solid var(--sn-blue-400); padding-left: 14px; color: var(--sn-muted); margin: 1em 0; font-style: italic; }
+.prose code { font-family: monospace; background: var(--sn-blue-100); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.prose pre { background: var(--sn-ink); color: #e2e8f0; padding: 16px; border-radius: 10px; overflow-x: auto; margin-bottom: 1em; }
+.prose pre code { background: none; padding: 0; color: inherit; }
+.prose hr { border: none; border-top: 1.5px solid var(--sn-border); margin: 1.5em 0; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useCallback, useRef } = React;
+
+// ── GITHUB CONFIG ──────────────────────────────────────────────────────────
+// Set these to your repo. Leave POSTS_PATH as "posts" to use a /posts folder.
+const GH_CONFIG = {
+  owner: "MetrMcD",
+  repo:  "sage-news",
+  branch: "main",
+  postsPath: "posts"
+};
+
+// ── TWEAK DEFAULTS ─────────────────────────────────────────────────────────
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#ffd22e",
+  "cardRadius": 14,
+  "postsPerPage": 4,
+  "showSidebar": false,
+  "headerStyle": "banner"
+}/*EDITMODE-END*/;
+
+// ── FALLBACK SAMPLE POSTS (shown when GitHub is not configured) ────────────
+const SAMPLE_POSTS = [
+  {
+    id: "sample-1",
+    slug: "sage-100-release",
+    title: "Sage 100 v9.0.3 – Was das neue Release bringt",
+    summary: "Das März-Update bringt überarbeitete Buchungsmasken, verbesserte DATEV-Schnittstelle und Korrekturen bei der Umsatzsteuer-Voranmeldung.",
+    category: "Sage 100", tag: "Release", date: "28. Apr 2026", readTime: "4 min", featured: true,
+    body: ""
+  },
+  {
+    id: "sample-2",
+    slug: "sage-x3-self-service",
+    title: "Sage X3 People: HR-Modul bekommt Self-Service-Portal",
+    summary: "Ab Version 12.1 können Mitarbeitende Urlaubsanträge, Zeitkorrekturen und Gehaltsabrechnungen direkt im Browser bearbeiten.",
+    category: "Sage X3", tag: "Neu", date: "22. Apr 2026", readTime: "5 min", featured: false,
+    body: ""
+  },
+  {
+    id: "sample-3",
+    slug: "sage-operations-ki",
+    title: "Sage Operations: Produktionsplanung jetzt mit KI-Unterstützung",
+    summary: "Sage Operations erhält eine Kapazitätsplanung mit KI-gestützten Vorschlägen für Maschinenauslastung und Schichtplanung.",
+    category: "Sage Operations", tag: "KI", date: "18. Apr 2026", readTime: "6 min", featured: true,
+    body: ""
+  },
+  {
+    id: "sample-4",
+    slug: "gobd-2026",
+    title: "GoBD 2026: Was Sage-Anwender jetzt prüfen müssen",
+    summary: "Die aktualisierte GoBD-Fassung stellt neue Anforderungen an die Unveränderbarkeit von Belegen. Checkliste für Sage 100 und X3.",
+    category: "Sage 100", tag: "Compliance", date: "14. Apr 2026", readTime: "7 min", featured: false,
+    body: ""
+  },
+  {
+    id: "sample-5",
+    slug: "sage-x3-cloud-frankfurt",
+    title: "Sage X3 Cloud: Verfügbarkeit in deutschen Rechenzentren",
+    summary: "Sage bestätigt: X3 läuft ab Q3 2026 in AWS Frankfurt mit DSGVO-konformer Datenhaltung.",
+    category: "Sage X3", tag: "Cloud", date: "10. Apr 2026", readTime: "5 min", featured: false,
+    body: ""
+  },
+  {
+    id: "sample-6",
+    slug: "sage-intact-deutschland",
+    title: "Sage Intact: Was der Einstieg in Deutschland bedeutet",
+    summary: "Sage Intact ist in den USA ein etabliertes Mid-Market-ERP. Ein erster Überblick zur perspektivischen Deutschland-Einführung.",
+    category: "Sage Intact", tag: "Perspektive", date: "5. Apr 2026", readTime: "8 min", featured: false,
+    body: ""
+  }
+];
+
+// ── MARKDOWN FRONTMATTER PARSER ────────────────────────────────────────────
+function parseFrontmatter(raw) {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  if (!match) return { meta: {}, body: raw };
+  const meta = {};
+  match[1].split("\n").forEach(line => {
+    const sep = line.indexOf(":");
+    if (sep < 0) return;
+    const k = line.slice(0, sep).trim();
+    const v = line.slice(sep + 1).trim().replace(/^["']|["']$/g, "");
+    meta[k] = v;
+  });
+  return { meta, body: match[2].trim() };
+}
+
+// ── GITHUB LOADER ──────────────────────────────────────────────────────────
+async function loadPostsFromGitHub(cfg) {
+  const isConfigured = cfg.owner && cfg.owner !== "YOUR_GITHUB_USERNAME";
+  if (!isConfigured) return { posts: SAMPLE_POSTS, source: "sample" };
+
+  const listUrl = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.postsPath}?ref=${cfg.branch}`;
+  let files;
+  try {
+    const res = await fetch(listUrl, { headers: { Accept: "application/vnd.github.v3+json" } });
+    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+    files = await res.json();
+  } catch (e) {
+    console.warn("GitHub posts load failed:", e.message);
+    return { posts: SAMPLE_POSTS, source: "sample" };
+  }
+
+  const mdFiles = files.filter(f => f.name.endsWith(".md")).sort((a, b) => b.name.localeCompare(a.name));
+
+  const posts = await Promise.all(mdFiles.map(async (f, idx) => {
+    try {
+      const r = await fetch(f.download_url);
+      const raw = await r.text();
+      const { meta, body } = parseFrontmatter(raw);
+      return {
+        id: f.sha || `gh-${idx}`,
+        slug: f.name.replace(".md", ""),
+        title: meta.title || f.name,
+        summary: meta.summary || "",
+        category: meta.category || "Sage 100",
+        tag: meta.tag || "News",
+        date: meta.date || "",
+        readTime: meta.readTime || "3 min",
+        featured: meta.featured === "true",
+        body
+      };
+    } catch { return null; }
+  }));
+
+  return { posts: posts.filter(Boolean), source: "github" };
+}
+
+// ── BRAND COLORS ───────────────────────────────────────────────────────────
+const CATEGORY_META = {
+  "Alle":             { color: "#0a3b93", bg: "#dceeff" },
+  "Sage 100":         { color: "#0a3b93", bg: "#dceeff" },
+  "Sage X3":          { color: "#1a6b3a", bg: "#d4f0e0" },
+  "Sage Operations":  { color: "#7b3a00", bg: "#fde8cc" },
+  "Sage Intact":      { color: "#5a1d8a", bg: "#ede0f8" }
+};
+const TAG_COLORS = {
+  "Release":    { bg: "#e8f0fe", color: "#1a56db" },
+  "Neu":        { bg: "#d4f0e0", color: "#1a6b3a" },
+  "KI":         { bg: "#fde8cc", color: "#7b3a00" },
+  "Cloud":      { bg: "#e0f0ff", color: "#0a5a99" },
+  "Compliance": { bg: "#fde8e8", color: "#9b1c1c" },
+  "Perspektive":{ bg: "#ede0f8", color: "#5a1d8a" },
+  "Tool":       { bg: "#f0f0f0", color: "#374151" },
+  "API":        { bg: "#e8fce8", color: "#1a6b3a" },
+  "News":       { bg: "#f0f4ff", color: "#3730a3" }
+};
+
+// ── BADGE COMPONENTS ───────────────────────────────────────────────────────
+function CategoryBadge({ category, small }) {
+  const meta = CATEGORY_META[category] || CATEGORY_META["Alle"];
+  return (
+    <span style={{
+      display: "inline-block", background: meta.bg, color: meta.color,
+      fontWeight: 700, fontSize: small ? "11px" : "12px",
+      letterSpacing: "0.03em", padding: small ? "2px 8px" : "3px 10px",
+      borderRadius: "999px", whiteSpace: "nowrap"
+    }}>{category}</span>
+  );
+}
+
+function TagBadge({ tag }) {
+  const meta = TAG_COLORS[tag] || { bg: "#f0f0f0", color: "#374151" };
+  return (
+    <span style={{
+      display: "inline-block", background: meta.bg, color: meta.color,
+      fontWeight: 600, fontSize: "11px", padding: "2px 8px",
+      borderRadius: "999px", whiteSpace: "nowrap"
+    }}>{tag}</span>
+  );
+}
+
+// ── LOGO SVG ───────────────────────────────────────────────────────────────
+function LogoSVG() {
+  return (
+    <svg width="130" height="38" viewBox="0 0 130 38" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
+      {/* "sage" block */}
+      <rect x="0" y="3" width="58" height="32" rx="7" fill="#082b6f"/>
+      <rect x="0.75" y="3.75" width="56.5" height="30.5" rx="6.25" stroke="white" strokeWidth="1.5" strokeOpacity="0.18"/>
+      <text x="29" y="24.5" textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight="900" fontSize="16" letterSpacing="-0.5" fill="white">sage</text>
+      {/* "news" text */}
+      <text x="66" y="25" fontFamily="Inter, sans-serif" fontWeight="900" fontSize="18" letterSpacing="-0.7" fill="#38a9f5">news</text>
+      {/* dot accent */}
+      <circle cx="123" cy="10" r="4" fill="#ffc82e"/>
+    </svg>
+  );
+}
+
+// ── HEADER ─────────────────────────────────────────────────────────────────
+function Header({ page, setPage, accentColor }) {
+  const navItems = [
+    { id: "home",       label: "Alle News" },
+    { id: "sage100",    label: "Sage 100" },
+    { id: "sagex3",     label: "Sage X3" },
+    { id: "operations", label: "Sage Operations" },
+    { id: "systemcheck",label: "Systemcheck" },
+    { id: "info",       label: "Info" }
+  ];
+
+  return (
+    <header style={{
+      background: "var(--sn-blue-950)",
+      borderBottom: "1.5px solid rgba(255,255,255,0.08)",
+      position: "sticky", top: 0, zIndex: 100
+    }}>
+      <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 20px" }}>
+        <div style={{ display: "flex", alignItems: "center", height: "64px", gap: "28px" }}>
+
+          {/* Logo – link to home */}
+          <button onClick={() => setPage("home")} style={{
+            background: "none", border: "none", cursor: "pointer",
+            padding: 0, flexShrink: 0, lineHeight: 0
+          }} title="Zur Startseite">
+            <img src="assets/sage-news_logo_3.png" alt="sage news"
+              style={{
+                height: "56px", width: "auto", display: "block",
+                mixBlendMode: "lighten"
+              }} />
+          </button>
+
+          {/* Divider */}
+          <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.12)", flexShrink: 0 }}></div>
+
+          {/* Nav */}
+          <nav style={{ display: "flex", gap: "2px", alignItems: "center", overflow: "auto" }}>
+            {navItems.map(item => {
+              const isActive = page === item.id;
+              return (
+                <NavItem key={item.id} label={item.label} active={isActive}
+                  accentColor={accentColor} onClick={() => setPage(item.id)} />
+              );
+            })}
+          </nav>
+
+          <div style={{ marginLeft: "auto", flexShrink: 0 }}>
+            <span style={{
+              background: accentColor, color: "#07172f",
+              fontSize: "11px", fontWeight: 800,
+              padding: "3px 10px", borderRadius: "999px", letterSpacing: "0.04em"
+            }}>BETA</span>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function NavItem({ label, active, accentColor, onClick }) {
+  const [hovered, setHovered] = useState(false);
+  const highlight = active || hovered;
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: highlight ? accentColor : "transparent",
+        color: highlight ? "#07172f" : "rgba(255,255,255,0.72)",
+        fontWeight: highlight ? 700 : 500,
+        fontSize: "13.5px",
+        padding: "7px 13px",
+        borderRadius: "8px",
+        border: "none",
+        cursor: "pointer",
+        whiteSpace: "nowrap",
+        transition: "background 0.15s, color 0.15s"
+      }}
+    >{label}</button>
+  );
+}
+
+// ── HERO BANNER ────────────────────────────────────────────────────────────
+function HeroBanner({ headerStyle }) {
+  if (headerStyle !== "banner") return null;
+  return (
+    <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "24px 20px 0" }}>
+      <div style={{ borderRadius: "16px", overflow: "hidden" }}>
+        <img src="assets/sage-news_banner.png" alt="sage news – Wissen, was wirklich zählt."
+          style={{ width: "100%", display: "block", maxHeight: "250px", objectFit: "cover", objectPosition: "center" }} />
+      </div>
+    </div>
+  );
+}
+
+// ── CATEGORY PAGE HEADER ───────────────────────────────────────────────────
+function PageHeader({ page }) {
+  const map = {
+    "sage100":    { title: "Sage 100",         sub: "Updates, Releases & Praxis-Tipps",       cat: "Sage 100" },
+    "sagex3":     { title: "Sage X3",           sub: "Cloud, Module & Neuigkeiten",             cat: "Sage X3" },
+    "operations": { title: "Sage Operations",   sub: "Fertigung, Planung & API-Updates",        cat: "Sage Operations" }
+  };
+  const meta = map[page];
+  if (!meta) return null;
+  const catMeta = CATEGORY_META[meta.cat];
+  return (
+    <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "24px 20px 0" }}>
+      <div style={{
+        background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
+        borderRadius: "14px", padding: "24px 28px", color: "white",
+        display: "flex", alignItems: "center", gap: "16px"
+      }}>
+        <div style={{
+          width: "44px", height: "44px", borderRadius: "10px",
+          background: catMeta.bg, flexShrink: 0,
+          display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px"
+        }}>
+          {meta.cat === "Sage 100" ? "💼" : meta.cat === "Sage X3" ? "⚡" : "🏭"}
+        </div>
+        <div>
+          <h1 style={{ fontSize: "20px", fontWeight: 900 }}>{meta.title}</h1>
+          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", marginTop: "2px" }}>{meta.sub}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── POST CARD ──────────────────────────────────────────────────────────────
+function PostCard({ post, featured, onClick, tweaks }) {
+  const [hovered, setHovered] = useState(false);
+  const radius = (tweaks?.cardRadius ?? 14) + "px";
+  if (featured) {
+    return (
+      <article onClick={onClick}
+        onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+        style={{
+          background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
+          borderRadius: radius, padding: "28px", cursor: "pointer",
+          transition: "transform 0.18s, box-shadow 0.18s",
+          transform: hovered ? "translateY(-3px)" : "none",
+          boxShadow: hovered ? "0 12px 40px rgba(6,27,73,0.22)" : "0 4px 16px rgba(6,27,73,0.10)",
+          gridColumn: "span 2", position: "relative", overflow: "hidden", color: "white"
+        }}>
+        <div style={{
+          position: "absolute", top: "-40px", right: "-40px",
+          width: "200px", height: "200px",
+          background: "radial-gradient(circle, rgba(56,169,245,0.15) 0%, transparent 70%)",
+          borderRadius: "50%", pointerEvents: "none"
+        }}></div>
+        <div style={{ display: "flex", gap: "8px", marginBottom: "12px", flexWrap: "wrap" }}>
+          <CategoryBadge category={post.category} />
+          <TagBadge tag={post.tag} />
+          <span style={{
+            display: "inline-block", background: tweaks?.accentColor ?? "#ffc82e",
+            color: "#07172f", fontWeight: 700, fontSize: "11px",
+            padding: "2px 10px", borderRadius: "999px"
+          }}>Featured</span>
+        </div>
+        <h2 style={{ fontSize: "20px", fontWeight: 800, lineHeight: 1.3, marginBottom: "10px" }}>{post.title}</h2>
+        <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.76)", lineHeight: 1.6, marginBottom: "18px" }}>{post.summary}</p>
+        <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{post.date}</span>
+          <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>· {post.readTime}</span>
+          <span style={{ marginLeft: "auto", fontSize: "13px", fontWeight: 700, color: tweaks?.accentColor ?? "#ffc82e" }}>Weiterlesen →</span>
+        </div>
+      </article>
+    );
+  }
+  return (
+    <article onClick={onClick}
+      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "white", border: "1.5px solid var(--sn-border)",
+        borderRadius: radius, padding: "22px", cursor: "pointer",
+        transition: "transform 0.18s, box-shadow 0.18s, border-color 0.18s",
+        transform: hovered ? "translateY(-2px)" : "none",
+        boxShadow: hovered ? "0 8px 28px rgba(6,27,73,0.10)" : "0 1px 4px rgba(6,27,73,0.05)",
+        borderColor: hovered ? "var(--sn-blue-400)" : "var(--sn-border)"
+      }}>
+      <div style={{ display: "flex", gap: "6px", marginBottom: "10px", flexWrap: "wrap" }}>
+        <CategoryBadge category={post.category} small />
+        <TagBadge tag={post.tag} />
+      </div>
+      <h3 style={{ fontSize: "15px", fontWeight: 700, lineHeight: 1.35, marginBottom: "8px" }}>{post.title}</h3>
+      <p style={{ fontSize: "13px", color: "var(--sn-muted)", lineHeight: 1.6, marginBottom: "14px" }}>{post.summary}</p>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <span style={{ fontSize: "12px", color: "var(--sn-muted)" }}>{post.date}</span>
+        <span style={{ fontSize: "12px", color: "var(--sn-muted)" }}>· {post.readTime}</span>
+      </div>
+    </article>
+  );
+}
+
+function PostGrid({ posts, tweaks, onReadPost }) {
+  const featured = posts.filter(p => p.featured);
+  const regular  = posts.filter(p => !p.featured);
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      {featured.length > 0 && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+          {featured.map(p => <PostCard key={p.id} post={p} featured tweaks={tweaks} onClick={() => onReadPost(p)} />)}
+        </div>
+      )}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+        {regular.map(p => <PostCard key={p.id} post={p} tweaks={tweaks} onClick={() => onReadPost(p)} />)}
+      </div>
+    </div>
+  );
+}
+
+// ── POST DETAIL ────────────────────────────────────────────────────────────
+function PostDetail({ post, onBack, tweaks }) {
+  const hasBody = post.body && post.body.trim().length > 0;
+  const html = hasBody ? marked.parse(post.body) : null;
+  return (
+    <div style={{ maxWidth: "760px" }}>
+      <button onClick={onBack} style={{
+        background: "none", border: "none", cursor: "pointer",
+        fontSize: "14px", color: "var(--sn-blue-600)", fontWeight: 600,
+        padding: "0 0 20px", display: "flex", alignItems: "center", gap: "6px"
+      }}>← Zurück zur Übersicht</button>
+
+      <div style={{
+        background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
+        borderRadius: "14px", padding: "32px", color: "white", marginBottom: "24px"
+      }}>
+        <div style={{ display: "flex", gap: "8px", marginBottom: "14px", flexWrap: "wrap" }}>
+          <CategoryBadge category={post.category} />
+          <TagBadge tag={post.tag} />
+        </div>
+        <h1 style={{ fontSize: "22px", fontWeight: 900, lineHeight: 1.3, marginBottom: "12px" }}>{post.title}</h1>
+        <div style={{ display: "flex", gap: "16px", fontSize: "13px", color: "rgba(255,255,255,0.55)" }}>
+          <span>{post.date}</span>
+          <span>· {post.readTime} Lesezeit</span>
+        </div>
+      </div>
+
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "32px" }}>
+        {post.summary && (
+          <div style={{
+            background: "var(--sn-blue-100)", borderRadius: "10px",
+            padding: "16px 20px", marginBottom: "24px",
+            borderLeft: "3px solid var(--sn-blue-600)"
+          }}>
+            <div style={{ fontWeight: 800, fontSize: "11px", color: "var(--sn-blue-800)", marginBottom: "4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Kurzfazit</div>
+            <p style={{ fontSize: "14px", lineHeight: 1.6 }}>{post.summary}</p>
+          </div>
+        )}
+
+        {hasBody ? (
+          <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
+        ) : (
+          <p style={{ fontSize: "15px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
+            Noch kein Artikeltext vorhanden. Füge eine Markdown-Datei mit dem Body-Inhalt in deinem GitHub-Repo hinzu.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── SIDEBAR ────────────────────────────────────────────────────────────────
+function Sidebar({ posts, tweaks }) {
+  if (!tweaks?.showSidebar) return null;
+  const recent = posts.slice(0, 4);
+  return (
+    <aside style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+      <div style={{
+        background: "linear-gradient(135deg, var(--sn-blue-900), var(--sn-blue-700))",
+        borderRadius: "14px", padding: "20px", color: "white"
+      }}>
+        <div style={{ fontWeight: 800, fontSize: "14px", marginBottom: "6px" }}>Newsletter</div>
+        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.72)", lineHeight: 1.5, marginBottom: "12px" }}>
+          Neue Artikel direkt ins Postfach.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          <input placeholder="deine@email.de" style={{
+            padding: "9px 12px", borderRadius: "8px", border: "none",
+            fontSize: "13px", background: "rgba(255,255,255,0.12)", color: "white", outline: "none"
+          }} />
+          <button style={{
+            padding: "9px", borderRadius: "8px", border: "none",
+            background: tweaks?.accentColor ?? "#ffc82e",
+            color: "#07172f", fontWeight: 800, fontSize: "13px", cursor: "pointer"
+          }}>Anmelden</button>
+        </div>
+      </div>
+
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "18px" }}>
+        <div style={{ fontWeight: 800, fontSize: "13px", marginBottom: "12px" }}>Zuletzt veröffentlicht</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          {recent.map(p => (
+            <div key={p.id}>
+              <CategoryBadge category={p.category} small />
+              <div style={{ fontSize: "13px", fontWeight: 600, lineHeight: 1.3, marginTop: "4px" }}>{p.title}</div>
+              <div style={{ fontSize: "11px", color: "var(--sn-muted)", marginTop: "2px" }}>{p.date}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+// ── SYSTEMCHECK ────────────────────────────────────────────────────────────
+function SystemcheckPage() {
+  const [srcdoc, setSrcdoc] = useState('');
+  useEffect(() => {
+    fetch('systemcheck.html')
+      .then(r => r.text())
+      .then(html => {
+        // Inject base tag so relative paths (assets/, etc.) resolve correctly
+        const base = `<base href="${window.location.href.replace(/[^/]*$/, '')}">`;
+        const fixed = html.replace('<head>', '<head>' + base);
+        setSrcdoc(fixed);
+      })
+      .catch(() => setSrcdoc('<p style="padding:40px;font-family:sans-serif;color:#555">Systemcheck konnte nicht geladen werden.</p>'));
+  }, []);
+  return (
+    <div style={{ width: "100%" }}>
+      {srcdoc ? (
+        <iframe
+          srcDoc={srcdoc}
+          style={{
+            width: "100%",
+            height: "calc(100vh - 100px)",
+            border: "none",
+            borderRadius: "14px",
+            display: "block"
+          }}
+          title="Sage 100 Systemvoraussetzungen Checkliste"
+        ></iframe>
+      ) : (
+        <div style={{ padding: "40px", textAlign: "center", color: "var(--sn-muted)", fontSize: "14px" }}>
+          Systemcheck wird geladen…
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── INFO PAGE ──────────────────────────────────────────────────────────────
+function InfoPage() {
+  return (
+    <div style={{ maxWidth: "640px" }}>
+      {/* Hero card with portrait */}
+      <div style={{
+        background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
+        borderRadius: "14px", marginBottom: "20px", overflow: "hidden",
+        display: "flex", alignItems: "flex-end", gap: "0", position: "relative", minHeight: "200px"
+      }}>
+        {/* Portrait */}
+        <div style={{
+          flexShrink: 0, width: "200px", alignSelf: "flex-end",
+          position: "relative", lineHeight: 0
+        }}>
+          <img src="assets/rene_character.png" alt="René Münz"
+            style={{
+              width: "200px", height: "200px",
+              objectFit: "cover", objectPosition: "center top",
+              display: "block"
+            }} />
+        </div>
+
+        {/* Text */}
+        <div style={{ padding: "28px 28px 28px 20px", flex: 1 }}>
+          <div style={{
+            display: "inline-block",
+            background: "rgba(255,255,255,0.12)",
+            border: "1px solid rgba(255,255,255,0.2)",
+            borderRadius: "999px", padding: "3px 12px",
+            fontSize: "11px", fontWeight: 700, letterSpacing: "0.06em",
+            color: "rgba(255,255,255,0.8)", marginBottom: "12px",
+            textTransform: "uppercase"
+          }}>Über mich</div>
+          <h1 style={{ fontSize: "24px", fontWeight: 900, color: "white", marginBottom: "8px", lineHeight: 1.2 }}>René Münz</h1>
+          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
+            Projektmanager<br/>Sage-Spezialist
+          </p>
+        </div>
+
+        {/* Decorative glow behind portrait */}
+        <div style={{
+          position: "absolute", bottom: 0, left: 0,
+          width: "220px", height: "220px",
+          background: "radial-gradient(circle at 50% 100%, rgba(255,210,46,0.12) 0%, transparent 70%)",
+          pointerEvents: "none"
+        }}></div>
+      </div>
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px", marginBottom: "16px" }}>
+        <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "10px" }}>Über diese Seite</h2>
+        <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7, marginBottom: "10px" }}>
+          <strong style={{ color: "var(--sn-ink)" }}>sage news</strong> ist eine private Wissensplattform rund um die Sage-Produktwelt in Deutschland.
+          Schwerpunkt: Sage 100, Sage X3, Sage Operations – mit Blick auf Sage Intact.
+        </p>
+        <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
+          Kompakte Berichte, technische Einordnungen und Praxiserfahrungen aus dem Projektalltag.
+          Kein Marketing, keine Werbung – nur das, was wirklich zählt.
+        </p>
+      </div>
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px" }}>
+        <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "12px" }}>Produkte im Fokus</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+          {[
+            { name: "Sage 100",        desc: "ERP für den deutschen Mittelstand",                     cat: "Sage 100" },
+            { name: "Sage X3",         desc: "ERP für internationale Unternehmensstrukturen",         cat: "Sage X3" },
+            { name: "Sage Operations", desc: "Fertigungsplanung, MES & Produktionssteuerung",         cat: "Sage Operations" },
+            { name: "Sage Intact",     desc: "Cloud-ERP – perspektivisch für den deutschen Markt",   cat: "Sage Intact" }
+          ].map(item => (
+            <div key={item.name} style={{
+              display: "flex", alignItems: "center", gap: "10px",
+              padding: "10px 12px", borderRadius: "9px",
+              background: "var(--sn-bg)", border: "1px solid var(--sn-border)"
+            }}>
+              <CategoryBadge category={item.cat} />
+              <span style={{ fontSize: "13px", color: "var(--sn-muted)" }}>{item.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── GITHUB INFO BOX ────────────────────────────────────────────────────────
+function GitHubSetupHint({ source }) {
+  if (source === "github") return null;
+  return (
+    <div style={{
+      background: "white", border: "1.5px solid var(--sn-border)",
+      borderRadius: "12px", padding: "16px 20px", marginBottom: "20px",
+      display: "flex", gap: "12px", alignItems: "flex-start"
+    }}>
+      <div style={{
+        width: "32px", height: "32px", borderRadius: "8px",
+        background: "var(--sn-blue-100)", flexShrink: 0,
+        display: "flex", alignItems: "center", justifyContent: "center", fontSize: "16px"
+      }}>📁</div>
+      <div>
+        <div style={{ fontWeight: 700, fontSize: "13px", marginBottom: "4px", color: "var(--sn-ink)" }}>
+          Beispieldaten – GitHub noch nicht konfiguriert
+        </div>
+        <p style={{ fontSize: "12px", color: "var(--sn-muted)", lineHeight: 1.6 }}>
+          Trage in <code style={{ background: "var(--sn-blue-100)", padding: "1px 5px", borderRadius: "3px" }}>GH_CONFIG</code> deinen GitHub-Benutzernamen und Repo-Namen ein.
+          Lege dann Markdown-Dateien im Ordner <code style={{ background: "var(--sn-blue-100)", padding: "1px 5px", borderRadius: "3px" }}>posts/</code> ab – sie erscheinen automatisch hier.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ── APP ────────────────────────────────────────────────────────────────────
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [page, setPage] = useState("home");
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [posts, setPosts] = useState(SAMPLE_POSTS);
+  const [postsSource, setPostsSource] = useState("sample");
+  const [loading, setLoading] = useState(false);
+
+  // Load posts from GitHub on mount
+  useEffect(() => {
+    setLoading(true);
+    loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {
+      setPosts(loaded);
+      setPostsSource(source);
+      setLoading(false);
+    });
+  }, []);
+
+  const catMap = { "sage100": "Sage 100", "sagex3": "Sage X3", "operations": "Sage Operations" };
+  const filteredPosts = catMap[page] ? posts.filter(p => p.category === catMap[page]) : posts;
+  const displayedPosts = filteredPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
+  const showFeed = ["home", "sage100", "sagex3", "operations"].includes(page);
+
+  function navTo(p) { setPage(p); setSelectedPost(null); window.scrollTo({ top: 0 }); }
+
+  return (
+    <div>
+      <Header page={page} setPage={navTo} accentColor={tweaks?.accentColor ?? TWEAK_DEFAULTS.accentColor} />
+
+      {page === "home" && !selectedPost && <HeroBanner headerStyle={tweaks?.headerStyle ?? "banner"} />}
+      {!selectedPost && <PageHeader page={page} />}
+
+      <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "24px 20px 64px" }}>
+
+        {showFeed && !selectedPost && (
+          <GitHubSetupHint source={postsSource} />
+        )}
+
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "60px 0", color: "var(--sn-muted)", fontSize: "14px" }}>
+            Beiträge werden geladen…
+          </div>
+        ) : selectedPost ? (
+          <div style={{ display: "grid", gridTemplateColumns: tweaks?.showSidebar ? "1fr 280px" : "1fr", gap: "24px", alignItems: "start" }}>
+            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} tweaks={tweaks} />
+            <Sidebar posts={posts} tweaks={tweaks} />
+          </div>
+        ) : showFeed ? (
+          <div style={{ display: "grid", gridTemplateColumns: tweaks?.showSidebar ? "1fr 280px" : "1fr", gap: "24px", alignItems: "start" }}>
+            <PostGrid posts={displayedPosts} tweaks={tweaks} onReadPost={p => { setSelectedPost(p); window.scrollTo({ top: 0 }); }} />
+            <Sidebar posts={posts} tweaks={tweaks} />
+          </div>
+        ) : page === "systemcheck" ? (
+          <SystemcheckPage tweaks={tweaks} />
+        ) : page === "info" ? (
+          <InfoPage />
+        ) : null}
+      </div>
+
+      {/* Footer */}
+      <footer style={{ borderTop: "1.5px solid var(--sn-border)", background: "white", padding: "20px" }}>
+        <div style={{ maxWidth: "1140px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px" }}>
+          <div style={{ lineHeight: 0 }}>
+            <img src="assets/sage-news_logo_3.png" alt="sage news" style={{ height: "36px", width: "auto", display: "block", mixBlendMode: "lighten" }} />
+          </div>
+          <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+            <button onClick={() => navTo("info")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "13px", color: "var(--sn-muted)" }}>Info</button>
+            <button onClick={() => navTo("systemcheck")} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "13px", color: "var(--sn-muted)" }}>Systemcheck</button>
+            <span style={{ fontSize: "12px", color: "var(--sn-muted)" }}>© 2026 René Münz</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* Tweaks Panel */}
+      <TweaksPanel>
+        <TweakSection label="Design" />
+        <TweakColor label="Akzentfarbe" value={tweaks?.accentColor ?? "#ffc82e"} onChange={v => setTweak("accentColor", v)} />
+        <TweakSlider label="Card-Radius" value={tweaks?.cardRadius ?? 14} min={0} max={24} step={2} onChange={v => setTweak("cardRadius", v)} />
+        <TweakSection label="Layout" />
+        <TweakRadio label="Header" value={tweaks?.headerStyle ?? "banner"}
+          options={["banner", "compact"]} onChange={v => setTweak("headerStyle", v)} />
+        <TweakToggle label="Sidebar" value={tweaks?.showSidebar ?? false} onChange={v => setTweak("showSidebar", v)} />
+        <TweakSlider label="Beiträge" value={tweaks?.postsPerPage ?? 4} min={2} max={8} step={1} onChange={v => setTweak("postsPerPage", v)} />
+      </TweaksPanel>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+</body>
+</html>

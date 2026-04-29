@@ -1,0 +1,5 @@
+interface:
+  display_name: Sage News Website Style
+  short_description: Website and blog styling rules for the sage news visual identity.
+  icon: newspaper
+  accent_color: "#0d6ecf"
