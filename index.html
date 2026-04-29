@@ -258,14 +258,17 @@ function LogoSVG() {
 
 // ── HEADER ─────────────────────────────────────────────────────────────────
 function Header({ page, setPage, accentColor }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const navItems = [
-    { id: "home",       label: "Alle News" },
-    { id: "sage100",    label: "Sage 100" },
-    { id: "sagex3",     label: "Sage X3" },
-    { id: "operations", label: "Sage Operations" },
-    { id: "systemcheck",label: "Systemcheck" },
-    { id: "info",       label: "Info" }
+    { id: "home",        label: "Alle News" },
+    { id: "sage100",     label: "Sage 100" },
+    { id: "sagex3",      label: "Sage X3" },
+    { id: "operations",  label: "Sage Operations" },
+    { id: "systemcheck", label: "Systemcheck" },
+    { id: "info",        label: "Info" }
   ];
+
+  function handleNav(id) { setPage(id); setMenuOpen(false); }
 
   return (
     <header style={{
@@ -273,44 +276,95 @@ function Header({ page, setPage, accentColor }) {
       borderBottom: "1.5px solid rgba(255,255,255,0.08)",
       position: "sticky", top: 0, zIndex: 100
     }}>
-      <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 20px" }}>
-        <div style={{ display: "flex", alignItems: "center", height: "64px", gap: "28px" }}>
+      <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "0 16px" }}>
+        {/* Top bar */}
+        <div style={{ display: "flex", alignItems: "center", height: "64px", gap: "16px" }}>
 
-          {/* Logo – link to home */}
-          <button onClick={() => setPage("home")} style={{
+          {/* Logo */}
+          <button onClick={() => handleNav("home")} style={{
             background: "none", border: "none", cursor: "pointer",
             padding: 0, flexShrink: 0, lineHeight: 0
           }} title="Zur Startseite">
             <img src="assets/sage-news_logo_3.png" alt="sage news"
-              style={{
-                height: "56px", width: "auto", display: "block",
-                mixBlendMode: "lighten"
-              }} />
+              style={{ height: "52px", width: "auto", display: "block", mixBlendMode: "lighten" }} />
           </button>
 
-          {/* Divider */}
-          <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.12)", flexShrink: 0 }}></div>
+          {/* Divider — hidden on mobile */}
+          <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.12)", flexShrink: 0, display: "var(--nav-divider, flex)" }}></div>
 
-          {/* Nav */}
-          <nav style={{ display: "flex", gap: "2px", alignItems: "center", overflow: "auto" }}>
-            {navItems.map(item => {
-              const isActive = page === item.id;
-              return (
-                <NavItem key={item.id} label={item.label} active={isActive}
-                  accentColor={accentColor} onClick={() => setPage(item.id)} />
-              );
-            })}
+          {/* Desktop Nav */}
+          <nav style={{ display: "flex", gap: "2px", alignItems: "center", flex: 1, overflow: "hidden" }}
+            className="desktop-nav">
+            {navItems.map(item => (
+              <NavItem key={item.id} label={item.label} active={page === item.id}
+                accentColor={accentColor} onClick={() => handleNav(item.id)} />
+            ))}
           </nav>
 
-          <div style={{ marginLeft: "auto", flexShrink: 0 }}>
+          <div style={{ marginLeft: "auto", flexShrink: 0, display: "flex", alignItems: "center", gap: "10px" }}>
             <span style={{
               background: accentColor, color: "#07172f",
               fontSize: "11px", fontWeight: 800,
               padding: "3px 10px", borderRadius: "999px", letterSpacing: "0.04em"
             }}>BETA</span>
+
+            {/* Hamburger — mobile only */}
+            <button onClick={() => setMenuOpen(o => !o)}
+              className="hamburger"
+              style={{
+                background: "none", border: "none", cursor: "pointer",
+                padding: "6px", borderRadius: "8px",
+                display: "none", flexDirection: "column", gap: "5px",
+                alignItems: "center", justifyContent: "center"
+              }}>
+              {[0,1,2].map(i => (
+                <span key={i} style={{
+                  display: "block", width: "22px", height: "2px",
+                  background: menuOpen && i === 1 ? "transparent" :
+                               menuOpen ? accentColor : "rgba(255,255,255,0.85)",
+                  borderRadius: "2px",
+                  transition: "transform 0.2s, opacity 0.2s",
+                  transform: menuOpen && i === 0 ? "translateY(7px) rotate(45deg)" :
+                             menuOpen && i === 2 ? "translateY(-7px) rotate(-45deg)" : "none"
+                }}></span>
+              ))}
+            </button>
           </div>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <nav style={{
+            borderTop: "1px solid rgba(255,255,255,0.1)",
+            padding: "8px 0 12px",
+            display: "flex", flexDirection: "column", gap: "2px"
+          }}>
+            {navItems.map(item => {
+              const isActive = page === item.id;
+              return (
+                <button key={item.id} onClick={() => handleNav(item.id)} style={{
+                  background: isActive ? accentColor : "transparent",
+                  color: isActive ? "#07172f" : "rgba(255,255,255,0.85)",
+                  fontWeight: isActive ? 700 : 500,
+                  fontSize: "15px", padding: "11px 14px",
+                  borderRadius: "8px", border: "none",
+                  cursor: "pointer", textAlign: "left",
+                  width: "100%"
+                }}>{item.label}</button>
+              );
+            })}
+          </nav>
+        )}
       </div>
+
+      <style>{`
+        @media (max-width: 680px) {
+          .desktop-nav { display: none !important; }
+          .hamburger { display: flex !important; }
+          .post-grid-featured, .post-grid-regular { grid-template-columns: 1fr !important; }
+          .post-grid-featured article { grid-column: 1 !important; }
+        }
+      `}</style>
     </header>
   );
 }
@@ -457,11 +511,11 @@ function PostGrid({ posts, tweaks, onReadPost }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       {featured.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+        <div className="post-grid-featured" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
           {featured.map(p => <PostCard key={p.id} post={p} featured tweaks={tweaks} onClick={() => onReadPost(p)} />)}
         </div>
       )}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
+      <div className="post-grid-regular" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
         {regular.map(p => <PostCard key={p.id} post={p} tweaks={tweaks} onClick={() => onReadPost(p)} />)}
       </div>
     </div>
