@@ -171,7 +171,7 @@ async function loadPostsFromGitHub(cfg) {
     return { posts: SAMPLE_POSTS, source: "sample" };
   }
 
-  const mdFiles = files.filter(f => f.name.endsWith(".md")).sort((a, b) => b.name.localeCompare(a.name));
+  const mdFiles = files.filter(f => f.name.endsWith(".md") && !f.name.startsWith("_")).sort((a, b) => b.name.localeCompare(a.name));
 
   const posts = await Promise.all(mdFiles.map(async (f, idx) => {
     try {
