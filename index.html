@@ -363,6 +363,32 @@ function Header({ page, setPage, accentColor }) {
           .hamburger { display: flex !important; }
           .post-grid-featured, .post-grid-regular { grid-template-columns: 1fr !important; }
           .post-grid-featured article { grid-column: 1 !important; }
+          .info-hero { flex-direction: column !important; align-items: stretch !important; }
+          .info-hero-portrait {
+            width: 100% !important;
+            min-height: 0 !important;
+            padding: 20px 20px 0 !important;
+            justify-content: center !important;
+          }
+          .info-hero-portrait-image {
+            max-width: 260px !important;
+            width: min(100%, 260px) !important;
+            max-height: none !important;
+            margin: 0 auto !important;
+          }
+          .info-hero-text {
+            flex: 1 1 auto !important;
+            padding: 20px 22px 24px !important;
+            text-align: center !important;
+          }
+          .info-hero-glow {
+            width: 100% !important;
+            height: 180px !important;
+            left: 0 !important;
+            top: 0 !important;
+            bottom: auto !important;
+            background: radial-gradient(circle at 50% 35%, rgba(255,210,46,0.16) 0%, transparent 68%) !important;
+          }
         }
       `}</style>
     </header>
@@ -658,26 +684,30 @@ function InfoPage() {
   return (
     <div style={{ maxWidth: "640px" }}>
       {/* Hero card with portrait */}
-      <div style={{
+      <div className="info-hero" style={{
         background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
         borderRadius: "14px", marginBottom: "20px", overflow: "hidden",
-        display: "flex", alignItems: "flex-end", gap: "0", position: "relative", minHeight: "200px"
+        display: "flex", alignItems: "stretch", gap: "0", position: "relative", minHeight: "200px",
+        flexWrap: "wrap"
       }}>
         {/* Portrait */}
-        <div style={{
-          flexShrink: 0, width: "200px", alignSelf: "flex-end",
-          position: "relative", lineHeight: 0
+        <div className="info-hero-portrait" style={{
+          flexShrink: 0, width: "220px", minHeight: "200px",
+          position: "relative", lineHeight: 0,
+          display: "flex", alignItems: "flex-end", justifyContent: "center",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0))",
+          paddingTop: "12px"
         }}>
-          <img src="assets/rene_character.png" alt="René Münz"
+          <img className="info-hero-portrait-image" src="assets/rene_character.png" alt="René Münz"
             style={{
-              width: "200px", height: "200px",
-              objectFit: "cover", objectPosition: "center top",
+              width: "100%", maxWidth: "220px", height: "auto", maxHeight: "240px",
+              objectFit: "contain", objectPosition: "center bottom",
               display: "block"
             }} />
         </div>
 
         {/* Text */}
-        <div style={{ padding: "28px 28px 28px 20px", flex: 1 }}>
+        <div className="info-hero-text" style={{ padding: "28px 28px 28px 20px", flex: "1 1 320px", minWidth: "0" }}>
           <div style={{
             display: "inline-block",
             background: "rgba(255,255,255,0.12)",
@@ -694,7 +724,7 @@ function InfoPage() {
         </div>
 
         {/* Decorative glow behind portrait */}
-        <div style={{
+        <div className="info-hero-glow" style={{
           position: "absolute", bottom: 0, left: 0,
           width: "220px", height: "220px",
           background: "radial-gradient(circle at 50% 100%, rgba(255,210,46,0.12) 0%, transparent 70%)",
