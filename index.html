@@ -472,13 +472,25 @@ function PostCard({ post, featured, onClick, tweaks }) {
   const [hovered, setHovered] = useState(false);
   const radius = (tweaks?.cardRadius ?? 14) + "px";
   const href = post.permalink ? `/${post.permalink}/` : null;
+  const cardProps = href ? {
+    as: "a",
+    href,
+    onClick: undefined
+  } : {
+    as: "article",
+    href: undefined,
+    onClick
+  };
+  const CardTag = cardProps.as;
   if (featured) {
     return (
-      <article onClick={() => { if (!href && onClick) onClick(); }}
+      <CardTag href={cardProps.href} onClick={cardProps.onClick}
         onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
         style={{
+          display: "block",
+          textDecoration: "none",
           background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
-          borderRadius: radius, padding: "28px", cursor: href ? "default" : "pointer",
+          borderRadius: radius, padding: "28px", cursor: "pointer",
           transition: "transform 0.18s, box-shadow 0.18s",
           transform: hovered ? "translateY(-3px)" : "none",
           boxShadow: hovered ? "0 12px 40px rgba(6,27,73,0.22)" : "0 4px 16px rgba(6,27,73,0.10)",
@@ -504,21 +516,19 @@ function PostCard({ post, featured, onClick, tweaks }) {
         <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
           <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>{post.date}</span>
           <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.5)" }}>· {post.readTime}</span>
-          {href ? (
-            <a href={href} style={{ marginLeft: "auto", fontSize: "13px", fontWeight: 700, color: tweaks?.accentColor ?? "#ffc82e" }} onClick={(e) => e.stopPropagation()}>Weiterlesen →</a>
-          ) : (
-            <span style={{ marginLeft: "auto", fontSize: "13px", fontWeight: 700, color: tweaks?.accentColor ?? "#ffc82e" }}>Weiterlesen →</span>
-          )}
+          <span style={{ marginLeft: "auto", fontSize: "13px", fontWeight: 700, color: tweaks?.accentColor ?? "#ffc82e" }}>Weiterlesen →</span>
         </div>
-      </article>
+      </CardTag>
     );
   }
   return (
-    <article onClick={() => { if (!href && onClick) onClick(); }}
+    <CardTag href={cardProps.href} onClick={cardProps.onClick}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
       style={{
+        display: "block",
+        textDecoration: "none",
         background: "white", border: "1.5px solid var(--sn-border)",
-        borderRadius: radius, padding: "22px", cursor: href ? "default" : "pointer",
+        borderRadius: radius, padding: "22px", cursor: "pointer",
         transition: "transform 0.18s, box-shadow 0.18s, border-color 0.18s",
         transform: hovered ? "translateY(-2px)" : "none",
         boxShadow: hovered ? "0 8px 28px rgba(6,27,73,0.10)" : "0 1px 4px rgba(6,27,73,0.05)",
@@ -533,9 +543,9 @@ function PostCard({ post, featured, onClick, tweaks }) {
       <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
         <span style={{ fontSize: "12px", color: "var(--sn-muted)" }}>{post.date}</span>
         <span style={{ fontSize: "12px", color: "var(--sn-muted)" }}>· {post.readTime}</span>
-        {href && <a href={href} style={{ marginLeft: "auto", fontSize: "12px", fontWeight: 700, color: "var(--sn-blue-600)" }} onClick={(e) => e.stopPropagation()}>Weiterlesen →</a>}
+        <span style={{ marginLeft: "auto", fontSize: "12px", fontWeight: 700, color: "var(--sn-blue-600)" }}>Weiterlesen →</span>
       </div>
-    </article>
+    </CardTag>
   );
 }
 
