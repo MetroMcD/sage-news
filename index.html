@@ -683,52 +683,64 @@ function SystemcheckPage() {
 function InfoPage() {
   return (
     <div style={{ maxWidth: "640px" }}>
-      {/* Hero card */}
+      {/* Hero card with portrait */}
       <div className="info-hero" style={{
         background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
         borderRadius: "14px", marginBottom: "20px", overflow: "hidden",
-        position: "relative",
-        padding: "30px 30px 28px"
+        display: "flex", alignItems: "stretch", gap: "0", position: "relative", minHeight: "200px",
+        flexWrap: "wrap"
       }}>
-        <div className="info-hero-text" style={{ position: "relative", zIndex: 1, maxWidth: "420px" }}>
+        {/* Portrait */}
+        <div className="info-hero-portrait" style={{
+          flexShrink: 0, width: "220px", minHeight: "200px",
+          position: "relative", lineHeight: 0,
+          display: "flex", alignItems: "flex-end", justifyContent: "center",
+          background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0))",
+          paddingTop: "12px"
+        }}>
+          <img className="info-hero-portrait-image" src="assets/rene_character.png" alt="René Münz"
+            style={{
+              width: "100%", maxWidth: "220px", height: "auto", maxHeight: "240px",
+              objectFit: "contain", objectPosition: "center bottom",
+              display: "block"
+            }} />
+        </div>
+
+        {/* Text */}
+        <div className="info-hero-text" style={{ padding: "28px 28px 28px 20px", flex: "1 1 320px", minWidth: "0" }}>
           <div style={{
             display: "inline-block",
             background: "rgba(255,255,255,0.12)",
             border: "1px solid rgba(255,255,255,0.2)",
             borderRadius: "999px", padding: "3px 12px",
             fontSize: "11px", fontWeight: 700, letterSpacing: "0.06em",
-            color: "rgba(255,255,255,0.8)", marginBottom: "14px",
+            color: "rgba(255,255,255,0.8)", marginBottom: "12px",
             textTransform: "uppercase"
           }}>Über mich</div>
-          <h1 style={{ fontSize: "30px", fontWeight: 900, color: "white", marginBottom: "10px", lineHeight: 1.15 }}>René Münz</h1>
-          <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.78)", lineHeight: 1.7, marginBottom: "12px" }}>
-            Projektmanager · Sage-Spezialist
-          </p>
-          <p style={{ fontSize: "14px", color: "rgba(255,255,255,0.68)", lineHeight: 1.7 }}>
-            Kompakte technische Einordnung, relevante Produktänderungen und praxistaugliche Hinweise für Sage 100, Sage X3 und Sage Operations.
+          <h1 style={{ fontSize: "24px", fontWeight: 900, color: "white", marginBottom: "8px", lineHeight: 1.2 }}>René Münz</h1>
+          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", lineHeight: 1.6 }}>
+            Projektmanager<br/>Sage-Spezialist
           </p>
         </div>
 
+        {/* Decorative glow behind portrait */}
         <div className="info-hero-glow" style={{
-          position: "absolute", top: -40, right: -60,
-          width: "320px", height: "320px",
-          background: "radial-gradient(circle, rgba(56,169,245,0.18) 0%, transparent 68%)",
+          position: "absolute", bottom: 0, left: 0,
+          width: "220px", height: "220px",
+          background: "radial-gradient(circle at 50% 100%, rgba(255,210,46,0.12) 0%, transparent 70%)",
           pointerEvents: "none"
         }}></div>
       </div>
-      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "22px", marginBottom: "16px", display: "flex", gap: "18px", alignItems: "center", flexWrap: "wrap" }}>
-        <img src="assets/rene_character_profile.png" alt="René Münz" style={{ width: "96px", height: "96px", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", flexShrink: 0, background: "#eef3f8" }} />
-        <div style={{ flex: "1 1 280px", minWidth: "0" }}>
-          <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "10px" }}>Über diese Seite</h2>
-          <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7, marginBottom: "10px" }}>
-            <strong style={{ color: "var(--sn-ink)" }}>sage news</strong> ist eine private Wissensplattform rund um die Sage-Produktwelt in Deutschland.
-            Schwerpunkt: Sage 100, Sage X3, Sage Operations – mit Blick auf Sage Intact.
-          </p>
-          <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
-            Kompakte Berichte, technische Einordnungen und Praxiserfahrungen aus dem Projektalltag.
-            Kein Marketing, keine Werbung – nur das, was wirklich zählt.
-          </p>
-        </div>
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px", marginBottom: "16px" }}>
+        <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "10px" }}>Über diese Seite</h2>
+        <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7, marginBottom: "10px" }}>
+          <strong style={{ color: "var(--sn-ink)" }}>sage news</strong> ist eine private Wissensplattform rund um die Sage-Produktwelt in Deutschland.
+          Schwerpunkt: Sage 100, Sage X3, Sage Operations – mit Blick auf Sage Intact.
+        </p>
+        <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
+          Kompakte Berichte, technische Einordnungen und Praxiserfahrungen aus dem Projektalltag.
+          Kein Marketing, keine Werbung – nur das, was wirklich zählt.
+        </p>
       </div>
       <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px" }}>
         <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "12px" }}>Produkte im Fokus</h2>
