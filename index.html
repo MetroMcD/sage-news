@@ -179,10 +179,11 @@ async function loadPostsFromGitHub(cfg) {
       const raw = await r.text();
       const { meta, body } = parseFrontmatter(raw);
       const slug = f.name.replace(".md", "");
+      const permalink = meta.slug || (slug === "2026-05-04-geplantes-service-pack-9-0-11" ? "sage-100-service-pack-9-0-11-mai-2026" : null);
       return {
         id: f.sha || `gh-${idx}`,
         slug,
-        permalink: meta.slug || (slug === "2026-05-04-geplantes-service-pack-9-0-11" ? "sage-100-service-pack-9-0-11-mai-2026" : slug),
+        permalink,
         title: meta.title || f.name,
         summary: meta.summary || "",
         category: meta.category || "Sage 100",
