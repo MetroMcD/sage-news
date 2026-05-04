@@ -694,14 +694,14 @@ function InfoPage() {
         <div className="info-hero-portrait" style={{
           flexShrink: 0, width: "220px", minHeight: "200px",
           position: "relative", lineHeight: 0,
-          display: "flex", alignItems: "flex-end", justifyContent: "center",
+          display: "flex", alignItems: "stretch", justifyContent: "center",
           background: "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0))",
-          paddingTop: "12px"
+          overflow: "hidden"
         }}>
           <img className="info-hero-portrait-image" src="assets/rene_character.png" alt="René Münz"
             style={{
-              width: "100%", maxWidth: "220px", height: "auto", maxHeight: "240px",
-              objectFit: "contain", objectPosition: "center bottom",
+              width: "100%", height: "100%",
+              objectFit: "cover", objectPosition: "center top",
               display: "block"
             }} />
         </div>
