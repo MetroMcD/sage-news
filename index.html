@@ -556,11 +556,11 @@ function PostGrid({ posts, tweaks, onReadPost }) {
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
       {featured.length > 0 && (
         <div className="post-grid-featured" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
-          {featured.map(p => <PostCard key={p.id} post={p} featured tweaks={tweaks} onClick={() => onReadPost(p)} />)}
+          {featured.map(p => <PostCard key={p.id} post={p} featured tweaks={tweaks} onClick={!p.permalink ? () => onReadPost(p) : undefined} />)}
         </div>
       )}
       <div className="post-grid-regular" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "16px" }}>
-        {regular.map(p => <PostCard key={p.id} post={p} tweaks={tweaks} onClick={() => onReadPost(p)} />)}
+        {regular.map(p => <PostCard key={p.id} post={p} tweaks={tweaks} onClick={!p.permalink ? () => onReadPost(p) : undefined} />)}
       </div>
     </div>
   );
