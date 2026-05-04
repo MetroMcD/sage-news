@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "post_path": "/home/rene/sage-news/posts/2026-05-02-sage-100-9-0-10-7-zugferd-xrechnung-fix.md",
+      "title": "2026-05-02-sage-100-9-0-10-7-zugferd-xrechnung-fix",
+      "status": "waiting_limit",
+      "created_at": 1777792005,
+      "attempts": 2,
+      "last_error": "NotebookLM-Tageslimit oder Audio aktuell nicht verfuegbar"
+    },
+    {
+      "post_path": "/home/rene/sage-news/posts/2026-05-04-sage-operations-preislisten-update-mai-2026.md",
+      "title": "2026-05-04-sage-operations-preislisten-update-mai-2026",
+      "status": "queued",
+      "created_at": 1777878924,
+      "attempts": 0,
+      "last_error": null
+    },
+    {
+      "post_path": "/home/rene/sage-news/posts/2026-03-25-sage-100-9-0-10-6-build-315-liveupdate.md",
+      "title": "2026-03-25-sage-100-9-0-10-6-build-315-liveupdate",
+      "status": "queued",
+      "created_at": 1777879772,
+      "attempts": 0,
+      "last_error": null
+    }
+  ],
+  "daily_limit": 2,
+  "updated_at": 1777879772
+}
