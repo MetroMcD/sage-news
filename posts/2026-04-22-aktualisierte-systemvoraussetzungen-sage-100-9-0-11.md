@@ -35,6 +35,12 @@ Besonders relevant ist der Hinweis für Teams, die:
 - die **Supportfähigkeit** bestehender Umgebungen prüfen müssen
 - beim **Systemcheck** belastbar dokumentieren möchten, ob die Plattform noch sauber passt
 
+## Systemcheck auf der Website ist bereits aktualisiert
+
+Die gute Nachricht für alle, die nicht erst mit drei offenen Hersteller-PDFs und einem nervösen Blick auf die Serverliste loslegen wollen: Der **Systemcheck auf der sage-news-Website** wurde bereits auf die **neuen Systemvoraussetzungen für Sage 100 Version 9.0.11** angepasst.
+
+Damit lässt sich die eigene Umgebung direkt gegen den aktualisierten Stand prüfen. Für Projektvorbereitung, Vorab-Checks und die erste technische Einordnung ist das deutlich angenehmer, als sich die Anforderungen erst mühsam aus der Wissensdatenbank zusammenzusetzen.
+
 ## Fazit
 
-Die Mail ist keine große Produktankündigung, aber ein klarer technischer Marker: Für **Sage 100 Version 9.0.11** gibt es einen **aktualisierten Stand der Systemvoraussetzungen**. Wer Installationen betreut oder Kundenumgebungen bewertet, sollte den Wissensdatenbank-Eintrag **205811** in die Prüfung aufnehmen – idealerweise bevor das nächste Update so tut, als wäre alles selbstverständlich.
+Die Mail ist keine große Produktankündigung, aber ein klarer technischer Marker: Für **Sage 100 Version 9.0.11** gibt es einen **aktualisierten Stand der Systemvoraussetzungen**. Wer Installationen betreut oder Kundenumgebungen bewertet, sollte den Wissensdatenbank-Eintrag **205811** in die Prüfung aufnehmen. Praktisch dabei: Der **Systemcheck auf der Website** ist bereits angepasst und kann für die Einordnung direkt genutzt werden – bevor das nächste Update so tut, als wäre alles selbstverständlich.
