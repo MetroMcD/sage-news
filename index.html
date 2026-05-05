@@ -203,8 +203,14 @@ async function loadPostsFromGitHub(cfg) {
       const raw = await r.text();
       const { meta, body } = parseFrontmatter(raw);
       const slug = f.name.replace(".md", "");
-      const canonicalMatch = raw.match(/\ncanonical:\s*["']?https?:\/\/[^\s"']+\/([^\/\s"']+)\/?["']?/i);
-      const permalink = meta.slug || canonicalMatch?.[1] || slug;
+      const permalink = meta.slug || (meta.title ? meta.title
+        .toLowerCase()
+        .replace(/ä/g, "ae")
+        .replace(/ö/g, "oe")
+        .replace(/ü/g, "ue")
+        .replace(/ß/g, "ss")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") : slug);
       return {
         id: f.sha || `gh-${idx}`,
         slug,
