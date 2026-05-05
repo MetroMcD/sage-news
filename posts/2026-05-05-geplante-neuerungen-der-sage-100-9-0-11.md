@@ -5,7 +5,7 @@ category: Sage 100
 tag: Release
 summary: Für Sage 100 Version 9.0.11 zeichnet sich ein umfangreiches Update ab. Geplante Neuerungen betreffen unter anderem Warenwirtschaft, E-Rechnung, Varianten, Stapeldruck und weitere Bereiche auf dem Weg weg von Access hin zur neuen Oberfläche.
 readTime: 4 min
-featured: false
+featured: true
 ---
 
 Es gibt Releases, die nur still ein paar Schrauben nachziehen. Und es gibt Versionen, bei denen man schon beim Lesen merkt: Hier wird an mehreren Ecken gleichzeitig modernisiert. Genau so wirkt die Vorschau auf **Sage 100 Version 9.0.11**.

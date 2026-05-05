@@ -5,7 +5,7 @@ category: Sage 100
 tag: Compliance
 summary: Die E-Rechnung wird im B2B-Umfeld schrittweise zum Pflichtprogramm. Wer Rechnungen heute noch nur als PDF oder Papier denkt, sollte Prozesse, Formate und Archivierung jetzt sauber vorbereiten.
 readTime: 3 min
-featured: true
+featured: false
 ---
 
 Freitagabend ist ein erstaunlich guter Zeitpunkt, um über Rechnungsformate nachzudenken. Nicht, weil irgendjemand das freiwillig auf seine Wochenendliste schreibt – sondern weil das Thema E-Rechnung inzwischen ziemlich zuverlässig aus der Kategorie „kümmern wir uns später“ herausfällt.
