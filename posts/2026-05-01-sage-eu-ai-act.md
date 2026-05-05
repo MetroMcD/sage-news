@@ -6,6 +6,7 @@ tag: Compliance
 summary: Der EU AI Act ist kein Thema mehr für Zukunftsfolien, sondern rückt in den operativen Alltag. Wer mit Sage-Systemen, Automatisierung oder KI-Funktionen arbeitet, sollte Zuständigkeiten und Risiken jetzt sauber sortieren.
 readTime: 3 min
 featured: false
+slug: sage-eu-ai-act
 ---
 
 Der EU AI Act ist genau so ein Thema, das gern erst dann groß wird, wenn jemand im Termin fragt, wer sich eigentlich darum kümmert. Spätestens dann schaut der Raum kurz so konzentriert wie bei einer unangekündigten Lizenzprüfung.
