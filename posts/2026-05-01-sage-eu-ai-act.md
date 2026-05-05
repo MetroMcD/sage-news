@@ -1,27 +1,38 @@
 ---
-title: ##sage eu ai act
+title: EU AI Act: Was Sage-Kunden jetzt im Blick behalten sollten
 date: 1. Mai 2026
 category: Sage 100
-tag: News
-summary: Sage hat neue Informationen für Sage 100 veröffentlicht. Der Hinweis stammt aus einer Wissensdatenbank- oder Produkt-News-Mail und sollte fachlich geprüft werden.
-readTime: 2 min
+tag: Compliance
+summary: Der EU AI Act ist kein Thema mehr für Zukunftsfolien, sondern rückt in den operativen Alltag. Wer mit Sage-Systemen, Automatisierung oder KI-Funktionen arbeitet, sollte Zuständigkeiten und Risiken jetzt sauber sortieren.
+readTime: 3 min
 featured: false
 ---
 
-Die Mail vom **1. Mai 2026** verweist auf neue Informationen für **Sage 100**.
+Der EU AI Act ist genau so ein Thema, das gern erst dann groß wird, wenn jemand im Termin fragt, wer sich eigentlich darum kümmert. Spätestens dann schaut der Raum kurz so konzentriert wie bei einer unangekündigten Lizenzprüfung.
 
-## Was aus der Mail belegbar ist
+Klar ist: Mit dem **EU AI Act** rückt das Thema **KI-Compliance** auch für Unternehmen näher, die mit **Sage**, Automatisierung und digitalen Prozessen arbeiten. Selbst wenn noch nicht jede Funktion unmittelbar betroffen ist, ist das kein Stoff mehr für die Schublade "machen wir später".
 
-- Betreff: **##sage eu ai act**
-- Bereich: **Sage 100**
-- Quelle: Sage-Produktmail / Wissensdatenbank-Hinweis
+## Warum der EU AI Act für Sage-Umgebungen relevant ist
 
+Der europäische Rechtsrahmen für künstliche Intelligenz zielt darauf ab, den Einsatz von **KI-Systemen** nachvollziehbar, sicher und risikobasiert zu regeln. Für Unternehmen mit **Sage 100** oder angrenzenden digitalen Prozessen ist das vor allem dort relevant, wo Entscheidungen, Vorschläge oder Automatisierungen zunehmend softwaregestützt vorbereitet werden.
 
+Wichtig ist dabei weniger die abstrakte Verordnung als die praktische Frage: **Wo nutzt das Unternehmen heute bereits KI oder KI-nahe Funktionen – und wer bewertet das?**
 
-## Einordnung
+## Was Unternehmen jetzt prüfen sollten
 
-Die Nachricht enthält einen relevanten Produkthinweis, aber in der Mail selbst nur begrenzte technische Tiefe. Für die Website reicht das als kurze Einordnung – für belastbare Projektentscheidungen sollte der verlinkte Originaleintrag zusätzlich geprüft werden.
+Auch wenn nicht jede Sage-Installation automatisch unter kritische KI-Regeln fällt, sind ein paar Hausaufgaben sinnvoll:
+
+- **Einsatzbereiche erfassen:** Wo kommen heute bereits KI-Funktionen, Automatisierungen oder Assistenzsysteme zum Einsatz?
+- **Verantwortlichkeiten klären:** Wer bewertet fachlich, technisch und rechtlich, was zulässig und dokumentationspflichtig ist?
+- **Prozesse dokumentieren:** Gerade bei Vorschlagslogiken, Klassifizierungen oder automatisierten Entscheidungen sollte nachvollziehbar bleiben, wie Ergebnisse zustande kommen.
+- **Anbieterinformationen prüfen:** Wenn Sage oder angebundene Lösungen neue KI-Funktionen bereitstellen, sollten Hinweise zu Zweck, Grenzen und Compliance sauber mitgelesen werden.
+
+## Einordnung für die Praxis
+
+Der **EU AI Act** bedeutet nicht, dass jetzt jede ERP-Funktion unter Generalverdacht steht. Aber er verschiebt die Erwartungshaltung deutlich: Unternehmen sollen früher verstehen, **wo KI eingesetzt wird**, **welche Risiken daraus entstehen** und **wie sauber diese Nutzung gesteuert wird**.
+
+Für Sage-Kunden ist das vor allem ein Organisations- und Governance-Thema. Wer erst dann anfängt, Zuständigkeiten zu suchen, wenn ein Audit, ein Projekt oder ein Kunde konkret nachfragt, arbeitet wieder im klassischen Modus "wird schon gutgehen". Der ist im Compliance-Umfeld erfahrungsgemäß nur begrenzt belastbar.
 
 ## Fazit
 
-Der Hinweis ist veröffentlichungsfähig, aber eher als kompakte Produktnotiz als als tiefes Technik-Briefing. Genau die Sorte Nachricht, die man lieber strukturiert dokumentiert als später wieder aus dem Posteingang ausgräbt.
+Der EU AI Act ist kein Grund für hektische Betriebsamkeit, aber ein guter Anlass für einen nüchternen Bestandscheck. Wer in **Sage-Umgebungen** mit **KI**, Automatisierung oder neuen Assistenzfunktionen arbeitet, sollte jetzt Transparenz schaffen, Verantwortliche benennen und Dokumentation nicht als spätere Freizeitbeschäftigung behandeln.
