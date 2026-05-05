@@ -155,6 +155,30 @@ function parseFrontmatter(raw) {
   return { meta, body: match[2].trim() };
 }
 
+function parseGermanDate(dateStr) {
+  if (!dateStr) return null;
+  const months = {
+    januar: 0, februar: 1, maerz: 2, märz: 2, april: 3, mai: 4, juni: 5,
+    juli: 6, august: 7, september: 8, oktober: 9, november: 10, dezember: 11
+  };
+  const match = dateStr.trim().toLowerCase().match(/^(\d{1,2})\.\s*([a-zäöü]+)\s+(\d{4})$/i);
+  if (!match) return null;
+  const day = Number(match[1]);
+  const month = months[match[2]];
+  const year = Number(match[3]);
+  if (month === undefined) return null;
+  return new Date(year, month, day);
+}
+
+function isFeaturedActive(post) {
+  if (!post.featured) return false;
+  const postDate = parseGermanDate(post.date);
+  if (!postDate) return true;
+  const now = new Date();
+  const diffDays = (now - postDate) / (1000 * 60 * 60 * 24);
+  return diffDays >= 0 && diffDays < 7;
+}
+
 // ── GITHUB LOADER ──────────────────────────────────────────────────────────
 async function loadPostsFromGitHub(cfg) {
   const isConfigured = cfg.owner && cfg.owner !== "YOUR_GITHUB_USERNAME";
@@ -558,7 +582,7 @@ function PostCard({ post, featured, onClick, tweaks }) {
 }
 
 function PostGrid({ posts, tweaks, onReadPost, onlyNewestFeatured = false }) {
-  const featuredPosts = posts.filter(p => p.featured);
+  const featuredPosts = posts.filter(p => isFeaturedActive(p));
   const featured = onlyNewestFeatured ? featuredPosts.slice(0, 1) : featuredPosts;
   const featuredIds = new Set(featured.map(p => p.id));
   const regular  = posts.filter(p => !featuredIds.has(p.id));
