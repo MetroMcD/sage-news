@@ -25,9 +25,11 @@ Eine E-Mail wird verarbeitet, wenn **eine** der folgenden Bedingungen zutrifft:
 | Bedingung              | Beispiel                                      |
 |------------------------|-----------------------------------------------|
 | Absender-Domain        | `@sage.de` oder `@sage.com`                   |
-| Betreff-Präfix         | Betreff beginnt mit `##sage` (Groß-/Kleinschreibung egal) |
+| Betreff-Präfix         | Betreff enthält `##sage` (Groß-/Kleinschreibung egal) |
 
 Trifft keine Bedingung zu → E-Mail ignorieren, keinen Bericht erstellen.
+
+`#F` ist **kein** allgemeines Verarbeitungssignal, sondern nur ein zusätzliches Steuersignal für `featured`.
 
 ---
 
@@ -91,6 +93,13 @@ Beantworte diese Fragen aus dem E-Mail-Inhalt – nichts erfinden:
 umsetzungsorientiert. Kein Marketing-Sprech, keine Superlativen, keine
 Buzzword-Dichte.
 
+**SEO-Anforderung:** Der Beitrag soll nicht nur gut lesbar, sondern auch suchfreundlich aufgebaut sein.
+
+- Wichtige Begriffe aus **Produkt**, **Versionsstand**, **Problem/Korrektur** und **Anwendungsbereich** sollen natürlich vorkommen
+- Besonders relevant sind **Titel**, **Summary**, **Zwischenüberschriften** und die ersten Absätze
+- Formuliere so, dass reale Suchanfragen gut getroffen werden, z. B. Kombinationen aus `Sage 100`, Versionsnummer, `LiveUpdate`, `Hotfix`, `ZUGFeRD`, `XRechnung`, `SQL Server 2025` oder dem betroffenen Modul
+- Keine Keyword-Stapelung, kein Clickbait, keine unnatürlichen Wiederholungen
+
 **Humor:** Leichter Situationshumor – kein Kabarett, kein Slapstick.
 Der Witz kommt aus dem Alltag der Zielgruppe, nicht aus einem Gag-Archiv.
 
@@ -127,17 +136,42 @@ Der Witz kommt aus dem Alltag der Zielgruppe, nicht aus einem Gag-Archiv.
 
 ---
 
-## Schritt 6 – Markdown-Datei erzeugen
+## Schritt 6 – Markdown-Datei und Webseite erzeugen
 
 ### Dateiname
 
 Format: `JJJJ-MM-TT-kurztitel.md`
 
-- Datum = Datum der E-Mail (oder heutiges Datum, falls unklar)
+- Wenn im Betreff ein eindeutiges Datum steht, verwende dieses Datum
+- Sonst: Datum der E-Mail
+- Nur wenn beides unklar ist: heutiges Datum
+- Dasselbe Datum muss konsistent für Dateinamen und Front Matter verwendet werden
 - Kurztitel: Kleinbuchstaben, Zahlen, Bindestriche, keine Umlaute, keine Leerzeichen
 - Beispiel: `2026-05-01-sql-server-2025-sage-100.md`
 
 ### Front Matter
+
+### Datumsregel für historische Beiträge
+
+Steht im Betreff der E-Mail ein klares Datum, gilt dieses als **Erscheinungsdatum** des Beitrags.
+
+Erlaubte Datumsformate im Betreff:
+- `DD.MM.YYYY` → Beispiel: `01.05.2026`
+- `D. Monat YYYY` → Beispiel: `1. Mai 2026`
+- `YYYY-MM-DD` → Beispiel: `2026-05-01`
+
+Beispiele:
+- `Update vom 01.05.2026` → `date: 1. Mai 2026`
+- `Webinar 1. Mai 2026` → `date: 1. Mai 2026`
+- `Release 2026-05-01` → `date: 1. Mai 2026`
+
+Regeln:
+- Das Betreff-Datum hat Vorrang vor dem technischen Maildatum.
+- Das gewählte Datum muss sowohl im Front Matter als auch im Dateinamen verwendet werden.
+- Beiträge mit älterem Datum werden bewusst historisch einsortiert und nicht künstlich auf das aktuelle Datum gesetzt.
+- Wenn im Betreff mehrere Daten stehen oder das Datum nicht eindeutig ist, verwende das Maildatum.
+- Andere Schreibweisen werden nicht geraten, sondern als nicht eindeutig behandelt.
+
 
 ```markdown
 ---
@@ -151,9 +185,17 @@ featured: false
 ---
 ```
 
-`featured: true` nur setzen wenn:
-- Das Thema betrifft alle Sage-100-Umgebungen direkt, oder
-- Es gibt einen gesetzlichen Handlungsbedarf mit Frist
+`featured: true` setzen, wenn mindestens **eine** der folgenden Bedingungen erfüllt ist:
+- Der Betreff enthält `#F` (Groß-/Kleinschreibung egal)
+- Der Betreff enthält `LiveUpdate`, `Live Update` oder `Hotfix`
+- Der Mail-Inhalt macht klar, dass es sich um ein `LiveUpdate` oder einen `Hotfix` handelt
+
+Sonst gilt: `featured: false`
+
+Wichtig:
+- `#F` ist ein zusätzliches manuelles Steuersignal im Betreff
+- `#F` ersetzt **nicht** `##sage`
+- Featured-Beiträge bleiben auf der Website nur eine Woche lang featured und fallen danach automatisch auf normale Beiträge zurück
 
 ### Inhalt-Struktur
 
@@ -179,25 +221,72 @@ featured: false
 E-Mail-Berichte – die Quelle ist implizit der Sage-Newsletter.
 Ausnahme: Der Bot wird explizit angewiesen, eine Quelle einzutragen.
 
+Zusätzlich verboten im Fließtext automatischer Beiträge:
+- Formulierungen wie `Die Mail vom ... verweist auf ...`
+- Meta-Sätze wie `Der Hinweis stammt aus einer Produkt-News-Mail`
+- reines technisches Runterrattern ohne Einordnung für den Leser
+
+Stattdessen gilt:
+- Schreibe immer eine **lesbare, lockere Zusammenfassung** für Menschen
+- Starte mit Bedeutung, Nutzen oder Einordnung – nicht mit dem Umstand, dass eine Mail angekommen ist
+- Technische Details nur dann ausführlich nennen, wenn sie für Praxis, Prozesse oder Entscheidungen wirklich relevant sind
+
+### Statische Artikelseite
+
+Zusätzlich zur Markdown-Datei muss für jeden veröffentlichten Beitrag immer eine statische Artikelseite erzeugt werden.
+
+Regeln:
+- Zielpfad: `/<slug>/index.html` im Repo
+- Der `slug` wird standardmäßig aus dem finalen Beitragstitel gebildet
+- Die statische Seite muss denselben Titel, dieselbe Summary, Kategorie, Tag, Datum und denselben Artikeltext wie der Markdown-Beitrag verwenden
+- Die statische Seite ist kein optionaler Nachschritt, sondern Teil der Veröffentlichung
+- Markdown-Datei ohne passende Artikelseite gilt als unvollständig veröffentlicht
+
+Ziel:
+- Der Beitrag soll auf Mobilgeräten und normalen Browsern als echte Webseite öffnen
+- Ein Klick auf den Artikel darf nicht nur den Download oder die Rohansicht der Markdown-Datei auslösen
+
+## Audio
+
+Aktuell **keine automatische Audio-Nachbearbeitung**.
+
+Regeln:
+- Textbeiträge werden ohne Audio veröffentlicht.
+- Kein automatisches Enqueueing, kein automatischer NotebookLM-Lauf, kein automatisches Einfügen in Beiträge.
+- Audio wird vorerst nur manuell getestet und bei Bedarf später bewusst nachgezogen.
+- Fehler oder Limits bei NotebookLM dürfen den Veröffentlichungsworkflow nicht beeinflussen.
+
 ---
 
 ## Schritt 7 – Qualitätsprüfung vor der Ausgabe
 
 - [ ] Dateiname folgt dem `JJJJ-MM-TT-kurztitel.md`-Schema
+- [ ] Im Front Matter ist immer ein explizites `slug:` gesetzt
+- [ ] Passende statische Artikelseite unter `/<slug>/index.html` wurde erzeugt
+- [ ] `slug:` im Markdown und Veröffentlichungsordner sind identisch
+- [ ] Slug ist kurz, sprechend und dauerhaft URL-tauglich
+- [ ] Datum wurde korrekt priorisiert: Betreff-Datum vor Maildatum vor heutigem Datum
 - [ ] Alle Front-Matter-Felder vorhanden und korrekt befüllt
+- [ ] `featured` wurde korrekt aus `#F`, `LiveUpdate` oder `Hotfix` abgeleitet
 - [ ] Kategorie und Tag passen zum Inhalt
 - [ ] Kein Inhalt erfunden – nur was in der E-Mail steht
+- [ ] Einstieg benennt direkt Relevanz, Fehlerbild, Änderung oder Pflicht – kein generischer Auftakt
+- [ ] Wenn Sage einen konkreten Fehler nennt, wird dieser als Fehler benannt und technisch eingeordnet
+- [ ] Technische Details werden nicht nur aufgezählt, sondern für Praxis und betroffene Prozesse eingeordnet
 - [ ] Humor vorhanden aber nicht aufdringlich
 - [ ] Länge im Zielbereich (300–500 Wörter Standard)
+- [ ] Titel, Summary und Zwischenüberschriften sind suchfreundlich formuliert
+- [ ] Wichtige Suchbegriffe kommen organisch im Text vor
 - [ ] Schlusssatz gibt eine klare Handlungsempfehlung oder ein Fazit
 - [ ] Keine Emojis, keine Ausrufezeichen-Ketten, kein Marketingdeutsch
+- [ ] Vor Commit kurz prüfen: Artikelseite liefert lokal/remote `200`, Canonical zeigt auf den finalen Slug, und der Link aus dem Listing verweist auf genau diesen Slug
 
 ---
 
 ## Vollständiges Beispiel
 
 **Eingehende E-Mail:**
-> Von: newsletter@sage.de | Betreff: SQL Server 2025 – Freigabe für Sage 100
+> Von: newsletter@sage.de | Betreff: 01.05.2026 – SQL Server 2025 freigegeben für Sage 100
 
 **Ausgabe:**
 

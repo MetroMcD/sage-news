@@ -6,6 +6,7 @@ tag: News
 summary: Kurze Zusammenfassung des Beitrags in 1–2 Sätzen. Dieser Text erscheint auf der Hauptseite als Vorschau.
 readTime: 4 min
 featured: false
+slug: sprechender-dauerhafter-slug-des-beitrags
 ---
 
 **Kurzfazit:** Ein Satz, der das Wichtigste auf den Punkt bringt.

@@ -210,7 +210,15 @@ async function loadPostsFromGitHub(cfg) {
       const slug = f.name.replace(".md", "");
       const datePrefixPattern = /^\d{4}-\d{2}-\d{2}-/;
       const slugWithoutDate = slug.replace(datePrefixPattern, "");
-      const permalink = meta.slug || (meta.title ? meta.title
+      const normalizedMetaSlug = (meta.slug || "")
+        .toLowerCase()
+        .replace(/ä/g, "ae")
+        .replace(/ö/g, "oe")
+        .replace(/ü/g, "ue")
+        .replace(/ß/g, "ss")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      const permalink = normalizedMetaSlug || (meta.title ? meta.title
         .toLowerCase()
         .replace(/ä/g, "ae")
         .replace(/ö/g, "oe")
