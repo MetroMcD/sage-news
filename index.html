@@ -208,6 +208,8 @@ async function loadPostsFromGitHub(cfg) {
       const raw = await r.text();
       const { meta, body } = parseFrontmatter(raw);
       const slug = f.name.replace(".md", "");
+      const datePrefixPattern = /^\d{4}-\d{2}-\d{2}-/;
+      const slugWithoutDate = slug.replace(datePrefixPattern, "");
       const permalink = meta.slug || (meta.title ? meta.title
         .toLowerCase()
         .replace(/ä/g, "ae")
@@ -215,7 +217,7 @@ async function loadPostsFromGitHub(cfg) {
         .replace(/ü/g, "ue")
         .replace(/ß/g, "ss")
         .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") : slug);
+        .replace(/^-+|-+$/g, "") : slugWithoutDate);
       return {
         id: f.sha || `gh-${idx}`,
         slug,
