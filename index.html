@@ -863,8 +863,8 @@ function App() {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [page, setPage] = useState("home");
   const [selectedPost, setSelectedPost] = useState(null);
-  const [posts, setPosts] = useState(SAMPLE_POSTS);
-  const [postsSource, setPostsSource] = useState("sample");
+  const [posts, setPosts] = useState([]);
+  const [postsSource, setPostsSource] = useState("github");
   const [loading, setLoading] = useState(false);
 
   const routeMap = {
@@ -887,6 +887,10 @@ function App() {
     loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {
       setPosts(loaded);
       setPostsSource(source);
+      setLoading(false);
+    }).catch(() => {
+      setPosts([]);
+      setPostsSource("github");
       setLoading(false);
     });
   }, []);
