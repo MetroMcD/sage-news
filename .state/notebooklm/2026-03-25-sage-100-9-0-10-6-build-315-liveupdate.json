@@ -2,8 +2,8 @@
   "post_path": "/home/rene/sage-news/posts/2026-03-25-sage-100-9-0-10-6-build-315-liveupdate.md",
   "title": "Sage 100 9.0.10.6 bringt SQL-Server-2025-Support und wichtige Korrekturen im LiveUpdate",
   "summary": "Das LiveUpdate 9.0.10.6 Build 315 für Sage 100 erweitert die Systemvoraussetzungen um Microsoft SQL Server 2025 und behebt mehrere konkrete Fehler in System, Rechnungswesen, Warenwirtschaft, xRM und Hosting.",
-  "notebook_id": "fda478cd-4072-44c7-9e0c-b6ae2333cc6a",
-  "artifact_id": "b2c1c8d6-ae02-45b1-ac56-c36858f38a03",
+  "notebook_id": "c005c029-42d2-4a9a-95ed-93589c99516d",
+  "artifact_id": "487cf50c-b7e9-4deb-9fb5-15cc09bf9034",
   "status": "in_progress",
-  "created_at": 1778055980
+  "created_at": 1778142390
 }
