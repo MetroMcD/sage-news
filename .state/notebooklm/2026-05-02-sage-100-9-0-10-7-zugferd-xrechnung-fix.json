@@ -2,8 +2,8 @@
   "post_path": "/home/rene/sage-news/posts/2026-05-02-sage-100-9-0-10-7-zugferd-xrechnung-fix.md",
   "title": "Sage 100 9.0.10.7 behebt Fehler bei ZUGFeRD/XRechnung mit Regel-Zahlungskonditionen",
   "summary": "Das LiveUpdate 9.0.10.7 für Sage 100 korrigiert einen Ausnahmefehler bei ZUGFeRD/XRechnung, wenn Zahlungskonditionen mit Regeln verwendet werden. Für betroffene Prozesse ist das ein kleines, aber sehr konkretes Stabilitätsupdate.",
-  "notebook_id": "33f31b63-4ba8-4488-9db7-0eb2dc76230f",
-  "artifact_id": "f0c072e9-7e78-4a1b-8203-5b2816213d67",
+  "notebook_id": "63f8dcb6-48a3-4ff5-8c28-50cbd6ea7e0e",
+  "artifact_id": "c7363ccf-f0e2-485b-8388-3e2d31b8476c",
   "status": "in_progress",
-  "created_at": 1778681709
+  "created_at": 1778746508
 }
