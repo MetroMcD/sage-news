@@ -1,33 +1,32 @@
 ---
-title: Fw: Sage Operations - Mai-Update
+title: Sage Operations API-Update: createMultipleWorkOrderTrackings wird asynchron
 date: 15. Mai 2026
 category: Sage Operations
 tag: Release
-summary: In Sage Operations gibt es ein neues Update oder einen frischen Produkthinweis. Entscheidend ist nicht die Ankündigung selbst, sondern was sich daraus für Alltag, Prozesse oder nächste Schritte ableiten lässt.
-readTime: 2 min
+summary: Sage stellt den API-Vorgang createMultipleWorkOrderTrackings in Sage Operations von synchron auf asynchron um. Wer die API nutzt, muss Aufruf und Ergebnisabruf anpassen.
+readTime: 1 min
 featured: false
 ---
 
-Nicht jede Produktneuigkeit ist ein Paukenschlag. Aber gerade die kleineren Änderungen in **Sage Operations** sind oft die Stellen, an denen später Prozesse glatter laufen – oder eben anfangen zu haken, wenn man sie zu spät auf dem Schirm hat.
+Mit dem aktuellen **Mai-Update für Sage Operations** wird der API-Vorgang **`createMultipleWorkOrderTrackings`** nicht mehr synchron, sondern **asynchron** verarbeitet. Wer diese API nutzt, muss deshalb den Ablauf beim Aufruf und beim Abruf der Ergebnisse anpassen.
 
-Mit dem Hinweis zu **Fw: Sage Operations - Mai-Update** liegt ein neues Thema auf dem Tisch, das für Anwender, Partner oder Projektverantwortliche in **Sage Operations** relevant sein kann.
+## Was sich ändert
 
-## Worum es dabei geht
+Bisher wurde der Vorgang synchron verarbeitet. Künftig läuft die Verarbeitung asynchron im Hintergrund.
 
-Im Kern deutet der Hinweis auf eine Änderung, Erweiterung oder fachliche Neuerung hin, die im produktiven Umfeld nicht nur gelesen, sondern kurz eingeordnet werden sollte.
+Das hat zwei direkte Folgen:
 
-Besonders interessant ist das für Teams, die:
+- der **API-Aufruf** verhält sich anders als bisher
+- auch der **Ergebnisabruf** muss entsprechend angepasst werden
 
-- **Sage Operations aktiv betreuen oder weiterentwickeln**
-- Änderungen früh auf **Prozesse, Anwender und Abläufe** abklopfen wollen
-- neue Funktionen lieber **vorher einordnen** als später im Tagesgeschäft überraschen lassen
+Laut Sage soll die Verarbeitung damit effizienter und robuster werden – vor allem bei **großen** oder **lang laufenden Vorgängen**.
 
-## Warum das relevant ist
+## Was jetzt zu tun ist
 
-Viele dieser Hinweise wirken auf den ersten Blick kleiner, als sie im Alltag später sind. Oft zeigt sich der eigentliche Nutzen – oder das mögliche Stolperpotenzial – erst dann, wenn die Änderung in bestehende Abläufe, Schulungen oder Kundenprojekte hineinragt.
-
-Genau deshalb lohnt sich eine kurze fachliche Einordnung: Nicht jede Neuerung ist sofort groß, aber manche werden genau dann wichtig, wenn man sie vorher als Randnotiz behandelt hat.
+Wer **`createMultipleWorkOrderTrackings`** bereits verwendet, sollte die eigene Anbindung zeitnah prüfen. Sage empfiehlt in diesem Fall ausdrücklich, den **Support** zu kontaktieren, damit die Umstellung sauber begleitet werden kann.
 
 ## Fazit
 
-Der Punkt ist hier nicht die bloße Ankündigung, sondern der praktische Blick darauf, was sich für **Sage Operations** daraus ergeben kann. Wer solche Themen früh sortiert, spart sich später unnötige Rückfragen, Hektik oder das klassische „hätten wir mal eher gelesen“.
+Für betroffene Integrationen ist das keine kosmetische Änderung, sondern eine echte Anpassung im Ablauf. Wer die API im Einsatz hat, sollte das Update nicht einfach durchwinken.
+
+Quelle: Sage GmbH
