@@ -1,5 +1,5 @@
 ---
-title: / Sage 100 Versionenund Wartungsinfos
+title: Sage 100 Versionen und Wartungsinfos
 date: 12. Mai 2026
 category: Sage 100
 tag: Release
@@ -10,7 +10,7 @@ featured: false
 
 Nicht jede Produktneuigkeit ist ein Paukenschlag. Aber gerade die kleineren Änderungen in **Sage 100** sind oft die Stellen, an denen später Prozesse glatter laufen – oder eben anfangen zu haken, wenn man sie zu spät auf dem Schirm hat.
 
-Mit dem Hinweis zu **/ Sage 100 Versionenund Wartungsinfos** liegt ein neues Thema auf dem Tisch, das für Anwender, Partner oder Projektverantwortliche in **Sage 100** relevant sein kann.
+Mit dem Hinweis zu **Sage 100 Versionen und Wartungsinfos** liegt ein neues Thema auf dem Tisch, das für Anwender, Partner oder Projektverantwortliche in **Sage 100** relevant sein kann.
 
 ## Worum es dabei geht
 
