@@ -9,19 +9,7 @@ featured: false
 slug: sage-100-liveupdate-9-0-11-1-ohne-internet
 ---
 
-Wenn der Produktionsserver keinen Internetzugang hat, ist das beim **Sage 100 LiveUpdate 9.0.11 inklusive Hotfix 9.0.11.1** kein K.o.-Kriterium. Diesmal reicht ein zweiter Rechner mit Internet, ein Datenträger oder ein lokales Netzwerk – also genau die Sorte Umweg, die in vielen Kundenumgebungen ohnehin Alltag ist.
-
-Sage weist darauf hin, dass die für das **LiveUpdate** benötigten Dateien auch auf einem Rechner ohne installierte Sage 100 geladen werden können, solange dort eine Internetverbindung vorhanden ist. Anschließend lassen sich die Dateien per **CD** oder über das **lokale Netzwerk** der eigentlichen Zielumgebung zur Verfügung stellen.
-
-## So funktioniert das LiveUpdate ohne Internetzugang
-
-Für Kunden ohne direkten Internetzugang ist vor allem dieser Punkt relevant:
-
-- **Download auf separatem Rechner:** Die Update-Dateien für **Sage 100 9.0.11 / 9.0.11.1** können auf einem anderen PC mit Internetverbindung geladen werden
-- **Bereitstellung offline:** Die Dateien lassen sich anschließend per **CD** oder im **lokalen Netzwerk** an das LiveUpdate übergeben
-- **Keine lokale Sage-100-Installation nötig:** Der Download-Rechner muss selbst keine Sage 100 installiert haben
-
-Damit ist das Update auch in abgeschotteten Umgebungen machbar, ohne dass man erst Grundsatzdiskussionen mit der IT-Security führen muss.
+Mit dem **Sage 100 LiveUpdate 9.0.11 inklusive Hotfix 9.0.11.1** kommt diesmal kein spektakuläres Funktionsfeuerwerk, aber ein Pflichtpunkt, den man nach dem Einspielen besser nicht übersieht: In jeder Datenbank muss der **SA-Systembenutzer** neu hinterlegt werden. Genau diese Sorte Detail entscheidet später oft darüber, ob ein Update als Routine durchgeht oder noch eine Ehrenrunde dreht.
 
 ## Wichtig nach dem Update: SA-Systembenutzer in jeder Datenbank hinterlegen
 

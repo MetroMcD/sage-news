@@ -93,6 +93,8 @@ Beantworte diese Fragen aus dem E-Mail-Inhalt – nichts erfinden:
 umsetzungsorientiert. Kein Marketing-Sprech, keine Superlativen, keine
 Buzzword-Dichte.
 
+**Einstieg:** Direkt in die Sache. Keine abgenutzten Standard-Intros, keine wiederkehrenden Baukasten-Einstiege, keine generischen Ankündigungsfloskeln. Der erste Absatz soll die konkrete Änderung, Auswirkung oder Relevanz benennen.
+
 **SEO-Anforderung:** Der Beitrag soll nicht nur gut lesbar, sondern auch suchfreundlich aufgebaut sein.
 
 - Wichtige Begriffe aus **Produkt**, **Versionsstand**, **Problem/Korrektur** und **Anwendungsbereich** sollen natürlich vorkommen
@@ -182,6 +184,7 @@ tag: [Release | Neu | KI | Cloud | Compliance | Perspektive | News]
 summary: [1–2 Sätze Vorschau – erscheint auf der Hauptseite]
 readTime: [X min]
 featured: false
+slug: [sprechender-dauerhafter-slug]
 ---
 ```
 
@@ -217,9 +220,13 @@ Wichtig:
 [1–3 Sätze: Was bedeutet das, was ist zu tun? Ggf. Schlussbild aus dem Einstieg aufgreifen.]
 ```
 
-**Kein `Kurzfazit`-Block und kein `Quelle:`-Block** für automatisch generierte
-E-Mail-Berichte – die Quelle ist implizit der Sage-Newsletter.
-Ausnahme: Der Bot wird explizit angewiesen, eine Quelle einzutragen.
+Automatisch generierte E-Mail-Berichte bekommen **eine kurze Quellenangabe im Fuß**.
+
+Regeln für die Quelle:
+- Bei einer Mail von Sage: `Quelle: Sage GmbH`
+- Die Quellenangabe steht am Ende des Beitrags bzw. im Fuß der statischen Seite
+- Die Quellenangabe bleibt kurz und ohne Zusatzroman
+- Wenn die Quelle nicht eindeutig ist, nicht raten, sondern vor Veröffentlichung nachfragen
 
 Zusätzlich verboten im Fließtext automatischer Beiträge:
 - Formulierungen wie `Die Mail vom ... verweist auf ...`
@@ -230,6 +237,7 @@ Stattdessen gilt:
 - Schreibe immer eine **lesbare, lockere Zusammenfassung** für Menschen
 - Starte mit Bedeutung, Nutzen oder Einordnung – nicht mit dem Umstand, dass eine Mail angekommen ist
 - Technische Details nur dann ausführlich nennen, wenn sie für Praxis, Prozesse oder Entscheidungen wirklich relevant sind
+- Den Routinehinweis, dass ein Live Update auch als separater Download bereitsteht, nicht als eigenen Textbaustein aufblasen. Nur erwähnen, wenn genau dieser Bereitstellungsweg ausnahmsweise die eigentliche Kernbotschaft ist.
 
 ### Statische Artikelseite
 
@@ -237,8 +245,9 @@ Zusätzlich zur Markdown-Datei muss für jeden veröffentlichten Beitrag immer e
 
 Regeln:
 - Zielpfad: `/<slug>/index.html` im Repo
-- Der `slug` wird standardmäßig aus dem finalen Beitragstitel gebildet
+- Der `slug` wird standardmäßig aus dem finalen Beitragstitel gebildet und zusätzlich explizit als `slug:` im Front Matter gesetzt
 - Die statische Seite muss denselben Titel, dieselbe Summary, Kategorie, Tag, Datum und denselben Artikeltext wie der Markdown-Beitrag verwenden
+- Die statische Seite muss im echten sage-news-Seitenlayout erzeugt werden, nicht als rohe Minimal-HTML
 - Die statische Seite ist kein optionaler Nachschritt, sondern Teil der Veröffentlichung
 - Markdown-Datei ohne passende Artikelseite gilt als unvollständig veröffentlicht
 
@@ -279,7 +288,9 @@ Regeln:
 - [ ] Wichtige Suchbegriffe kommen organisch im Text vor
 - [ ] Schlusssatz gibt eine klare Handlungsempfehlung oder ein Fazit
 - [ ] Keine Emojis, keine Ausrufezeichen-Ketten, kein Marketingdeutsch
+- [ ] Kurze Quellenangabe im Fuß vorhanden (bei Sage-Mails: `Quelle: Sage GmbH`)
 - [ ] Vor Commit kurz prüfen: Artikelseite liefert lokal/remote `200`, Canonical zeigt auf den finalen Slug, und der Link aus dem Listing verweist auf genau diesen Slug
+- [ ] Wenn Rene den Beitrag sichtbar auf der Website erwartet: prüfen, dass er nach der aktuellen Feed-Logik nicht still außerhalb des sichtbaren Homepage-Bereichs landet
 
 ---
 
