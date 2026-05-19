@@ -1,6 +1,6 @@
 ---
 title: Sage 100 9.0.11 inkl. Hotfix 9.0.11.1 per LiveUpdate für Kunden ohne Internet
-date: 12. Mai 2025
+date: 19. Mai 2026
 category: Sage 100
 tag: Release
 summary: Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 (Build 847) lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Wichtig ist danach vor allem ein Pflichtschritt: Der SA-Systembenutzer muss nach dem Update in jeder Datenbank hinterlegt werden.
