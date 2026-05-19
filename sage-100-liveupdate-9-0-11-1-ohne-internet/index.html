@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sage 100 9.0.11 inkl. Hotfix 9.0.11.1 per LiveUpdate für Kunden ohne Internet</title>
+  <meta name="description" content="Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 (Build 847) lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Wichtig ist danach vor allem ein Pflichtschritt beim Systembenutzer in jeder Datenbank.">
+  <link rel="canonical" href="https://sage-news.de/sage-100-liveupdate-9-0-11-1-ohne-internet/">
+</head>
+<body>
+  <main>
+    <p><a href="/">← Zur Übersicht</a></p>
+    <article>
+      <p>Sage 100 · Release</p>
+      <h1>Sage 100 9.0.11 inkl. Hotfix 9.0.11.1 per LiveUpdate für Kunden ohne Internet</h1>
+      <p><strong>12. Mai 2025</strong></p>
+      <p>Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 (Build 847) lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Wichtig ist danach vor allem ein Pflichtschritt beim Systembenutzer in jeder Datenbank.</p>
+      <p>Wenn der Produktionsserver keinen Internetzugang hat, ist das beim <strong>Sage 100 LiveUpdate 9.0.11 inklusive Hotfix 9.0.11.1</strong> kein K.o.-Kriterium. Diesmal reicht ein zweiter Rechner mit Internet, ein Datenträger oder ein lokales Netzwerk – also genau die Sorte Umweg, die in vielen Kundenumgebungen ohnehin Alltag ist.</p>
+<p>Sage weist darauf hin, dass die für das <strong>LiveUpdate</strong> benötigten Dateien auch auf einem Rechner ohne installierte Sage 100 geladen werden können, solange dort eine Internetverbindung vorhanden ist. Anschließend lassen sich die Dateien per <strong>CD</strong> oder über das <strong>lokale Netzwerk</strong> der eigentlichen Zielumgebung zur Verfügung stellen.</p>
+<h2>So funktioniert das LiveUpdate ohne Internetzugang</h2>
+<p>Für Kunden ohne direkten Internetzugang ist vor allem dieser Punkt relevant:</p>
+<ul>
+<li><strong>Download auf separatem Rechner:</strong> Die Update-Dateien für <strong>Sage 100 9.0.11 / 9.0.11.1</strong> können auf einem anderen PC mit Internetverbindung geladen werden</li>
+<li><strong>Bereitstellung offline:</strong> Die Dateien lassen sich anschließend per <strong>CD</strong> oder im <strong>lokalen Netzwerk</strong> an das LiveUpdate übergeben</li>
+<li><strong>Keine lokale Sage-100-Installation nötig:</strong> Der Download-Rechner muss selbst keine Sage 100 installiert haben</li>
+</ul>
+<p>Damit ist das Update auch in abgeschotteten Umgebungen machbar, ohne dass man erst Grundsatzdiskussionen mit der IT-Security führen muss.</p>
+<h2>Pflicht nach dem Update: Systembenutzer neu eintragen</h2>
+<p>Wichtiger als der eigentliche Dateitransport ist der Hinweis nach dem Update auf <strong>Version 9.0.11.1</strong>: Der <strong>Systembenutzer muss neu eingetragen werden</strong>.</p>
+<p>Das erfolgt im <strong>Sage Administrator</strong> für <strong>jede einzelne Datenbank</strong> unter:</p>
+<ul>
+<li><strong>Datenbanken</strong></li>
+<li><strong>Rechtsklick auf die jeweilige Datenbank</strong></li>
+<li><strong>Eigenschaften</strong></li>
+<li>Im Feld <strong>Systembenutzer</strong> einen SQL-Benutzer mit Berechtigung <strong>Systemadministrator</strong> eintragen</li>
+<li>Standardmäßig ist hier meist <strong>SA</strong> gemeint – inklusive passendem Kennwort</li>
+</ul>
+<p>Dieser Schritt muss <strong>für jede Datenbank wiederholt</strong> werden. Wer das übersieht, spart zwar drei Minuten Arbeit, handelt sich aber sehr wahrscheinlich genau die Art von Folgeproblem ein, die später niemand freiwillig debuggt.</p>
+<h2>Englische Oberfläche: neues Sprachpaket nötig</h2>
+<p>Wer mit der <strong>englischen Oberfläche der Sage 100</strong> arbeitet, braucht für <strong>Version 9.0.11.1</strong> zusätzlich ein <strong>neues Sprachpaket</strong>. Dieses muss <strong>gemeinsam mit dem LiveUpdate</strong> eingespielt werden.</p>
+<h2>Fazit</h2>
+<p>Das <strong>Service Pack Sage 100 9.0.11 mit Hotfix 9.0.11.1</strong> ist auch für Kunden ohne Internetanschluss sauber per LiveUpdate umsetzbar. Entscheidend ist danach aber der administrative Nachlauf: <strong>Systembenutzer je Datenbank neu setzen</strong> und bei englischer Oberfläche das <strong>neue Sprachpaket</strong> nicht vergessen. Sonst wird aus einem Routineupdate schnell wieder eine kleine Nachmittagsbeschäftigung.</p>
+<p class="source">Quelle: Sage GmbH</p>
+    </article>
+  </main>
+</body>
+</html>

@@ -207,9 +207,9 @@ async function loadPostsFromGitHub(cfg) {
       const r = await fetch(f.download_url);
       const raw = await r.text();
       const { meta, body } = parseFrontmatter(raw);
-      const slug = f.name.replace(".md", "");
+      const fileSlug = f.name.replace(".md", "");
       const datePrefixPattern = /^\d{4}-\d{2}-\d{2}-/;
-      const slugWithoutDate = slug.replace(datePrefixPattern, "");
+      const slugWithoutDate = fileSlug.replace(datePrefixPattern, "");
       const normalizedMetaSlug = (meta.slug || "")
         .toLowerCase()
         .replace(/ä/g, "ae")
@@ -218,6 +218,7 @@ async function loadPostsFromGitHub(cfg) {
         .replace(/ß/g, "ss")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
+      const slug = normalizedMetaSlug || slugWithoutDate;
       const permalink = normalizedMetaSlug || (meta.title ? meta.title
         .toLowerCase()
         .replace(/ä/g, "ae")
