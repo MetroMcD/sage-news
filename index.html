@@ -875,6 +875,10 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [postsSource, setPostsSource] = useState("github");
   const [loading, setLoading] = useState(false);
+  const [currentSlug, setCurrentSlug] = useState(() => {
+    const parts = window.location.pathname.split("/").filter(Boolean);
+    return parts.length === 1 ? parts[0] : null;
+  });
 
   const routeMap = {
     home: "home",
@@ -896,6 +900,10 @@ function App() {
     loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {
       setPosts(loaded);
       setPostsSource(source);
+      if (currentSlug) {
+        const matched = loaded.find(p => p.permalink === currentSlug || p.slug === currentSlug);
+        setSelectedPost(matched || null);
+      }
       setLoading(false);
     }).catch(() => {
       setPosts([]);
@@ -907,12 +915,12 @@ function App() {
   useEffect(() => {
     const syncFromHash = () => {
       setPage(getPageFromHash());
-      setSelectedPost(null);
+      if (!currentSlug) setSelectedPost(null);
     };
     syncFromHash();
     window.addEventListener("hashchange", syncFromHash);
     return () => window.removeEventListener("hashchange", syncFromHash);
-  }, []);
+  }, [currentSlug]);
 
   const catMap = { "sage100": "Sage 100", "sagex3": "Sage X3", "operations": "Sage Operations" };
   const filteredPosts = catMap[page] ? posts.filter(p => p.category === catMap[page]) : posts;
@@ -921,11 +929,21 @@ function App() {
 
   function navTo(p) {
     setSelectedPost(null);
+    setCurrentSlug(null);
     setPage(p);
     const targetHash = p === "home" ? "" : `#${p}`;
-    if (window.location.hash !== targetHash) {
-      if (targetHash) window.location.hash = targetHash;
-      else history.replaceState(null, "", window.location.pathname + window.location.search);
+    const basePath = "/";
+    if (window.location.hash !== targetHash || window.location.pathname !== basePath) {
+      history.replaceState(null, "", basePath + (targetHash || ""));
+    }
+    window.scrollTo({ top: 0 });
+  }
+
+  function onReadPost(post) {
+    setSelectedPost(post);
+    setCurrentSlug(post.permalink || post.slug || null);
+    if (post.permalink) {
+      history.pushState(null, "", `/${post.permalink}/`);
     }
     window.scrollTo({ top: 0 });
   }
@@ -945,13 +963,13 @@ function App() {
           </div>
         ) : selectedPost ? (
           <div style={{ display: "grid", gridTemplateColumns: tweaks?.showSidebar ? "1fr 280px" : "1fr", gap: "24px", alignItems: "start" }}>
-            <PostDetail post={selectedPost} onBack={() => setSelectedPost(null)} tweaks={tweaks} />
+            <PostDetail post={selectedPost} onBack={() => navTo("home")} tweaks={tweaks} />
             <Sidebar posts={posts} tweaks={tweaks} />
           </div>
         ) : showFeed ? (
           <div>
             <div style={{ display: "grid", gridTemplateColumns: tweaks?.showSidebar ? "1fr 280px" : "1fr", gap: "24px", alignItems: "start" }}>
-              <PostGrid posts={displayedPosts} tweaks={tweaks} onlyNewestFeatured={page === "home"} onReadPost={p => { setSelectedPost(p); window.scrollTo({ top: 0 }); }} />
+              <PostGrid posts={displayedPosts} tweaks={tweaks} onlyNewestFeatured={page === "home"} onReadPost={onReadPost} />
               <Sidebar posts={posts} tweaks={tweaks} />
             </div>
           </div>
