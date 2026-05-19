@@ -3,7 +3,7 @@ title: Sage 100 9.0.11 inkl. Hotfix 9.0.11.1 per LiveUpdate für Kunden ohne Int
 date: 12. Mai 2025
 category: Sage 100
 tag: Release
-summary: Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 (Build 847) lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Wichtig ist danach vor allem ein Pflichtschritt beim Systembenutzer in jeder Datenbank.
+summary: Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 (Build 847) lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Wichtig ist danach vor allem ein Pflichtschritt: Der SA-Systembenutzer muss nach dem Update in jeder Datenbank hinterlegt werden.
 readTime: 2 min
 featured: true
 slug: sage-100-liveupdate-9-0-11-1-ohne-internet
@@ -23,9 +23,9 @@ Für Kunden ohne direkten Internetzugang ist vor allem dieser Punkt relevant:
 
 Damit ist das Update auch in abgeschotteten Umgebungen machbar, ohne dass man erst Grundsatzdiskussionen mit der IT-Security führen muss.
 
-## Pflicht nach dem Update: Systembenutzer neu eintragen
+## Wichtig nach dem Update: SA-Systembenutzer in jeder Datenbank hinterlegen
 
-Wichtiger als der eigentliche Dateitransport ist der Hinweis nach dem Update auf **Version 9.0.11.1**: Der **Systembenutzer muss neu eingetragen werden**.
+Der entscheidende Hinweis steckt nach dem Update auf **Version 9.0.11.1** im administrativen Nachlauf: Der **Systembenutzer muss neu eingetragen** werden. Gemeint ist ein SQL-Benutzer mit Berechtigung **Systemadministrator** – standardmäßig also meist der **SA-User** inklusive Kennwort.
 
 Das erfolgt im **Sage Administrator** für **jede einzelne Datenbank** unter:
 
@@ -35,7 +35,7 @@ Das erfolgt im **Sage Administrator** für **jede einzelne Datenbank** unter:
 - Im Feld **Systembenutzer** einen SQL-Benutzer mit Berechtigung **Systemadministrator** eintragen
 - Standardmäßig ist hier meist **SA** gemeint – inklusive passendem Kennwort
 
-Dieser Schritt muss **für jede Datenbank wiederholt** werden. Wer das übersieht, spart zwar drei Minuten Arbeit, handelt sich aber sehr wahrscheinlich genau die Art von Folgeproblem ein, die später niemand freiwillig debuggt.
+Dieser Schritt muss **für jede Datenbank wiederholt** werden. Wer den SA-Systembenutzer nach dem Update nicht sauber hinterlegt, riskiert genau die Art von Folgeproblem, die aus einem Routine-Update unnötig Handarbeit macht.
 
 ## Englische Oberfläche: neues Sprachpaket nötig
 
@@ -43,6 +43,6 @@ Wer mit der **englischen Oberfläche der Sage 100** arbeitet, braucht für **Ver
 
 ## Fazit
 
-Das **Service Pack Sage 100 9.0.11 mit Hotfix 9.0.11.1** ist auch für Kunden ohne Internetanschluss sauber per LiveUpdate umsetzbar. Entscheidend ist danach aber der administrative Nachlauf: **Systembenutzer je Datenbank neu setzen** und bei englischer Oberfläche das **neue Sprachpaket** nicht vergessen. Sonst wird aus einem Routineupdate schnell wieder eine kleine Nachmittagsbeschäftigung.
+Das **Service Pack Sage 100 9.0.11 mit Hotfix 9.0.11.1** ist auch für Kunden ohne Internetanschluss sauber per LiveUpdate umsetzbar. Entscheidend ist danach aber der administrative Nachlauf: **SA-Systembenutzer je Datenbank neu setzen** und bei englischer Oberfläche das **neue Sprachpaket** nicht vergessen. Sonst wird aus einem Routineupdate schnell wieder eine kleine Nachmittagsbeschäftigung.
 
 Quelle: Sage GmbH
