@@ -6,6 +6,7 @@ tag: Release
 summary: In Sage 100 gibt es ein neues Update oder einen frischen Produkthinweis. Entscheidend ist nicht die Ankündigung selbst, sondern was sich daraus für Alltag, Prozesse oder nächste Schritte ableiten lässt.
 readTime: 2 min
 featured: false
+slug: sage-100-versionen-und-wartungsinfos
 ---
 
 Nicht jede Produktneuigkeit ist ein Paukenschlag. Aber gerade die kleineren Änderungen in **Sage 100** sind oft die Stellen, an denen später Prozesse glatter laufen – oder eben anfangen zu haken, wenn man sie zu spät auf dem Schirm hat.
