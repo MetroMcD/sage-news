@@ -246,7 +246,16 @@ async function loadPostsFromGitHub(cfg) {
     } catch { return null; }
   }));
 
-  return { posts: posts.filter(Boolean), source: "github" };
+  const validPosts = posts.filter(Boolean).sort((a, b) => {
+    const ad = parseGermanDate(a.date);
+    const bd = parseGermanDate(b.date);
+    if (ad && bd) return bd - ad;
+    if (ad) return -1;
+    if (bd) return 1;
+    return 0;
+  });
+
+  return { posts: validPosts, source: "github" };
 }
 
 // ── BRAND COLORS ───────────────────────────────────────────────────────────
