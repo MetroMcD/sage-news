@@ -9,7 +9,7 @@ from pathlib import Path
 from html import escape
 import shutil
 
-ROOT = Path('/home/rene/sage-news')
+ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / 'posts'
 MANIFEST_PATH = ROOT / 'posts-manifest.json'
 INDEX_PATH = ROOT / 'index.html'
