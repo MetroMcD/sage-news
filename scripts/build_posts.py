@@ -132,7 +132,8 @@ def markdown_to_html(text: str) -> str:
             if not in_list:
                 html_lines.append('<ul>')
                 in_list = True
-            html_lines.append(f'<li>{render_inline(re.sub(r"^-\\s+", "", stripped))}</li>')
+            item_text = re.sub(r'^-\s+', '', stripped)
+            html_lines.append(f'<li>{render_inline(item_text)}</li>')
             continue
         paragraph.append(stripped)
 
