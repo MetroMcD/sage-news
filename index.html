@@ -193,7 +193,7 @@ async function loadPostsFromGitHub(cfg) {
   const listUrl = cfg.repoApiUrl || `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.postsPath}?ref=${cfg.branch}`;
   let files;
   try {
-    const res = await fetch(listUrl, { headers: { Accept: "application/vnd.github.v3+json" } });
+    const res = await fetch(listUrl, { headers: { Accept: "application/vnd.github.v3+json", "User-Agent": "sage-news-feed" } });
     if (!res.ok) throw new Error(`GitHub API ${res.status}`);
     files = await res.json();
   } catch (e) {
@@ -205,7 +205,7 @@ async function loadPostsFromGitHub(cfg) {
 
   const posts = await Promise.all(mdFiles.map(async (f, idx) => {
     try {
-      const r = await fetch(f.download_url);
+      const r = await fetch(f.download_url, { headers: { "User-Agent": "sage-news-feed" } });
       const raw = await r.text();
       const { meta, body } = parseFrontmatter(raw);
       const fileSlug = f.name.replace(".md", "");
