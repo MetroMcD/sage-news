@@ -1,337 +1,245 @@
 ---
 name: sage-news-email-bericht
 description: >
-  Verarbeitet eingehende E-Mails von Sage (sage.de, sage.com) oder mit dem
-  Betreff-Präfix ##sage und erzeugt daraus einen druckfertigen Sage-News-Bericht
-  im definierten Stil – professionelles DACH-Geschäftsdeutsch mit leichtem
-  Situationshumor. Liefert fertigen Markdown-Text inkl. Front Matter zur
-  direkten Ablage im posts/-Ordner des Sage-News-Repos.
+  Redaktions- und Publikationsreferenz für Sage-News-Beiträge aus E-Mails oder
+  bereitgestellten Inhalten. Enthält die verbindlichen Regeln für Inhalt,
+  Front Matter, HTML-Artikelseiten, Listing, Validierung und Deployment.
 ---
 
-# Sage News – E-Mail-zu-Bericht-Skill
+# Sage News – Referenz für Inhalt und Publikation
 
-## Zweck
+Diese Datei ergänzt den Master-Skill mit den operativen Detailregeln.
+Sie ist die stabile Nachschlagebasis für das Erstellen und Veröffentlichen von
+Sage-News-Beiträgen.
 
-Dieser Skill beschreibt, wie eingehende Sage-E-Mails automatisch in
-veröffentlichungsfertige Beiträge für die Sage-News-Website umgewandelt werden.
-Jeder Bericht folgt demselben Aufbau und demselben Ton, unabhängig vom Thema.
+## 1. Quelle zuerst verstehen
 
----
+Der häufigste Fehler ist, den Artikel aus Betrefffragmenten abzuleiten.
+Darum gilt:
 
-## Schritt 1 – E-Mail-Erkennung
+1. Mail-Body vollständig lesen
+2. Anhänge prüfen
+3. Betreff nur für Trigger und Datum nutzen
+4. enthaltene Links nur als Zusatzkontext nutzen
 
-Eine E-Mail wird verarbeitet, wenn **eine** der folgenden Bedingungen zutrifft:
+Beantworte vor dem Schreiben:
+- Was genau ist passiert?
+- Welches Produkt ist betroffen?
+- Wer ist betroffen?
+- Was ändert sich praktisch?
+- Welche Versionen, Daten, Fristen oder Module sind belegt?
+- Was ist Quelle, was Einordnung?
 
-| Bedingung              | Beispiel                                      |
-|------------------------|-----------------------------------------------|
-| Absender-Domain        | `@sage.de` oder `@sage.com`                   |
-| Betreff-Präfix         | Betreff enthält `##sage` (Groß-/Kleinschreibung egal) |
+Wenn etwas nicht belegt ist: weglassen.
 
-Trifft keine Bedingung zu → E-Mail ignorieren, keinen Bericht erstellen.
+## 2. Kategorien und Tags
 
-`#F` ist **kein** allgemeines Verarbeitungssignal, sondern nur ein zusätzliches Steuersignal für `featured`.
+### Kategorie
+Genau eine wählen:
+- `Sage 100`
+- `Sage X3`
+- `Sage Operations`
+- `Sage Intact`
 
----
+### Tag
+1 oder 2 Tags, immer als String:
+- `tag: "Release"`
+- `tag: "Release, Compliance"`
 
-## Schritt 2 – Kategorie bestimmen
+Erlaubte Tags:
+- `Release`
+- `Neu`
+- `KI`
+- `Cloud`
+- `Compliance`
+- `Perspektive`
+- `News`
 
-Prüfe den Inhalt der E-Mail und weise **eine** Hauptkategorie zu:
+## 3. Ton, Stil und Aufbau
 
-| Kategorie          | Erkennungshinweise                                                         |
-|--------------------|----------------------------------------------------------------------------|
-| `Sage 100`         | „Sage 100", „S100", Fibu, DATEV, GoBD, Jahresabschluss, Warenwirtschaft   |
-| `Sage X3`          | „Sage X3", „X3", Multi-Site, HR-Modul, People, internationale Prozesse    |
-| `Sage Operations`  | „Sage Operations", Produktion, Fertigung, Kapazitätsplanung, MRP, Lager   |
-| `Sage Intact`      | „Sage Intact", „Intacct", Mid-Market-Finance, mehrdimensionales Reporting |
+Schreibe in professionellem DACH-Business-Deutsch.
 
-Wenn mehrere Kategorien zutreffen: Die **meistgenannte** gewinnt.
-Wenn keine passt: `Sage 100` als Fallback.
+Pflicht:
+- direkter Einstieg mit echter Information
+- klare Relevanz
+- gute Lesbarkeit
+- natürliche SEO
+- klare Einordnung für Praxis und Projekte
 
----
+Verbote:
+- generische Standard-Intros
+- Marketing-Geschwurbel
+- Clickbait
+- Emoji-Kram
+- Halluzinationen
 
-## Schritt 3 – Tag bestimmen
-
-Wähle den passendsten Tag:
-
-| Tag           | Wann                                                           |
-|---------------|----------------------------------------------------------------|
-| `Release`     | Versionsnummer erwähnt, Patch Notes, „freigegeben", „Update"  |
-| `Neu`         | Neues Feature, neue Funktion, neue Komponente                  |
-| `KI`          | KI, Machine Learning, Automatisierung, Vorschläge             |
-| `Cloud`       | Cloud, SaaS, Hosting, Rechenzentrum, Azure, AWS               |
-| `Compliance`  | GoBD, DSGVO, gesetzliche Änderung, Steuer, Pflichtupdate      |
-| `Perspektive` | Roadmap, Marktentwicklung, strategische Einordnung            |
-| `News`        | Allgemeine Ankündigung, kein passendes Thema oben             |
-
----
-
-## Schritt 4 – Inhalt zusammenfassen
-
-### Kernfragen vor dem Schreiben
-
-Beantworte diese Fragen aus dem E-Mail-Inhalt – nichts erfinden:
-
-1. **Was ist passiert?** (Release, Feature, Ankündigung, Warnung)
-2. **Wen betrifft es?** (Anwender, Admins, Partner, Projektleiter, alle)
-3. **Was ändert sich konkret?** (technisch, prozessual, kaufmännisch)
-4. **Gibt es eine Handlungsempfehlung?** (Update einplanen, prüfen, abwarten)
-5. **Was ist Quelle, was ist Einordnung?** (trennen!)
-
-### Länge
-
-- Standardbeitrag: **300–500 Wörter**
-- Komplexe Themen (mehrere Module, technische Tiefe): bis **700 Wörter**
-- Kurzmeldung (reine Ankündigung ohne Details): **150–250 Wörter**
-
----
-
-## Schritt 5 – Bericht schreiben
-
-### Ton und Stil
-
-**Grundton:** Professionelles DACH-Geschäftsdeutsch – sachlich, direkt,
-umsetzungsorientiert. Kein Marketing-Sprech, keine Superlativen, keine
-Buzzword-Dichte.
-
-**Einstieg:** Direkt in die Sache. Keine abgenutzten Standard-Intros, keine wiederkehrenden Baukasten-Einstiege, keine generischen Ankündigungsfloskeln. Der erste Absatz soll die konkrete Änderung, Auswirkung oder Relevanz benennen.
-
-**SEO-Anforderung:** Der Beitrag soll nicht nur gut lesbar, sondern auch suchfreundlich aufgebaut sein.
-
-- Wichtige Begriffe aus **Produkt**, **Versionsstand**, **Problem/Korrektur** und **Anwendungsbereich** sollen natürlich vorkommen
-- Besonders relevant sind **Titel**, **Summary**, **Zwischenüberschriften** und die ersten Absätze
-- Formuliere so, dass reale Suchanfragen gut getroffen werden, z. B. Kombinationen aus `Sage 100`, Versionsnummer, `LiveUpdate`, `Hotfix`, `ZUGFeRD`, `XRechnung`, `SQL Server 2025` oder dem betroffenen Modul
-- Keine Keyword-Stapelung, kein Clickbait, keine unnatürlichen Wiederholungen
-
-**Humor:** Leichter Situationshumor – kein Kabarett, kein Slapstick.
-Der Witz kommt aus dem Alltag der Zielgruppe, nicht aus einem Gag-Archiv.
-
-#### Humor-Regeln
-
-| Erlaubt                                              | Verboten                              |
-|------------------------------------------------------|---------------------------------------|
-| Wiedererkennbare Alltagssituation als Einstieg       | Flache Witze oder Wortspiele um des Witzes willen |
-| Trockene Beobachtung über bekannte Schmerzpunkte     | Emojis oder Ausrufezeichen-Ketten     |
-| Schlusssatz greift Einstiegsbild humorvoll wieder auf | Übertriebenes Selbstlob von Sage      |
-| Implizites „das kennen wir alle" ohne es auszusprechen | Sarkasmus auf Kosten des Lesers      |
-
-#### Typische Einstiegssituationen (Inspiration, nicht 1:1 kopieren)
-
-- Montagmorgen / Freitag 16:45 Uhr
-- Die Excel-Datei, die „eigentlich ganz gut funktioniert"
-- Das Post-it als Notlösung für ein Systemproblem
-- Der Kollege, der das alles „schon immer so gemacht hat"
-- Die E-Mail-Kette mit 47 Antworten statt einem zentralen System
-
-#### Stilbeispiele
-
-**Schlecht (zu trocken):**
-> SQL Server 2025 wurde für Sage 100 freigegeben. Dies ist für bestehende
-> Installationen relevant.
-
-**Schlecht (zu albern):**
-> OMG SQL Server 2025 ist DA! 🎉 Endlich!! Datenbankparty!!!
-
-**Gut:**
-> Niemand muss heute Nacht die Datenbank anfassen. Aber wer beim nächsten
-> Kundengespräch mit „SQL Server 2025 ist freigegeben, wir haben das bereits
-> geprüft" aufwartet, wirkt angenehm professionell. Und das ist auch was wert.
-
----
-
-## Schritt 6 – Markdown-Datei und Webseite erzeugen
-
-### Dateiname
-
-Format: `JJJJ-MM-TT-kurztitel.md`
-
-- Wenn im Betreff ein eindeutiges Datum steht, verwende dieses Datum
-- Sonst: Datum der E-Mail
-- Nur wenn beides unklar ist: heutiges Datum
-- Dasselbe Datum muss konsistent für Dateinamen und Front Matter verwendet werden
-- Kurztitel: Kleinbuchstaben, Zahlen, Bindestriche, keine Umlaute, keine Leerzeichen
-- Beispiel: `2026-05-01-sql-server-2025-sage-100.md`
-
-### Front Matter
-
-### Datumsregel für historische Beiträge
-
-Steht im Betreff der E-Mail ein klares Datum, gilt dieses als **Erscheinungsdatum** des Beitrags.
-
-Erlaubte Datumsformate im Betreff:
-- `DD.MM.YYYY` → Beispiel: `01.05.2026`
-- `D. Monat YYYY` → Beispiel: `1. Mai 2026`
-- `YYYY-MM-DD` → Beispiel: `2026-05-01`
-
-Beispiele:
-- `Update vom 01.05.2026` → `date: 1. Mai 2026`
-- `Webinar 1. Mai 2026` → `date: 1. Mai 2026`
-- `Release 2026-05-01` → `date: 1. Mai 2026`
-
-Regeln:
-- Das Betreff-Datum hat Vorrang vor dem technischen Maildatum.
-- Das gewählte Datum muss sowohl im Front Matter als auch im Dateinamen verwendet werden.
-- Beiträge mit älterem Datum werden bewusst historisch einsortiert und nicht künstlich auf das aktuelle Datum gesetzt.
-- Wenn im Betreff mehrere Daten stehen oder das Datum nicht eindeutig ist, verwende das Maildatum.
-- Andere Schreibweisen werden nicht geraten, sondern als nicht eindeutig behandelt.
-
+Empfohlene Struktur:
 
 ```markdown
----
-title: [Präziser Titel – Nutzen oder Änderung, kein Clickbait]
-date: [Tag. Monat Jahreszahl]  ← deutsches Format: "1. Mai 2026"
-category: [Sage 100 | Sage X3 | Sage Operations | Sage Intact]
-tag: [Release | Neu | KI | Cloud | Compliance | Perspektive | News]
-summary: [1–2 Sätze Vorschau – erscheint auf der Hauptseite]
-readTime: [X min]
-featured: false
-slug: [sprechender-dauerhafter-slug]
----
-```
+[Knapper Einstieg mit Relevanz]
 
-`featured: true` setzen, wenn mindestens **eine** der folgenden Bedingungen erfüllt ist:
-- Der Betreff enthält `#F` (Groß-/Kleinschreibung egal)
-- Der Betreff enthält `LiveUpdate`, `Live Update` oder `Hotfix`
-- Der Mail-Inhalt macht klar, dass es sich um ein `LiveUpdate` oder einen `Hotfix` handelt
+[Kernaussage]
 
-Sonst gilt: `featured: false`
+## [Zwischenüberschrift]
 
-Wichtig:
-- `#F` ist ein zusätzliches manuelles Steuersignal im Betreff
-- `#F` ersetzt **nicht** `##sage`
-- Featured-Beiträge bleiben auf der Website nur eine Woche lang featured und fallen danach automatisch auf normale Beiträge zurück
-
-### Inhalt-Struktur
-
-```markdown
-[Einstiegssatz oder kurze Szene – 1–3 Sätze, optional mit Humor]
-
-[Kernaussage in 1–2 Sätzen: Was wurde freigegeben / geändert / angekündigt?]
-
-## [Thematische Zwischenüberschrift]
-
-[Fließtext oder Aufzählung mit den wichtigsten Punkten]
-
-- **Punkt 1** erläutert kurz
-- **Punkt 2** erläutert kurz
-- ...
+[Wichtige Punkte]
 
 ## Fazit
 
-[1–3 Sätze: Was bedeutet das, was ist zu tun? Ggf. Schlussbild aus dem Einstieg aufgreifen.]
+[Konkrete Empfehlung oder Einordnung]
 ```
 
-Automatisch generierte E-Mail-Berichte bekommen **eine kurze Quellenangabe im Fuß**.
+## 4. Länge und readTime
 
-Regeln für die Quelle:
-- Bei einer Mail von Sage: `Quelle: Sage GmbH`
-- Die Quellenangabe steht am Ende des Beitrags bzw. im Fuß der statischen Seite
-- Die Quellenangabe bleibt kurz und ohne Zusatzroman
-- Wenn die Quelle nicht eindeutig ist, nicht raten, sondern vor Veröffentlichung nachfragen
+| Wörter | readTime |
+|--------|----------|
+| 100–200 | 1 min |
+| 200–350 | 2 min |
+| 350–500 | 3 min |
+| 500–650 | 4 min |
+| 650+ | 5 min |
 
-Zusätzlich verboten im Fließtext automatischer Beiträge:
-- Formulierungen wie `Die Mail vom ... verweist auf ...`
-- Meta-Sätze wie `Der Hinweis stammt aus einer Produkt-News-Mail`
-- reines technisches Runterrattern ohne Einordnung für den Leser
+Faustregel: 180 Wörter/Minute, aufgerundet.
 
-Stattdessen gilt:
-- Schreibe immer eine **lesbare, lockere Zusammenfassung** für Menschen
-- Starte mit Bedeutung, Nutzen oder Einordnung – nicht mit dem Umstand, dass eine Mail angekommen ist
-- Technische Details nur dann ausführlich nennen, wenn sie für Praxis, Prozesse oder Entscheidungen wirklich relevant sind
-- Den Routinehinweis, dass ein Live Update auch als separater Download bereitsteht, nicht als eigenen Textbaustein aufblasen. Nur erwähnen, wenn genau dieser Bereitstellungsweg ausnahmsweise die eigentliche Kernbotschaft ist.
+## 5. Front Matter
 
-### Statische Artikelseite
-
-Zusätzlich zur Markdown-Datei muss für jeden veröffentlichten Beitrag immer eine statische Artikelseite erzeugt werden.
-
-Regeln:
-- Zielpfad: `/<slug>/index.html` im Repo
-- Der `slug` wird standardmäßig aus dem finalen Beitragstitel gebildet und zusätzlich explizit als `slug:` im Front Matter gesetzt
-- Die statische Seite muss denselben Titel, dieselbe Summary, Kategorie, Tag, Datum und denselben Artikeltext wie der Markdown-Beitrag verwenden
-- Die statische Seite muss im echten sage-news-Seitenlayout erzeugt werden, nicht als rohe Minimal-HTML
-- Die statische Seite ist kein optionaler Nachschritt, sondern Teil der Veröffentlichung
-- Markdown-Datei ohne passende Artikelseite gilt als unvollständig veröffentlicht
-
-Ziel:
-- Der Beitrag soll auf Mobilgeräten und normalen Browsern als echte Webseite öffnen
-- Ein Klick auf den Artikel darf nicht nur den Download oder die Rohansicht der Markdown-Datei auslösen
-
-## Audio
-
-Aktuell **keine automatische Audio-Nachbearbeitung**.
-
-Regeln:
-- Textbeiträge werden ohne Audio veröffentlicht.
-- Kein automatisches Enqueueing, kein automatischer NotebookLM-Lauf, kein automatisches Einfügen in Beiträge.
-- Audio wird vorerst nur manuell getestet und bei Bedarf später bewusst nachgezogen.
-- Fehler oder Limits bei NotebookLM dürfen den Veröffentlichungsworkflow nicht beeinflussen.
-
+```yaml
 ---
-
-## Schritt 7 – Qualitätsprüfung vor der Ausgabe
-
-- [ ] Dateiname folgt dem `JJJJ-MM-TT-kurztitel.md`-Schema
-- [ ] Im Front Matter ist immer ein explizites `slug:` gesetzt
-- [ ] Passende statische Artikelseite unter `/<slug>/index.html` wurde erzeugt
-- [ ] `slug:` im Markdown und Veröffentlichungsordner sind identisch
-- [ ] Slug ist kurz, sprechend und dauerhaft URL-tauglich
-- [ ] Datum wurde korrekt priorisiert: Betreff-Datum vor Maildatum vor heutigem Datum
-- [ ] Alle Front-Matter-Felder vorhanden und korrekt befüllt
-- [ ] `featured` wurde korrekt aus `#F`, `LiveUpdate` oder `Hotfix` abgeleitet
-- [ ] Kategorie und Tag passen zum Inhalt
-- [ ] Kein Inhalt erfunden – nur was in der E-Mail steht
-- [ ] Einstieg benennt direkt Relevanz, Fehlerbild, Änderung oder Pflicht – kein generischer Auftakt
-- [ ] Wenn Sage einen konkreten Fehler nennt, wird dieser als Fehler benannt und technisch eingeordnet
-- [ ] Technische Details werden nicht nur aufgezählt, sondern für Praxis und betroffene Prozesse eingeordnet
-- [ ] Humor vorhanden aber nicht aufdringlich
-- [ ] Länge im Zielbereich (300–500 Wörter Standard)
-- [ ] Titel, Summary und Zwischenüberschriften sind suchfreundlich formuliert
-- [ ] Wichtige Suchbegriffe kommen organisch im Text vor
-- [ ] Schlusssatz gibt eine klare Handlungsempfehlung oder ein Fazit
-- [ ] Keine Emojis, keine Ausrufezeichen-Ketten, kein Marketingdeutsch
-- [ ] Kurze Quellenangabe im Fuß vorhanden (bei Sage-Mails: `Quelle: Sage GmbH`)
-- [ ] Vor Commit kurz prüfen: Artikelseite liefert lokal/remote `200`, Canonical zeigt auf den finalen Slug, und der Link aus dem Listing verweist auf genau diesen Slug
-- [ ] Wenn Rene den Beitrag sichtbar auf der Website erwartet: prüfen, dass er nach der aktuellen Feed-Logik nicht still außerhalb des sichtbaren Homepage-Bereichs landet
-
----
-
-## Vollständiges Beispiel
-
-**Eingehende E-Mail:**
-> Von: newsletter@sage.de | Betreff: 01.05.2026 – SQL Server 2025 freigegeben für Sage 100
-
-**Ausgabe:**
-
-```markdown
----
-title: SQL Server 2025 für Sage 100 freigegeben
-date: 1. Mai 2026
-category: Sage 100
-tag: Release
-summary: Sage hat SQL Server 2025 für relevante Einsatzszenarien freigegeben. Wer noch auf einer älteren Datenbankversion sitzt – kein Stress, aber langsam mal hinschauen.
-readTime: 2 min
+title: "..."
+date: "20. Mai 2026"
+category: "Sage 100"
+tag: "Release"
+summary: "..."
+readTime: "3 min"
 featured: false
+slug: "sprechender-slug"
 ---
-
-Gute Neuigkeit aus der Welt der Datenbanken, die normalerweise niemand aufgeregt
-macht: **SQL Server 2025 ist für Sage 100 freigegeben.**
-
-Für alle, die ihre Sage-100-Umgebung gerade so laufen lassen wie seit Jahren
-und sich denken „läuft doch" – genau für euch ist das ein guter Moment, mal
-kurz hinzuschauen. Wer mittelfristig Modernisierungen, Migrationen oder neue
-Installationen plant, sollte die unterstützten Konstellationen kennen.
-Sonst plant man an der Realität vorbei.
-
-## Was das bedeutet
-
-- **Neue Projekte** sollten direkt auf SQL Server 2025 aufsetzen
-- **Bestehende Systeme** müssen nicht sofort migriert werden, aber
-  Kompatibilität und Supportfähigkeit prüfen lohnt sich jetzt
-- **Partner und Admins** sollten Kundenumgebungen auf dem Radar haben –
-  bevor der Kunde fragt
-
-## Fazit
-
-Niemand muss heute Nacht die Datenbank anfassen. Aber wer beim nächsten
-Kundengespräch mit „SQL Server 2025 ist freigegeben, wir haben das bereits
-geprüft" aufwartet, wirkt angenehm professionell. Und das ist auch was wert.
 ```
+
+Regeln:
+- alle Felder sind Pflicht
+- `featured` standardmäßig immer `false`
+- `slug` immer explizit setzen
+- deutsches Datumsformat verwenden
+
+## 6. Datum, Dateiname und Slug
+
+Priorität für das Datum:
+1. Datum im Betreff
+2. Maildatum
+3. heutiges Datum
+
+Dateiname:
+- `JJJJ-MM-TT-kurztitel.md`
+
+Slug:
+- aus dem finalen Titel ableiten
+- Kleinbuchstaben
+- Leerzeichen zu Bindestrichen
+- Umlaute auflösen
+- Sonderzeichen entfernen
+- maximal 60 Zeichen
+
+## 7. Quellenangabe
+
+Immer am Ende von Markdown und HTML:
+- `Quelle: Sage GmbH` bei Sage-Mail
+- sonst kurze eindeutige Quelle
+
+## 8. Deduplizierung
+
+Vor dem Schreiben prüfen:
+- gleicher oder ähnlicher Slug?
+- gleicher oder ähnlicher Titel?
+- gleiche Mail / gleiches Thema schon verarbeitet?
+
+Regel:
+- gleicher Slug → kein neuer Beitrag
+- ähnlicher Titel + gleiches Datum → wahrscheinlich Duplikat
+- gleiches Thema + neueres Datum → Update-Beitrag möglich
+
+## 9. HTML-Artikelseite
+
+Pfad:
+- `/home/rene/sage-news/<slug>/index.html`
+
+Pflicht:
+- vollständiges Seitenlayout
+- Canonical auf `https://sage-news.de/<slug>/`
+- Header und Footer wie bestehende Seite
+- Hero mit Kategorie, Tag(s), Datum, Titel
+- Kurzfazit-/Summary-Box
+- Artikeltext in HTML
+- Quellenangabe
+
+## 10. Design-Regeln
+
+Immer zuerst echte Repo-Dateien prüfen.
+Zu bevorzugen ist der zuletzt erstellte bestehende Artikel als Vorlage.
+
+Blog-/Artikel-Variante:
+- keine Smartphone-Hand
+- keine gelben Logo-Strahlen
+- keine Game-UI-Elemente
+- ruhiger, blauer, editorialer Business-Look
+
+## 11. Assets und Pfade
+
+Nur verwenden:
+- root-relative Pfade
+- absolute Web-URLs
+- vorhandene Repo-Assets
+
+Nie verwenden:
+- `/home/...`
+- `file://...`
+- neue ungeprüfte lokale Pfade
+
+## 12. Startseite / Listing
+
+Die Startseite muss neue Beiträge automatisch sichtbar machen.
+
+Aktuelle Regel:
+- Homepage-Feed mit 9 sichtbaren Beiträgen
+- neue Beiträge müssen nach Veröffentlichung im sichtbaren Feed auftauchen
+- falls das Frontend dynamisch aus `posts/` lädt, zusätzlich Feed-Limit und Anzeige-Logik prüfen
+
+Bei neuem Beitrag:
+1. prüfen, ob das Listing statisch oder dynamisch erzeugt wird
+2. neue Karte bzw. neuen Datensatz im sichtbaren Homepage-Feed sicherstellen
+3. bei statischem Listing nach bestehendem Muster vorne einfügen
+4. bei dynamischem Listing Feed-Limit, Sortierung oder Anzeigezahl anpassen
+5. Links immer auf `/<slug>/`
+
+## 13. Validierung
+
+Vor Commit prüfen:
+1. HTML existiert
+2. Markdown existiert
+3. Canonical korrekt
+4. Listing-Link korrekt
+5. keine lokalen Pfade im HTML
+6. genau 8 Karten auf der Startseite
+
+## 14. Deployment
+
+Ablauf:
+- `git status`
+- Dateien stagen
+- committen
+- `git push origin main`
+
+Cloudflare Pages deployt automatisch nach Push auf `main`.
+
+## 15. Live-Prüfung
+
+30–60 Sekunden nach Push prüfen:
+- Artikelseite erreichbar
+- Startseite erreichbar
+- Link auf Startseite vorhanden
+
+## 16. Ergebnis an Rene
+
+Kurz antworten:
+- `Neue Berichte online (Bereich - Berichtstitel)`
+- bei mehreren als kurze Liste
