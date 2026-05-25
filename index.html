@@ -949,9 +949,8 @@ function App() {
 
   const catMap = { "sage100": "Sage 100", "sagex3": "Sage X3", "operations": "Sage Operations" };
   const filteredPosts = catMap[page] ? posts.filter(p => p.category === catMap[page]) : posts;
-  const homePageCount = 9;
-  const feedPosts = page === "home" ? filteredPosts.slice(0, homePageCount) : filteredPosts;
-  const displayedPosts = page === "home" ? feedPosts : feedPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
+  const feedPosts = page === "home" ? filteredPosts.slice(0, 8) : filteredPosts;
+  const displayedPosts = feedPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
   const showFeed = ["home", "sage100", "sagex3", "operations"].includes(page);
 
   function navTo(p) {
@@ -974,6 +973,18 @@ function App() {
     }
     window.scrollTo({ top: 0 });
   }
+
+  useEffect(() => {
+    if (!postsLoaded || currentSlug || page !== "home") return;
+    const newest = posts[0];
+    if (!newest?.permalink) return;
+    fetch(`/` + newest.permalink + `/`, { method: "HEAD" })
+      .then(res => {
+        if (!res.ok) return;
+        fetch(window.location.pathname + window.location.hash, { cache: "reload" }).catch(() => {});
+      })
+      .catch(() => {});
+  }, [postsLoaded, posts, currentSlug, page]);
 
   return (
     <div>
