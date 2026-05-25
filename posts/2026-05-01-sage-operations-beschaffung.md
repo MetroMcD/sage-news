@@ -23,3 +23,5 @@ Mit **Sage Operations** gehört das der Vergangenheit an. Automatische Bestellvo
 ## Fazit
 
 Vorausschauende Beschaffung statt reaktives Chaos. Wer Sage Operations einsetzt, bestellt das Richtige zur richtigen Zeit – und hat am Freitagnachmittag um 16:45 Uhr einfach Feierabend.
+
+Quelle: Sage GmbH

@@ -3,7 +3,7 @@ title: Sage 100 9.0.10.7 behebt Fehler bei ZUGFeRD/XRechnung mit Regel-Zahlungsk
 date: 2. Mai 2026
 category: Sage 100
 tag: Release
-summary: Das LiveUpdate 9.0.10.7 für Sage 100 korrigiert einen Ausnahmefehler bei ZUGFeRD/XRechnung, wenn Zahlungskonditionen mit Regeln verwendet werden. Für betroffene Prozesse ist das ein kleines, aber sehr konkretes Stabilitätsupdate.
+summary: Das LiveUpdate 9.0.10.7 für Sage 100 korrigiert einen Ausnahmefehler bei ZUGFeRD/XRechnung mit regelbasierten Zahlungskonditionen. Ein kleines, aber konkretes Stabilitätsupdate.
 readTime: 2 min
 featured: false
 ---
@@ -41,3 +41,5 @@ Relevant ist das Update vor allem für Unternehmen, die:
 ## Fazit
 
 Das Update **9.0.10.7** ist schlank, aber gezielt: Es beseitigt einen konkreten Fehler in der elektronischen Rechnungserstellung. Wenn einer der genannten Punkte für Ihr Unternehmen relevant ist, wenden Sie sich bitte an Ihren Fachhändler, um die Bedeutung für Ihre Umgebung und die Einplanung des Updates zu prüfen.
+
+Quelle: Sage GmbH

@@ -37,3 +37,5 @@ Für Sage-Kunden ist das vor allem ein Organisations- und Governance-Thema. Wer 
 ## Fazit
 
 Der EU AI Act ist kein Grund für hektische Betriebsamkeit, aber ein guter Anlass für einen nüchternen Bestandscheck. Wer in **Sage-Umgebungen** mit **KI**, Automatisierung oder neuen Assistenzfunktionen arbeitet, sollte jetzt Transparenz schaffen, Verantwortliche benennen und Dokumentation nicht als spätere Freizeitbeschäftigung behandeln.
+
+Quelle: Sage GmbH

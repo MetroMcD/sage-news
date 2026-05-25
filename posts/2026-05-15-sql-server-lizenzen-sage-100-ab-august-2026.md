@@ -3,10 +3,10 @@ title: SQL-Server-Lizenzen für Sage 100 ab August 2026 nur noch über Microsoft
 date: 15. Mai 2026
 category: Sage 100
 tag: Release, Cloud
-summary: Microsoft beendet zum 31. Juli 2026 die Sonderregelung für SQL Runtime und Full Use über Sage. Bestehende Installationen laufen weiter, neue Lizenzen und Erweiterungen laufen danach aber nur noch über das reguläre Microsoft-Lizenzmodell.
+summary: Microsoft beendet zum 31. Juli 2026 die Sonderregelung für SQL Runtime und Full Use über Sage. Neue Lizenzen und Erweiterungen laufen danach nur noch über das reguläre Microsoft-Lizenzmodell.
 readTime: 3 min
 featured: false
-slug: sql-server-lizenzen-fuer-sage-100-ab-august-2026-nur-noch-ueber-microsoft-partner
+slug: sql-server-lizenzen-sage-100-ab-august-2026
 ---
 
 Bei SQL-Lizenzen rund um **Sage 100** endet im Sommer 2026 eine Sonderstrecke, die viele schlicht als gesetzt verbucht hatten. **Ab dem 1. August 2026 kann Sage keine neuen SQL Server Runtime- und Full-Use-Lizenzen mehr verkaufen oder erweitern.** Für bestehende Installationen ist das keine akute Störung – für Planung, Wachstum und Modernisierung aber sehr wohl ein Thema, das man besser nicht erst Ende Juli entdeckt.

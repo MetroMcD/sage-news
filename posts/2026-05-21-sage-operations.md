@@ -3,7 +3,7 @@ title: Sage Operations Mai-Update bringt Sammelrechnungen und mehr Transparenz i
 date: 21. Mai 2026
 category: Sage Operations
 tag: Release
-summary: Das Mai-Update für Sage Operations bringt neue Funktionen für Sammelrechnungen, bessere Auswertungen von Verkaufsrechnungszeilen, zusätzliche Felder im Vertrieb und mehr Transparenz beim Abschluss von Fertigungsaufträgen.
+summary: Das Mai-Update für Sage Operations bringt Sammelrechnungen, bessere Auswertungen von Verkaufsrechnungszeilen, zusätzliche Felder im Vertrieb und mehr Transparenz beim Abschluss von Fertigungsaufträgen.
 readTime: 2 min
 featured: false
 slug: sage-operations

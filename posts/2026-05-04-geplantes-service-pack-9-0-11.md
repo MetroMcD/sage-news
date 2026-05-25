@@ -33,3 +33,5 @@ Außerdem landen mehrere bereits modernisierte Dialoge und Funktionen nun auch i
 ## Fazit
 
 **Sage 100 Service Pack 9.0.11** ist kein stilles Hintergrund-Update, sondern ein recht breites Paket mit funktionalen und technischen Verbesserungen. Besonders bei **E-Rechnung**, **Druckprozessen**, **DATEV**, **DMS** und der **Sage-Operations-Anbindung** lohnt sich ein genauer Blick. Oder trocken gesagt: kein Grund für Drama, aber definitiv ein Update, das man nicht blind durchwinken sollte.
+
+Quelle: Sage GmbH

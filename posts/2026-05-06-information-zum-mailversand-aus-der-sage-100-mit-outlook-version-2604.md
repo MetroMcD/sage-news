@@ -3,7 +3,7 @@ title: Sage 100: Mailversand mit Outlook 2604 kann fehlschlagen
 date: 6. Mai 2026
 category: Sage 100
 tag: Release
-summary: Sage weist auf einen konkreten Fehler beim Mailversand aus Sage 100 in Verbindung mit Outlook Version 2604 hin. Betroffen sind Umgebungen, in denen E-Mails direkt aus der Sage-100-Anwendung über Outlook angestoßen werden.
+summary: Sage weist auf einen Fehler beim Mailversand aus Sage 100 mit Outlook Version 2604 hin. Betroffen sind Umgebungen, in denen E-Mails direkt über Outlook aus der Anwendung angestoßen werden.
 readTime: 2 min
 featured: false
 slug: sage-100-mailversand-mit-outlook-2604-kann-fehlschlagen
@@ -33,3 +33,5 @@ Für Admins und Partner ist der Hinweis deshalb vor allem als **Abgrenzung der U
 ## Fazit
 
 Wer den **Mailversand aus Sage 100 mit Outlook** nutzt, sollte prüfen, ob bereits **Outlook Version 2604** im Einsatz ist und ob sich der gemeldete Fehler in der eigenen Umgebung zeigt. Das spart im Zweifel unnötige Fehlersuche an der falschen Baustelle – und genau davon gibt es im ERP-Alltag ohnehin schon genug.
+
+Quelle: Sage GmbH

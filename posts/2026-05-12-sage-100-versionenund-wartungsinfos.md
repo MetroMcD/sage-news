@@ -32,3 +32,5 @@ Genau deshalb lohnt sich eine kurze fachliche Einordnung: Nicht jede Neuerung is
 ## Fazit
 
 Der Punkt ist hier nicht die bloße Ankündigung, sondern der praktische Blick darauf, was sich für **Sage 100** daraus ergeben kann. Wer solche Themen früh sortiert, spart sich später unnötige Rückfragen, Hektik oder das klassische „hätten wir mal eher gelesen“.
+
+Quelle: Sage GmbH

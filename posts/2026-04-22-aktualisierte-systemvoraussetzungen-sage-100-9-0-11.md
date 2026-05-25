@@ -27,3 +27,5 @@ Der **Systemcheck auf der Website** ist bereits auf den neuen Stand angepasst un
 ## Fazit
 
 Wenn du eine Sage-100-Umgebung prüfen oder vorbereiten willst, kannst du den aktualisierten Stand jetzt direkt im **Systemcheck** gegenhalten, statt ihn erst mühsam aus der Wissensdatenbank zusammenzusuchen.
+
+Quelle: Sage GmbH

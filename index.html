@@ -184,74 +184,13 @@ function isFeaturedActive(post) {
   return diffDays >= 0 && diffDays < 7;
 }
 
-// ── GITHUB LOADER ──────────────────────────────────────────────────────────
-async function loadPostsFromGitHub(cfg) {
-  const isConfigured = cfg.owner && cfg.owner !== "YOUR_GITHUB_USERNAME";
-  if (!isConfigured) return { posts: SAMPLE_POSTS, source: "sample" };
-
-  const listUrl = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.postsPath}?ref=${cfg.branch}`;
-  let files;
-  try {
-    const res = await fetch(listUrl, { headers: { Accept: "application/vnd.github.v3+json" } });
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    files = await res.json();
-  } catch (e) {
-    const fallbackUrl = `https://raw.githubusercontent.com/${cfg.owner}/${cfg.repo}/${cfg.branch}/posts-manifest.json`;
-    try {
-      const fallbackRes = await fetch(fallbackUrl, { cache: "no-store" });
-      if (!fallbackRes.ok) throw new Error(`Manifest ${fallbackRes.status}`);
-      const manifest = await fallbackRes.json();
-      return { posts: manifest.posts || [], source: "manifest" };
-    } catch (fallbackErr) {
-      console.warn("GitHub posts load failed:", e && e.message ? e.message : e, fallbackErr && fallbackErr.message ? fallbackErr.message : fallbackErr);
-      return { posts: SAMPLE_POSTS, source: "sample" };
-    }
-  }
-
-  const mdFiles = files.filter(f => f.name.endsWith(".md") && !f.name.startsWith("_")).sort((a, b) => b.name.localeCompare(a.name));
-
-  const posts = await Promise.all(mdFiles.map(async (f, idx) => {
-    try {
-      const r = await fetch(f.download_url);
-      const raw = await r.text();
-      const { meta, body } = parseFrontmatter(raw);
-      const fileSlug = f.name.replace(".md", "");
-      const datePrefixPattern = /^\d{4}-\d{2}-\d{2}-/;
-      const slugWithoutDate = fileSlug.replace(datePrefixPattern, "");
-      const normalizedMetaSlug = (meta.slug || "")
-        .toLowerCase()
-        .replace(/ä/g, "ae")
-        .replace(/ö/g, "oe")
-        .replace(/ü/g, "ue")
-        .replace(/ß/g, "ss")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-      const slug = normalizedMetaSlug || slugWithoutDate;
-      const permalink = normalizedMetaSlug || (meta.title ? meta.title
-        .toLowerCase()
-        .replace(/ä/g, "ae")
-        .replace(/ö/g, "oe")
-        .replace(/ü/g, "ue")
-        .replace(/ß/g, "ss")
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") : slugWithoutDate);
-      return {
-        id: f.sha || `gh-${idx}`,
-        slug,
-        permalink,
-        title: meta.title || f.name,
-        summary: meta.summary || "",
-        category: meta.category || "Sage 100",
-        tag: meta.tag || "News",
-        date: meta.date || "",
-        readTime: meta.readTime || "3 min",
-        featured: meta.featured === "true",
-        body
-      };
-    } catch { return null; }
-  }));
-
-  return { posts: posts.filter(Boolean), source: "github" };
+// ── POSTS MANIFEST LOADER ───────────────────────────────────────────────────
+async function loadPostsFromManifest() {
+  const manifestUrl = `./posts-manifest.json?v=${Date.now()}`;
+  const res = await fetch(manifestUrl, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Manifest ${res.status}`);
+  const manifest = await res.json();
+  return { posts: manifest.posts || [], source: "manifest" };
 }
 
 // ── BRAND COLORS ───────────────────────────────────────────────────────────
@@ -925,7 +864,7 @@ function App() {
   // Load posts from GitHub on mount
   useEffect(() => {
     setLoading(true);
-    loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {
+    loadPostsFromManifest().then(({ posts: loaded, source }) => {
       setPosts(loaded);
       setPostsSource(source);
       if (currentSlug) {

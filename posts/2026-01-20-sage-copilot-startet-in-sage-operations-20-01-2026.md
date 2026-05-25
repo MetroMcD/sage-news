@@ -3,7 +3,7 @@ title: Sage Copilot startet in Sage Operations
 date: 20. Januar 2026
 category: Sage Operations
 tag: KI
-summary: Sage bringt mit Sage Copilot erste KI-Unterstützung direkt in Sage Operations. Das Ziel: Mitarbeitende in Handel und Fertigung früher auf Probleme hinweisen, Entscheidungen beschleunigen und Routinearbeit Stück für Stück intelligenter begleiten.
+summary: Sage bringt mit Sage Copilot erste KI-Unterstützung direkt in Sage Operations. Mitarbeitende in Handel und Fertigung sollen Probleme früher erkennen und Routinearbeit effizienter abwickeln.
 readTime: 2 min
 featured: false
 ---
@@ -33,3 +33,5 @@ Das ist der eigentlich spannende Teil: Nicht der laute KI-Aufkleber, sondern die
 ## Fazit
 
 Mit **Sage Copilot in Sage Operations** startet Sage sinnvollerweise nicht mit Zaubershow, sondern mit konkreter Unterstützung im Tagesgeschäft. Wenn Hinweise, Warnungen und Prioritäten sauber im Workflow auftauchen, ist das für viele Teams sofort nützlicher als jede große KI-Vision auf Hochglanzfolie.
+
+Quelle: Sage GmbH

@@ -38,3 +38,5 @@ Ein wichtiger Punkt: Die Kompetenzpflicht nach **Artikel 4** gilt laut Artikel b
 ## Fazit
 
 Der EU AI Act ist kein Zukunftsthema mehr, das man auf „später“ legen kann. Wer im Mittelstand heute bereits KI in Fachabteilungen nutzt, sollte die nächsten Monate für Inventur, Klassifizierung und klare Verantwortlichkeiten nutzen. Sonst wird aus einem praktischen Automatisierungshelfer schnell ein Compliance-Thema mit unangenehmem Nachspiel – und davon hat bekanntlich schon der normale Montag genug.
+
+Quelle: Sage GmbH

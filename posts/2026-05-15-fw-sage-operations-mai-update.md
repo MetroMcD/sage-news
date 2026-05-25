@@ -6,7 +6,7 @@ tag: Release
 summary: Sage stellt den API-Vorgang createMultipleWorkOrderTrackings in Sage Operations von synchron auf asynchron um. Wer die API nutzt, muss Aufruf und Ergebnisabruf anpassen.
 readTime: 1 min
 featured: false
-slug: sage-operations-api-update-createmultipleworkordertrackings-wird-asynchron
+slug: sage-operations-api-workordertrackings-asynchron
 ---
 
 Mit dem aktuellen **Mai-Update für Sage Operations** wird der API-Vorgang **`createMultipleWorkOrderTrackings`** nicht mehr synchron, sondern **asynchron** verarbeitet. Wer diese API nutzt, muss deshalb den Ablauf beim Aufruf und beim Abruf der Ergebnisse anpassen.

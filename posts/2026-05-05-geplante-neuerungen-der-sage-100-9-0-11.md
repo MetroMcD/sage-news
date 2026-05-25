@@ -3,7 +3,7 @@ title: Geplante Neuerungen in Sage 100 9.0.11: Web Client, E-Rechnung und neue O
 date: 5. Mai 2026
 category: Sage 100
 tag: Release
-summary: Für Sage 100 Version 9.0.11 zeichnet sich ein umfangreiches Update ab. Geplante Neuerungen betreffen unter anderem Warenwirtschaft, E-Rechnung, Varianten, Stapeldruck und weitere Bereiche auf dem Weg weg von Access hin zur neuen Oberfläche.
+summary: Für Sage 100 Version 9.0.11 zeichnet sich ein umfangreiches Update ab. Geplante Neuerungen betreffen Warenwirtschaft, E-Rechnung, Varianten, Stapeldruck und den Weg zur neuen Oberfläche.
 readTime: 4 min
 featured: true
 ---
@@ -51,3 +51,5 @@ Vor allem beim Stapeldruck und bei Variantenpflege zeigt sich, dass nicht nur ne
 ## Fazit
 
 Die geplanten Neuerungen in **Sage 100 9.0.11** deuten auf ein inhaltlich breites Release hin. Besonders relevant sind die vielen Schritte **weg von Access** und **hin zur neuen Oberfläche**, ergänzt um praxisnahe Erweiterungen bei **E-Rechnung**, **Druckprozessen** und **Variantenverwaltung**. Für Partner und Kunden mit individuellen Prozessen lohnt es sich, diese Änderungen früh zu prüfen – bevor aus „geplante Neuerungen“ später sehr reale Rückfragen werden.
+
+Quelle: Sage GmbH

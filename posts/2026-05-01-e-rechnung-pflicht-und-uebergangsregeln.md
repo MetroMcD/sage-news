@@ -35,3 +35,5 @@ Besonders wichtig sind dabei drei Punkte:
 ## Fazit
 
 Die E-Rechnung ist kein fernes Zukunftsthema mehr, sondern ein ziemlich konkreter Umbau im kaufmännischen Alltag. Wer jetzt Formate, Prozesse und Archivierung sortiert, vermeidet später hektische Improvisation mit PDF-Anhängen und halbgaren Workarounds. Anders gesagt: Lieber heute strukturiert planen als morgen Rechnungschaos mit gesetzlichem Beigeschmack verwalten.
+
+Quelle: Sage GmbH
