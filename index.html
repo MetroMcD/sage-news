@@ -897,7 +897,6 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [postsSource, setPostsSource] = useState("github");
   const [loading, setLoading] = useState(false);
-  const [postsLoaded, setPostsLoaded] = useState(false);
   const [currentSlug, setCurrentSlug] = useState(() => {
     const parts = window.location.pathname.split("/").filter(Boolean);
     return parts.length === 1 ? parts[0] : null;
@@ -928,12 +927,10 @@ function App() {
         setSelectedPost(matched || null);
       }
       setLoading(false);
-      setPostsLoaded(true);
     }).catch(() => {
       setPosts([]);
       setPostsSource("github");
       setLoading(false);
-      setPostsLoaded(true);
     });
   }, []);
 
@@ -949,8 +946,7 @@ function App() {
 
   const catMap = { "sage100": "Sage 100", "sagex3": "Sage X3", "operations": "Sage Operations" };
   const filteredPosts = catMap[page] ? posts.filter(p => p.category === catMap[page]) : posts;
-  const feedPosts = page === "home" ? filteredPosts.slice(0, 8) : filteredPosts;
-  const displayedPosts = feedPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
+  const displayedPosts = filteredPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
   const showFeed = ["home", "sage100", "sagex3", "operations"].includes(page);
 
   function navTo(p) {
@@ -973,18 +969,6 @@ function App() {
     }
     window.scrollTo({ top: 0 });
   }
-
-  useEffect(() => {
-    if (!postsLoaded || currentSlug || page !== "home") return;
-    const newest = posts[0];
-    if (!newest?.permalink) return;
-    fetch(`/` + newest.permalink + `/`, { method: "HEAD" })
-      .then(res => {
-        if (!res.ok) return;
-        fetch(window.location.pathname + window.location.hash, { cache: "reload" }).catch(() => {});
-      })
-      .catch(() => {});
-  }, [postsLoaded, posts, currentSlug, page]);
 
   return (
     <div>
