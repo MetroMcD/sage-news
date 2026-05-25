@@ -255,6 +255,21 @@ Ziel:
 - Der Beitrag soll auf Mobilgeräten und normalen Browsern als echte Webseite öffnen
 - Ein Klick auf den Artikel darf nicht nur den Download oder die Rohansicht der Markdown-Datei auslösen
 
+## Feed-/Startseiten-Sichtbarkeit
+
+Wenn die Startseite ihre Beiträge dynamisch lädt oder einen Fallback-Feed nutzt, muss dieser Veröffentlichungsweg mit gepflegt werden.
+
+Aktuelle Betriebsregel:
+- Nach Veröffentlichung muss der Beitrag nicht nur unter `/<slug>/index.html` erreichbar sein, sondern auch im Homepage-Feed sichtbar werden.
+- Falls die Startseite auf ein Manifest oder einen Fallback-Datensatz zurückgreift, muss dieser ebenfalls aktualisiert werden.
+- Aktuell ist dafür zusätzlich `posts-manifest.json` relevant.
+
+Prüfung vor Abschluss:
+- Artikelseite liefert `200`
+- Startseite liefert `200`
+- Startseite enthält Link auf `/<slug>/`
+- kein Erfolg melden, solange der Beitrag nur direkt erreichbar, aber nicht im Feed sichtbar ist
+
 ## Audio
 
 Aktuell **keine automatische Audio-Nachbearbeitung**.
