@@ -81,8 +81,7 @@ const GH_CONFIG = {
   owner: "MetroMcD",
   repo:  "sage-news",
   branch: "main",
-  postsPath: "posts",
-  repoApiUrl: "https://api.github.com/repos/MetroMcD/sage-news/contents/posts?ref=main"
+  postsPath: "posts"
 };
 
 // ── TWEAK DEFAULTS ─────────────────────────────────────────────────────────
@@ -190,7 +189,7 @@ async function loadPostsFromGitHub(cfg) {
   const isConfigured = cfg.owner && cfg.owner !== "YOUR_GITHUB_USERNAME";
   if (!isConfigured) return { posts: SAMPLE_POSTS, source: "sample" };
 
-  const listUrl = cfg.repoApiUrl || `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.postsPath}?ref=${cfg.branch}`;
+  const listUrl = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/${cfg.postsPath}?ref=${cfg.branch}`;
   let files;
   try {
     const res = await fetch(listUrl, { headers: { Accept: "application/vnd.github.v3+json" } });
