@@ -202,7 +202,9 @@ async function loadPostsFromGitHub(cfg) {
 
   const mdFiles = files.filter(f => f.name.endsWith(".md") && !f.name.startsWith("_")).sort((a, b) => b.name.localeCompare(a.name));
 
-  const posts = await Promise.all(mdFiles.map(async (f, idx) => {
+  const visibleMdFiles = mdFiles.slice(0, 8);
+
+  const posts = await Promise.all(visibleMdFiles.map(async (f, idx) => {
     try {
       const r = await fetch(f.download_url);
       const raw = await r.text();
