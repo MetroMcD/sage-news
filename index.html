@@ -299,6 +299,10 @@ function Header({ page, setPage, accentColor }) {
           </nav>
 
           <div style={{ marginLeft: "auto", flexShrink: 0, display: "flex", alignItems: "center", gap: "10px" }}>
+            <a href="https://share.sage-news.de" target="_blank" rel="noopener noreferrer"
+              className="pw-share-btn">
+              Passwort teilen
+            </a>
             <span style={{
               background: accentColor, color: "#07172f",
               fontSize: "11px", fontWeight: 800,
@@ -350,14 +354,31 @@ function Header({ page, setPage, accentColor }) {
                 }}>{item.label}</button>
               );
             })}
+            <a href="https://share.sage-news.de" target="_blank" rel="noopener noreferrer" style={{
+              display: "block", padding: "11px 14px", borderRadius: "8px",
+              color: "rgba(255,255,255,0.6)", fontSize: "15px", fontWeight: 500,
+              textDecoration: "none"
+            }}>Passwort teilen ↗</a>
           </nav>
         )}
       </div>
 
       <style>{`
+        .pw-share-btn {
+          display: flex; align-items: center;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 8px; padding: 6px 12px;
+          color: rgba(255,255,255,0.85);
+          font-size: 13px; font-weight: 500;
+          text-decoration: none; white-space: nowrap;
+          transition: background 0.15s;
+        }
+        .pw-share-btn:hover { background: rgba(255,255,255,0.15); }
         @media (max-width: 680px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: flex !important; }
+          .pw-share-btn { display: none !important; }
           .post-grid-featured, .post-grid-regular { grid-template-columns: 1fr !important; }
           .post-grid-featured article { grid-column: 1 !important; }
           .info-hero { flex-direction: column !important; align-items: stretch !important; }
