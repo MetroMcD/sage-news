@@ -1,6 +1,32 @@
 {
   "posts": [
     {
+      "id": "2026-06-24-sage-100-intrastat-core-verfahren-hotfix-9-0-11-2",
+      "slug": "sage-100-intrastat-core-verfahren-hotfix-9-0-11-2",
+      "permalink": "sage-100-intrastat-core-verfahren-hotfix-9-0-11-2",
+      "title": "Sage 100 zieht Intrastat-.core-Verfahren in Hotfix 9.0.11.2 vor",
+      "summary": "Sage 100 unterstützt das Intrastat-.core-Verfahren bereits im Hotfix 9.0.11.2 vom 18. Juni 2026. Die Anpassung wurde vorgezogen und steht damit deutlich früher als geplant bereit.",
+      "category": "Sage 100",
+      "tag": "Compliance",
+      "date": "24. Juni 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Die Umstellung der Intrastatmeldung auf das .core-Verfahren ist für Sage-100-Anwender nicht erst ein Thema für das nächste Service Pack. Laut Mail wurde die Anpassung bereits im Hotfixstand 9.0.11.2 umgesetzt, der am 18.06.2026 veröffentlicht wurde.\n\n## Fakten aus der Mitteilung\n\nAls Hintergrund nennt die Quelle Mitteilungen des Statistischen Bundesamtes, wonach die Einreichung der Intrastat-Meldung ab 2027 auf das .core-Verfahren umgestellt wird. Ursprünglich war vorgesehen, die nötigen Änderungen erst mit dem Service Pack 9.0.12 im Spätsommer oder Herbst bereitzustellen, solange die Einreichung über IDEV noch möglich ist.\n\nNach Angaben in der Mail wurde dieser Zeitplan wegen vieler Rückfragen vorgezogen. Die Anpassung ist nun bereits in 9.0.11.2 enthalten. Zusätzlich verweist die Mitteilung auf den zugehörigen Wissensdatenbankeintrag mit der ID 214908 für Office Line und Sage 100. Als Änderungsdatum des Eintrags wird der 23.06.2026 genannt.\n\n## Einordnung\n\nFür Unternehmen mit Intrastatpflicht ist das relevant, weil die technische Umstellung damit früher verfügbar ist als zunächst geplant. Das schafft mehr Vorlauf für die Umstellung interner Abläufe, bevor das .core-Verfahren ab 2027 verbindlich wird.\n\n## Empfehlung\n\nWer Intrastatmeldungen aus Sage 100 heraus vorbereitet oder begleitet, sollte prüfen, ob der Hotfixstand 9.0.11.2 bereits eingeplant ist. Sinnvoll ist außerdem, den verlinkten Artikel 214908 in die interne Vorbereitung auf die Umstellung einzubeziehen.\n\nQuelle: Sage GmbH"
+    },
+    {
+      "id": "2026-06-18-sage-100-live-update-9-0-11-2-funktionen-korrekturen",
+      "slug": "sage-100-live-update-9-0-11-2-funktionen-korrekturen",
+      "permalink": "sage-100-live-update-9-0-11-2-funktionen-korrekturen",
+      "title": "Sage 100 Live Update 9.0.11.2 bündelt neue Funktionen und zahlreiche Korrekturen",
+      "summary": "Das Live Update 9.0.11.2 für Sage 100 ergänzt das .core-Verfahren für Intrastat und behebt viele fachliche und technische Fehler. Relevant ist es besonders für verteilte Installationen und produktive Prozesse.",
+      "category": "Sage 100",
+      "tag": "Release",
+      "date": "18. Juni 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Mit dem Live Update 9.0.11.2 hat Sage 100 einen Hotfixstand erhalten, der nicht nur neue Funktionen ergänzt, sondern auch viele konkrete Fehler in produktionsnahen Bereichen adressiert. Für verteilte Installationen ist dabei wichtig: Das Liveupdate muss laut Quelle zuerst auf dem Application Server, danach auf dem Sage 100 Server und zuletzt auf den Client-Rechnern eingespielt werden.\n\n## Fakten aus dem Update\n\nAls neue Funktionen nennt die Mail den AppDesigner, die INSTAT/XML-Meldung über das .core-Verfahren, Änderungen bei der Einrichtung von Sage Zahlungen Online sowie eine Anpassung des CSV-Exports beim Dateiaufbau. Daneben werden zahlreiche Korrekturen aufgelistet, unter anderem für Mahndruck mit NT-Usern, Zahlungsverkehrsprotokolle, die Navigation in Filterzeilen, Fokusprobleme in der EK-/VK-Belegerfassung und das Verhalten von Listen und Dialogen.\n\nHinzu kommen technische und fachliche Fehlerbehebungen in weiteren Modulen. Genannt werden unter anderem Probleme rund um das Application Gateway in Multiserverumgebungen, Anmeldungen mit Umlauten im Benutzernamen, sporadische ODBC-Anmeldedialoge, das Schriftbild von RTF-Texten beim PDF-Export, den SMTP-Versand im Belegstapeldruck, E-Rechnungen, den Produktkonfigurator sowie mehrere DMS-Funktionen.\n\n## Einordnung\n\nDer Umfang der Korrekturliste spricht für ein Update mit klarer Betriebsrelevanz. Besonders auffällig ist die Mischung aus technischen Basisproblemen und fachlichen Korrekturen in zentralen Bereichen wie Zahlungsverkehr, Warenwirtschaft, Buchungserfassung und Dokumentenmanagement.\n\n## Empfehlung\n\nSinnvoll ist ein Blick auf Installationen, in denen verteilte Serverstrukturen, Zahlungsverkehr, DMS-Prozesse oder E-Rechnungen produktiv genutzt werden. Vor dem Rollout sollte außerdem geprüft werden, ob die vorgegebene Update-Reihenfolge in der eigenen Umgebung sauber eingehalten werden kann.\n\nQuelle: Sage GmbH"
+    },
+    {
       "id": "2026-06-17-sage-100-praxedo-connector-9-0-11-serviceinfos-sync",
       "slug": "sage-100-praxedo-connector-9-0-11-serviceinfos-sync",
       "permalink": "sage-100-praxedo-connector-9-0-11-serviceinfos-sync",
