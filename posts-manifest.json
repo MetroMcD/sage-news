@@ -1,6 +1,19 @@
 {
   "posts": [
     {
+      "id": "2026-07-16-sage-operations-api-update-anpassungsbedarf",
+      "slug": "sage-operations-api-update-anpassungsbedarf",
+      "permalink": "sage-operations-api-update-anpassungsbedarf",
+      "title": "Sage Operations kündigt API-Update mit möglichem Anpassungsbedarf an",
+      "summary": "Sage Operations bereitet in den kommenden Wochen Aktualisierungen vor, die bestehende Integrationen und individuelle Erweiterungen betreffen können. Technische Änderungen dokumentiert Sage im GraphQL-Schema-Changelog.",
+      "category": "Sage Operations",
+      "tag": "Release",
+      "date": "16. Juli 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Sage will in den kommenden Wochen Aktualisierungen für Sage Operations ausrollen. Relevant ist das vor allem für Unternehmen, die eigene Anbindungen, Auswertungen oder andere individuelle Erweiterungen im Einsatz haben.\n\n## Was konkret betroffen sein kann\n\nAls technische Referenz nennt Sage das GraphQL-Schema-Changelog auf `developer.sage.com`. Dort sollen die API-bezogenen Änderungen nachvollziehbar dokumentiert werden.\n\nBetroffen sein können unter anderem benutzerdefinierte Dashboard-Anker, Reports, Importe, Exporte, Skripte und APIs. Ergänzende Hinweise stellt Sage wie üblich direkt im Produkt über die Hilfethemen bereit.\n\n## Einordnung\n\nDie Meldung beschreibt noch keine einzelne Funktionsänderung im Detail, macht aber den möglichen Anpassungsbedarf klar. Wer Sage Operations technisch erweitert oder an andere Systeme angebunden hat, sollte die Änderungen deshalb nicht erst nach dem Rollout prüfen.\n\n## Empfehlung\n\nSinnvoll ist, das GraphQL-Schema-Changelog zeitnah gegen bestehende APIs, Skripte, Reports und Import- oder Exportprozesse zu prüfen. Ebenso sollten Verantwortliche einplanen, die ergänzenden Hinweise in den Hilfethemen von Sage Operations zu sichten, sobald die Aktualisierungen ausgerollt werden.\n\nQuelle: Sage GmbH"
+    },
+    {
       "id": "2026-07-14-sage-100-9-0-11-neuerungen-online-hilfe",
       "slug": "sage-100-9-0-11-neuerungen-online-hilfe",
       "permalink": "sage-100-9-0-11-neuerungen-online-hilfe",
