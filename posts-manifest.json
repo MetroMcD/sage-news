@@ -1,6 +1,19 @@
 {
   "posts": [
     {
+      "id": "2026-07-27-sage-100-9-0-11-3-liveupdate",
+      "slug": "sage-100-9-0-11-3-liveupdate-smtp-dms-stapeldruck",
+      "permalink": "sage-100-9-0-11-3-liveupdate-smtp-dms-stapeldruck",
+      "title": "Sage 100 9.0.11.3: LiveUpdate behebt SMTP-, DMS- und Stapeldruck-Probleme",
+      "summary": "Das LiveUpdate 9.0.11.3 fuer Sage 100 behebt Fehler in SMTP, DMS, Stapeldruck, Warenwirtschaft und Rechnungswesen. Fuer Oesterreich ist zusaetzlich die UVA-Anpassung auf 4,9 Prozent enthalten.",
+      "category": "Sage 100",
+      "tag": "Release",
+      "date": "27. Juli 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Mit dem LiveUpdate 9.0.11.3 fuer Sage 100 steht ein Wartungsstand bereit, der mehrere praxisrelevante Fehler in zentralen Bereichen korrigiert. Betroffen sind unter anderem der SMTP-Versand, der Stapeldruck, Funktionen in der Belegauskunft, DMS-Ablagen sowie einzelne Ablaeufe in Warenwirtschaft, Rechnungswesen und Produktion.\n\nFaktisch bringt der Build 891 vom 20.07.2026 vor allem Korrekturen. In der Warenwirtschaft wurden unter anderem Probleme mit dem Chargendialog, der Seriennummernverarbeitung bei Teilrechnungen, der Projektsuche und dem Stapeldruck behoben. Im Systembereich nennt Sage Korrekturen beim Fokusverhalten in Suchdialogen, beim Navigieren mit Pfeiltasten sowie beim E-Mail-Versand per SMTP. Besonders relevant duerfte fuer einige Installationen die Behebung eines Laufzeitfehlers beim SMTP-Versand mit OAuth 2 sein.\n\nAuch im Rechnungswesen und im DMS enthaelt das Update mehrere Fehlerbehebungen, etwa beim CSV-Export der EU-Umsatzliste, bei Kostenauswertungen, bei der Buchungserfassung und beim Ablegen externer Dokumente. Zusaetzlich fuehrt Sage fuer Oesterreich eine fachliche Anpassung ein: Seit dem 1. Juli 2026 kann der reduzierte UVA-Umsatzsteuersatz von 4,9 Prozent in der UVA und der Infoauskunft abgebildet werden.\n\n## Was bei der Einspielung zusaetzlich wichtig ist\n\nDie oesterreichische UVA-Anpassung wird nicht vollstaendig automatisch wirksam. Laut Sage erhalten bestehende Kundendatenbanken die neuen Steuerklassen, Steuersaetze und Festkontenzuordnungen nicht automatisch. Diese Werte muessen in der Datenbank aktualisiert werden.\n\nEmpfehlenswert ist daher, das LiveUpdate nicht nur technisch einzuspielen, sondern die Zusatzaktionen gezielt einzuplanen. Bei verteilten Installationen soll die Aktualisierung zuerst auf dem Application Server, danach auf dem Sage-100-Server und zuletzt auf den Client-Rechnern erfolgen. Wer SMTP mit OAuth 2 nutzt oder mit DMS- und Stapeldruck-Themen zu tun hatte, sollte den Wartungsstand zeitnah pruefen.\n\nQuelle: Sage GmbH"
+    },
+    {
       "id": "2026-07-16-sage-operations-api-update-anpassungsbedarf",
       "slug": "sage-operations-api-update-anpassungsbedarf",
       "permalink": "sage-operations-api-update-anpassungsbedarf",
