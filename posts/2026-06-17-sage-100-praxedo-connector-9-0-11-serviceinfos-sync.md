@@ -26,4 +26,5 @@ Das Release kombiniert kleinere funktionale Erweiterungen mit Korrekturen an kri
 
 Sinnvoll ist ein gezielter Blick auf Installationen, die viele Servicevorgaenge synchronisieren oder den Batchabgleich fuer Lagerbestaende intensiv nutzen. Vor einem Rollout sollte geprueft werden, wie sich das neue Verhalten beim Lagerupload und die korrigierten Synchronisationsprozesse in den eigenen Ablaeufen auswirken.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

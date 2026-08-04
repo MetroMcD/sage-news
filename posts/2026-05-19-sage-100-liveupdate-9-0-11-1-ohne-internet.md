@@ -33,4 +33,5 @@ Wer mit der **englischen Oberfläche der Sage 100** arbeitet, braucht für **Ver
 
 Das **Service Pack Sage 100 9.0.11 mit Hotfix 9.0.11.1** ist auch für Kunden ohne Internetanschluss sauber per LiveUpdate umsetzbar. Entscheidend ist danach aber der administrative Nachlauf: **SA-Systembenutzer je Datenbank neu setzen** und bei englischer Oberfläche das **neue Sprachpaket** nicht vergessen. Sonst wird aus einem Routineupdate schnell wieder eine kleine Nachmittagsbeschäftigung.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

@@ -24,4 +24,5 @@ Der Umfang der Korrekturliste spricht für ein Update mit klarer Betriebsrelevan
 
 Sinnvoll ist ein Blick auf Installationen, in denen verteilte Serverstrukturen, Zahlungsverkehr, DMS-Prozesse oder E-Rechnungen produktiv genutzt werden. Vor dem Rollout sollte außerdem geprüft werden, ob die vorgegebene Update-Reihenfolge in der eigenen Umgebung sauber eingehalten werden kann.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

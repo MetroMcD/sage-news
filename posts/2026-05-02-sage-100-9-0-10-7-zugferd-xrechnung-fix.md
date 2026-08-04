@@ -42,4 +42,5 @@ Relevant ist das Update vor allem für Unternehmen, die:
 
 Das Update **9.0.10.7** ist schlank, aber gezielt: Es beseitigt einen konkreten Fehler in der elektronischen Rechnungserstellung. Wenn einer der genannten Punkte für Ihr Unternehmen relevant ist, wenden Sie sich bitte an Ihren Fachhändler, um die Bedeutung für Ihre Umgebung und die Einplanung des Updates zu prüfen.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

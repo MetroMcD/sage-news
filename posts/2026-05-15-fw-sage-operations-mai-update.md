@@ -30,4 +30,5 @@ Wer **`createMultipleWorkOrderTrackings`** bereits verwendet, sollte die eigene 
 
 Für betroffene Integrationen ist das keine kosmetische Änderung, sondern eine echte Anpassung im Ablauf. Wer die API im Einsatz hat, sollte das Update nicht einfach durchwinken.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

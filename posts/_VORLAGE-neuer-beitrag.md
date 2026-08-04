@@ -11,8 +11,6 @@ slug: sprechender-dauerhafter-slug-des-beitrags
 
 **Kurzfazit:** Ein Satz, der das Wichtigste auf den Punkt bringt.
 
-**Quelle:** Quellenangabe (z. B. Sage Release Notes, offizielle Dokumentation, internes Dokument)
-
 ## Worum geht es?
 
 Einleitender Absatz: Was ist passiert, was wurde veröffentlicht oder geändert? Kontext für den Leser herstellen.
@@ -31,3 +29,6 @@ Was bedeutet das konkret für Anwender, Administratoren oder die Buchhaltung? Pr
 ## Empfehlung
 
 Handlungsempfehlung: Was sollte der Leser als nächstes tun?
+
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

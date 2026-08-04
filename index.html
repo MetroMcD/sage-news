@@ -717,6 +717,19 @@ function SystemcheckPage() {
 
 // ── INFO PAGE ──────────────────────────────────────────────────────────────
 function InfoPage({ postsSource }) {
+  const heroBtnStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "8px",
+    background: "rgba(255,255,255,0.12)",
+    color: "white",
+    border: "1px solid rgba(255,255,255,0.18)",
+    borderRadius: "999px",
+    padding: "8px 14px",
+    fontSize: "12px",
+    fontWeight: 700,
+    textDecoration: "none"
+  };
   return (
     <div style={{ maxWidth: "640px" }}>
       {/* Hero card with portrait */}
@@ -757,26 +770,24 @@ function InfoPage({ postsSource }) {
           <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, marginBottom: "14px" }}>
             Projektmanager<br/>Sage-Spezialist
           </p>
-          <a
-            href="https://www.linkedin.com/in/rene-m%C3%BCnz-77912a102/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "rgba(255,255,255,0.12)",
-              color: "white",
-              border: "1px solid rgba(255,255,255,0.18)",
-              borderRadius: "999px",
-              padding: "8px 14px",
-              fontSize: "12px",
-              fontWeight: 700,
-              textDecoration: "none"
-            }}
-          >
-            LinkedIn-Profil ansehen
-          </a>
+          <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+            <a
+              href="https://www.linkedin.com/in/rene-m%C3%BCnz-77912a102/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={heroBtnStyle}
+            >
+              LinkedIn-Profil ansehen
+            </a>
+            <a
+              href="https://dispatcher-ai.de"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={heroBtnStyle}
+            >
+              Plan and Dispatch AI
+            </a>
+          </div>
         </div>
 
         {/* Decorative glow behind portrait */}

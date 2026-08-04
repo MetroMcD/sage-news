@@ -24,4 +24,5 @@ Für Unternehmen mit Intrastatpflicht ist das relevant, weil die technische Umst
 
 Wer Intrastatmeldungen aus Sage 100 heraus vorbereitet oder begleitet, sollte prüfen, ob der Hotfixstand 9.0.11.2 bereits eingeplant ist. Sinnvoll ist außerdem, den verlinkten Artikel 214908 in die interne Vorbereitung auf die Umstellung einzubeziehen.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

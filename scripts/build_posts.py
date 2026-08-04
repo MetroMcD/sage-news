@@ -32,6 +32,8 @@ TAG_COLORS = {
     'News': {'bg': '#f0f4ff', 'color': '#3730a3'},
 }
 REQUIRED_META = ['title', 'date', 'category', 'tag', 'summary', 'readTime', 'featured']
+SOURCE_SUFFIX = '(zusammengefasst mit KI für Sage-News.de)'
+SOURCE_BLOCK_RE = re.compile(r'\n\s*---\s*\n(Quelle:[^\n]+)\s*$')
 ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact'}
 ALLOWED_TAGS = {'Release', 'Neu', 'KI', 'Cloud', 'Compliance', 'Perspektive', 'News'}
 DATE_RE = re.compile(r'^\d{1,2}\.\s+[A-Za-zÄÖÜäöü]+\s+\d{4}$')
@@ -142,6 +144,14 @@ def markdown_to_html(text: str) -> str:
     return ''.join(html_lines)
 
 
+def split_source(body: str) -> tuple[str, str]:
+    """Trennt die Quellen-Fußzeile vom Fließtext ab."""
+    match = SOURCE_BLOCK_RE.search(body)
+    if not match:
+        return body, ''
+    return body[:match.start()].rstrip(), match.group(1).strip()
+
+
 def load_posts() -> list[Post]:
     posts: list[Post] = []
     for path in sorted(POSTS_DIR.glob('*.md')):
@@ -184,8 +194,11 @@ def validate_posts(posts: list[Post]) -> None:
             raise ValueError(f'{post.source_path.name}: summary zu lang (>220 Zeichen)')
         if len(post.slug) > 60:
             raise ValueError(f'{post.source_path.name}: slug zu lang (>60 Zeichen)')
-        if 'Quelle:' not in post.body:
-            raise ValueError(f'{post.source_path.name}: Quellenangabe fehlt im Body')
+        source = split_source(post.body)[1]
+        if not source:
+            raise ValueError(f'{post.source_path.name}: Quellen-Fußzeile fehlt am Textende')
+        if not source.endswith(SOURCE_SUFFIX):
+            raise ValueError(f'{post.source_path.name}: Quellen-Fußzeile ohne KI-Hinweis {SOURCE_SUFFIX}')
 
 
 def build_manifest(posts: list[Post]) -> dict:
@@ -220,7 +233,10 @@ def build_article_html(post: Post) -> str:
         f'<span class="badge badge-tag" style="background:{TAG_COLORS.get(tag, {"bg":"#f0f0f0","color":"#374151"})["bg"]};color:{TAG_COLORS.get(tag, {"bg":"#f0f0f0","color":"#374151"})["color"]}">{escape(tag)}</span>'
         for tag in tags
     )
-    article_html = markdown_to_html(post.body)
+    body_text, source_text = split_source(post.body)
+    article_html = markdown_to_html(body_text)
+    if source_text:
+        article_html += f'<hr><p class="article-source">{render_inline(source_text)}</p>'
     title = escape(post.meta['title'])
     summary = escape(post.meta['summary'])
     return f'''<!DOCTYPE html>
@@ -239,7 +255,7 @@ def build_article_html(post: Post) -> str:
 <style>
 :root {{--sn-blue-950:#061b49;--sn-blue-900:#082b6f;--sn-blue-800:#0a3b93;--sn-blue-600:#0d6ecf;--sn-blue-100:#e8f7ff;--sn-ink:#07172f;--sn-muted:#5f728a;--sn-border:#d6e9f8;--sn-bg:#f4f9fe;}}
 *,*::before,*::after{{box-sizing:border-box}} body{{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--sn-bg);color:var(--sn-ink);-webkit-font-smoothing:antialiased}}
-a{{color:var(--sn-blue-600);text-decoration:none}}a:hover{{text-decoration:underline}}.container{{max-width:860px;margin:0 auto;padding:24px 20px 64px}}.hero{{margin-top:24px;background:linear-gradient(135deg,var(--sn-blue-950),var(--sn-blue-800));color:white;border-radius:16px;padding:32px}}.badges{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}}.badge{{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}}.badge-category{{background:{cat['bg']};color:{cat['color']}}}h1{{margin:0 0 12px;font-size:32px;line-height:1.2}}.meta{{font-size:13px;color:rgba(255,255,255,.72)}}.article{{margin-top:24px;background:#fff;border:1.5px solid var(--sn-border);border-radius:16px;padding:32px}}.summary{{background:var(--sn-blue-100);border-left:3px solid var(--sn-blue-600);border-radius:10px;padding:16px 20px;margin-bottom:24px}}.summary-label{{font-size:11px;font-weight:800;color:var(--sn-blue-800);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}}.prose{{font-size:16px;line-height:1.8}}.prose h2{{font-size:22px;line-height:1.3;margin:1.6em 0 .6em;padding-bottom:8px;border-bottom:1.5px solid var(--sn-border)}}.prose h3{{font-size:18px;line-height:1.35;margin:1.35em 0 .55em}}.prose p{{margin:0 0 1em}}.prose ul{{margin:0 0 1em 1.2em;padding:0}}.prose li{{margin:0 0 .5em}}.prose strong{{color:var(--sn-ink)}}.prose code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef6ff;padding:2px 6px;border-radius:5px;font-size:.92em}}.prose hr{{border:none;border-top:1.5px solid var(--sn-border);margin:1.5em 0}}.footer{{border-top:1.5px solid var(--sn-border);background:#fff}}.footer-inner{{max-width:1140px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--sn-muted);font-size:12px}}@media (max-width:700px){{h1{{font-size:26px}}.hero,.article{{padding:22px}}.topbar-inner,.footer-inner{{flex-direction:column;align-items:flex-start}}}}
+a{{color:var(--sn-blue-600);text-decoration:none}}a:hover{{text-decoration:underline}}.container{{max-width:860px;margin:0 auto;padding:24px 20px 64px}}.hero{{margin-top:24px;background:linear-gradient(135deg,var(--sn-blue-950),var(--sn-blue-800));color:white;border-radius:16px;padding:32px}}.badges{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}}.badge{{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}}.badge-category{{background:{cat['bg']};color:{cat['color']}}}h1{{margin:0 0 12px;font-size:32px;line-height:1.2}}.meta{{font-size:13px;color:rgba(255,255,255,.72)}}.article{{margin-top:24px;background:#fff;border:1.5px solid var(--sn-border);border-radius:16px;padding:32px}}.summary{{background:var(--sn-blue-100);border-left:3px solid var(--sn-blue-600);border-radius:10px;padding:16px 20px;margin-bottom:24px}}.summary-label{{font-size:11px;font-weight:800;color:var(--sn-blue-800);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}}.prose{{font-size:16px;line-height:1.8}}.prose h2{{font-size:22px;line-height:1.3;margin:1.6em 0 .6em;padding-bottom:8px;border-bottom:1.5px solid var(--sn-border)}}.prose h3{{font-size:18px;line-height:1.35;margin:1.35em 0 .55em}}.prose p{{margin:0 0 1em}}.prose ul{{margin:0 0 1em 1.2em;padding:0}}.prose li{{margin:0 0 .5em}}.prose strong{{color:var(--sn-ink)}}.prose code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef6ff;padding:2px 6px;border-radius:5px;font-size:.92em}}.prose hr{{border:none;border-top:1.5px solid var(--sn-border);margin:1.5em 0}}.prose .article-source{{color:var(--sn-muted);font-size:14px;font-style:italic;margin-bottom:0}}.footer{{border-top:1.5px solid var(--sn-border);background:#fff}}.footer-inner{{max-width:1140px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--sn-muted);font-size:12px}}@media (max-width:700px){{h1{{font-size:26px}}.hero,.article{{padding:22px}}.topbar-inner,.footer-inner{{flex-direction:column;align-items:flex-start}}}}
 </style>
 </head>
 <body>

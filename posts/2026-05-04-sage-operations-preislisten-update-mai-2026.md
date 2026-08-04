@@ -35,4 +35,5 @@ Wichtig ist auch der Hinweis von Sage, dass diese Aktualisierungen **nur für Ku
 
 Das ist kein Update für hektische Panik – aber definitiv eins für einen kurzen Technik-Check vor dem 8. Mai. Wer eigene Anpassungen in Sage Operations im Einsatz hat, sollte jetzt prüfen, ob irgendwo noch alte Paketnamen oder Bezeichnungen verdrahtet sind. Sonst meldet sich das System später genau dann, wenn eigentlich niemand Lust auf Überraschungen hat.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

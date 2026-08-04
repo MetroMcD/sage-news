@@ -36,4 +36,4 @@ Sage empfiehlt, bestehende Installationen frühzeitig zu prüfen – besonders d
 Unterm Strich ist das kein Alarmthema für den laufenden Betrieb. Aber es ist genau die Sorte Lizenzänderung, die später teuer oder unpraktisch wird, wenn sie in Projekten erst auftaucht, nachdem der Bedarf schon da ist.
 
 ---
-*Quelle: Sage GmbH*
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

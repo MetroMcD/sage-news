@@ -59,6 +59,25 @@ Absatztext...
 - Listenpunkt 2
 ```
 
+### Pflicht: Quellen-Fußzeile am Textende
+
+Jeder Beitrag muss mit einer Trennlinie und der Quellenangabe enden. Der Zusatz in
+Klammern weist darauf hin, dass der Text mit KI zusammengefasst wurde, und ist
+Pflicht – ohne ihn schlägt der automatische Build fehl.
+
+```markdown
+
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)
+```
+
+Stammt der Beitrag aus einer anderen Quelle, wird nur der Name davor ausgetauscht;
+ein Link ist ebenfalls möglich:
+
+```markdown
+Quelle: [Online-Hilfe Sage 100](https://onlinehilfe.sage.de/...) (zusammengefasst mit KI für Sage-News.de)
+```
+
 ---
 
 ## Schritt 4 – Auf GitHub hochladen

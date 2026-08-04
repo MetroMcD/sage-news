@@ -33,4 +33,5 @@ Auch die Sammelrechnungen sind kein bloßer Komfortknopf. Wenn mehrere Warenausg
 
 Das Mai-Update für **Sage Operations** liefert mehrere sinnvolle Verbesserungen für operative Abläufe und die Auswertung im Alltag. Besonders bei Rechnungsstellung, Auftragsanalyse und Fertigungsnachverfolgung dürfte der Nutzen schnell sichtbar werden. Kurz gesagt: weniger Stückwerk, mehr Übersicht.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

@@ -31,4 +31,5 @@ Für Partner, Kunden und Interessenten heißt das konkret:
 
 Die erneute GoBD-Zertifizierung von **Sage X3** ist vor allem für Unternehmen mit hohen Anforderungen an Dokumentation, Nachvollziehbarkeit und Prüfungssicherheit relevant. Kurz gesagt: Die Buchhaltung soll nicht nur laufen, sondern bei Bedarf auch jedem kritischen Blick standhalten.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

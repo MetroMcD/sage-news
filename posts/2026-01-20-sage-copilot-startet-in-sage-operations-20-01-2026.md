@@ -34,4 +34,5 @@ Das ist der eigentlich spannende Teil: Nicht der laute KI-Aufkleber, sondern die
 
 Mit **Sage Copilot in Sage Operations** startet Sage sinnvollerweise nicht mit Zaubershow, sondern mit konkreter Unterstützung im Tagesgeschäft. Wenn Hinweise, Warnungen und Prioritäten sauber im Workflow auftauchen, ist das für viele Teams sofort nützlicher als jede große KI-Vision auf Hochglanzfolie.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

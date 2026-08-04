@@ -25,4 +25,5 @@ Die Meldung beschreibt noch keine einzelne Funktionsänderung im Detail, macht a
 
 Sinnvoll ist, das GraphQL-Schema-Changelog zeitnah gegen bestehende APIs, Skripte, Reports und Import- oder Exportprozesse zu prüfen. Ebenso sollten Verantwortliche einplanen, die ergänzenden Hinweise in den Hilfethemen von Sage Operations zu sichten, sobald die Aktualisierungen ausgerollt werden.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

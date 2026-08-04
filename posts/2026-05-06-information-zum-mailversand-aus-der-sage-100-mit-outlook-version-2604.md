@@ -34,4 +34,5 @@ Für Admins und Partner ist der Hinweis deshalb vor allem als **Abgrenzung der U
 
 Wer den **Mailversand aus Sage 100 mit Outlook** nutzt, sollte prüfen, ob bereits **Outlook Version 2604** im Einsatz ist und ob sich der gemeldete Fehler in der eigenen Umgebung zeigt. Das spart im Zweifel unnötige Fehlersuche an der falschen Baustelle – und genau davon gibt es im ERP-Alltag ohnehin schon genug.
 
-Quelle: Sage GmbH
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)

@@ -10,8 +10,6 @@ slug: "sage-100-9-0-11-neuerungen-online-hilfe"
 ---
 In der **Online-Hilfe von Sage** finden Sie jederzeit die aktuellen Neuerungen zur **Sage 100**. Zur aktuellen Version **9.0.11** nennt die Hilfe vor allem mehr **Smart-Client-Fähigkeit**, weitere Schritte weg von **Access-Dialogen** und konkrete Ausbauten in **Warenwirtschaft**, **E-Rechnung**, **DMS** und **Rechnungswesen**.
 
-**Quelle:** [Online-Hilfe Sage 100 - What's New](https://onlinehilfe.sage.de/onlinehilfe/ol/90/abf/hh_goto.htm#whatsnew.htm)
-
 ## Worum geht es?
 
 Die Online-Hilfe dient bei Sage 100 oft als der direkteste Blick auf den tatsächlichen Funktionsumfang eines Releases. Für **Version 9.0.11** ist die Liste deutlich breiter als ein reines Wartungsupdate. Nachfolgend stehen deshalb bewusst nur die **Stichworte aus den Neuerungen**, ohne die Detailerklärungen von Sage nachzuerzählen.
@@ -36,3 +34,6 @@ Die Hilfeseite zeigt vor allem eines: **9.0.11 ist ein breites Struktur-Release*
 ## Empfehlung
 
 Sinnvoll ist jetzt ein Abgleich der Stichwortliste mit den eigenen Kernprozessen. Besonders relevant ist das für Teams mit **Smart Client**, **Warenwirtschaft**, **DMS**, **E-Rechnung**, **Datev**, **Anlagenvermögen** oder **xRM-Bezug**.
+
+---
+Quelle: [Online-Hilfe Sage 100 - What's New](https://onlinehilfe.sage.de/onlinehilfe/ol/90/abf/hh_goto.htm#whatsnew.htm) (zusammengefasst mit KI für Sage-News.de)

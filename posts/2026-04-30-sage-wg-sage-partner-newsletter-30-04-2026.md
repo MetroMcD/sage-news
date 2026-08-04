@@ -25,3 +25,6 @@ Die Nachricht enthält einen relevanten Produkthinweis, aber in der Mail selbst 
 ## Fazit
 
 Der Hinweis ist veröffentlichungsfähig, aber eher als kompakte Produktnotiz als als tiefes Technik-Briefing. Genau die Sorte Nachricht, die man lieber strukturiert dokumentiert als später wieder aus dem Posteingang ausgräbt.
+
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)
