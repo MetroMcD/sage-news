@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 from dataclasses import dataclass
@@ -629,6 +630,33 @@ def cleanup_generated_dirs(valid_slugs: set[str], dry_run: bool = False) -> list
     return sorted(removed)
 
 
+JS_SOURCES = ['tweaks-panel.jsx', 'app.jsx']
+FINGERPRINT_PATH = ROOT / 'assets' / 'js' / '.sources.sha256'
+
+
+def js_fingerprint() -> str:
+    """Hash der JSX-Quellen. Damit faellt auf, wenn assets/js/*.js nicht zu
+    src/*.jsx passt — sonst wuerde ein veraltetes Bundle unbemerkt deployt."""
+    digest = hashlib.sha256()
+    for name in JS_SOURCES:
+        digest.update((ROOT / 'src' / name).read_bytes())
+    return digest.hexdigest()
+
+
+def write_fingerprint() -> None:
+    FINGERPRINT_PATH.write_text(js_fingerprint() + '\n', encoding='utf-8')
+    print('JS-Fingerprint geschrieben.')
+
+
+def check_fingerprint() -> None:
+    if not FINGERPRINT_PATH.exists():
+        raise ValueError(
+            'assets/js/.sources.sha256 fehlt — bitte "npm run build:js" ausfuehren')
+    if FINGERPRINT_PATH.read_text(encoding='utf-8').strip() != js_fingerprint():
+        raise ValueError(
+            'assets/js/*.js passt nicht zu src/*.jsx — bitte "npm run build:js" ausfuehren')
+
+
 def cleanup_category_dirs(valid_slugs: set[str], dry_run: bool = False) -> list[str]:
     """Verwaiste Kategorieordner entfernen, z. B. nach einer Umbenennung."""
     removed: list[str] = []
@@ -747,6 +775,7 @@ def validate() -> None:
             raise ValueError(f'sitemap.xml fehlt Beitrag: {post.slug}')
     if not FEED_PATH.exists():
         raise ValueError('feed.xml fehlt')
+    check_fingerprint()
 
     print(f'Validated {len(posts)} posts, {len(grouped)} category pages, '
           f'{found_urls} sitemap URLs.')
@@ -754,10 +783,13 @@ def validate() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description='Build and validate sage-news posts.')
-    parser.add_argument('command', nargs='?', default='build', choices=['build', 'validate'])
+    parser.add_argument('command', nargs='?', default='build',
+                        choices=['build', 'validate', 'fingerprint'])
     args = parser.parse_args()
     if args.command == 'build':
         build()
+    elif args.command == 'fingerprint':
+        write_fingerprint()
     else:
         validate()
 

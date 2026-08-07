@@ -3,7 +3,7 @@
   "private": true,
   "description": "sage news - statische Seite, JSX wird vorkompiliert statt im Browser uebersetzt",
   "scripts": {
-    "build:js": "esbuild src/tweaks-panel.jsx src/app.jsx --outdir=assets/js --jsx-factory=React.createElement --jsx-fragment=React.Fragment --target=es2019 --minify-whitespace --minify-syntax"
+    "build:js": "esbuild src/tweaks-panel.jsx src/app.jsx --outdir=assets/js --jsx-factory=React.createElement --jsx-fragment=React.Fragment --target=es2019 --minify-whitespace --minify-syntax && python3 scripts/build_posts.py fingerprint"
   },
   "devDependencies": {
     "esbuild": "0.24.0"
