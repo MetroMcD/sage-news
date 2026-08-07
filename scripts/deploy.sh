@@ -4,12 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-npm install --no-audit --no-fund
-
-# Reihenfolge ist bindend: build_posts.py normalisiert src/app.jsx
-# (sync_index_loader), erst danach darf daraus kompiliert werden.
+# build kompiliert das JSX selbst mit (compile_js), sobald sich src/*.jsx
+# geaendert hat — inklusive korrekter Reihenfolge nach sync_index_loader.
 ./scripts/build_posts.py build
-npm run build:js
 ./scripts/build_posts.py validate
 
 if command -v npx >/dev/null 2>&1; then

@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from html import escape
 import shutil
+import subprocess
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / 'posts'
@@ -657,6 +658,42 @@ def check_fingerprint() -> None:
             'assets/js/*.js passt nicht zu src/*.jsx — bitte "npm run build:js" ausfuehren')
 
 
+ESBUILD_VERSION = '0.24.0'
+ESBUILD_ARGS = [
+    'src/tweaks-panel.jsx', 'src/app.jsx',
+    '--outdir=assets/js',
+    '--jsx-factory=React.createElement',
+    '--jsx-fragment=React.Fragment',
+    '--target=es2019',
+    '--minify-whitespace', '--minify-syntax',
+]
+
+
+def esbuild_command() -> list[str] | None:
+    """Lokale Installation bevorzugen, sonst npx mit fester Version."""
+    local = ROOT / 'node_modules' / '.bin' / 'esbuild'
+    if local.exists():
+        return [str(local)]
+    if shutil.which('npx'):
+        return ['npx', '--yes', f'esbuild@{ESBUILD_VERSION}']
+    return None
+
+
+def compile_js() -> None:
+    """JSX vorkompilieren. Laeuft als Teil von build(), damit es garantiert nach
+    sync_index_loader() passiert — sonst koennte das Bundle veralten."""
+    if FINGERPRINT_PATH.exists() and FINGERPRINT_PATH.read_text(encoding='utf-8').strip() == js_fingerprint():
+        print('JS unveraendert, kein Neubau noetig.')
+        return
+    command = esbuild_command()
+    if command is None:
+        raise ValueError(
+            'src/*.jsx hat sich geaendert, aber esbuild ist nicht verfuegbar. '
+            'Bitte Node installieren und "npm run build:js" ausfuehren.')
+    subprocess.run(command + ESBUILD_ARGS, cwd=ROOT, check=True)
+    write_fingerprint()
+
+
 def cleanup_category_dirs(valid_slugs: set[str], dry_run: bool = False) -> list[str]:
     """Verwaiste Kategorieordner entfernen, z. B. nach einer Umbenennung."""
     removed: list[str] = []
@@ -695,6 +732,7 @@ def build() -> None:
     manifest = build_manifest(posts)
     MANIFEST_PATH.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     sync_index_loader()
+    compile_js()
     sync_home_prerender(posts)
     valid_slugs = {post.slug for post in posts}
     cleanup_generated_dirs(valid_slugs)
