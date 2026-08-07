@@ -13,12 +13,35 @@ ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / 'posts'
 MANIFEST_PATH = ROOT / 'posts-manifest.json'
 INDEX_PATH = ROOT / 'index.html'
-EXCLUDE_DIRS = {'assets', 'posts', 'uploads', 'datenschutz', 'impressum', '.git', '.github', '.state', 'scripts', 'node_modules'}
+APP_SRC_PATH = ROOT / 'src' / 'app.jsx'
+CATEGORY_DIR = ROOT / 'kategorie'
+SITEMAP_PATH = ROOT / 'sitemap.xml'
+FEED_PATH = ROOT / 'feed.xml'
+SITE = 'https://sage-news.de'
+AUTHOR = 'René Münz'
+EXCLUDE_DIRS = {'assets', 'posts', 'uploads', 'datenschutz', 'impressum', '.git', '.github', '.state', 'scripts', 'node_modules', 'kategorie', 'src'}
+# Statische Seiten, die neben Startseite und Beiträgen in die Sitemap gehören.
+# Cloudflare normalisiert /foo.html -> /foo, deshalb steht systemcheck ohne Endung hier.
+STATIC_URLS = ['/impressum/', '/datenschutz/', '/systemcheck']
 CATEGORY_META = {
     'Sage 100': {'color': '#0a3b93', 'bg': '#dceeff'},
     'Sage X3': {'color': '#1a6b3a', 'bg': '#d4f0e0'},
     'Sage Operations': {'color': '#7b3a00', 'bg': '#fde8cc'},
     'Sage Intact': {'color': '#5a1d8a', 'bg': '#ede0f8'},
+}
+# Eigene URLs für die Kategorien. Das Präfix /kategorie/ ist zwingend:
+# "sage-operations" ist bereits der Slug eines Beitrags.
+CATEGORY_SLUGS = {
+    'Sage 100': 'sage-100',
+    'Sage X3': 'sage-x3',
+    'Sage Operations': 'sage-operations',
+    'Sage Intact': 'sage-intact',
+}
+CATEGORY_INTRO = {
+    'Sage 100': 'Alle Meldungen zu Sage 100: LiveUpdates, Service Packs, Systemvoraussetzungen und Hinweise zum laufenden Betrieb.',
+    'Sage X3': 'Meldungen rund um Sage X3.',
+    'Sage Operations': 'Alle Meldungen zu Sage Operations: Produktupdates, API-Änderungen und Neuerungen der Plattform.',
+    'Sage Intact': 'Meldungen rund um Sage Intacct.',
 }
 TAG_COLORS = {
     'Release': {'bg': '#e8f0fe', 'color': '#1a56db'},
@@ -38,6 +61,20 @@ ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact'}
 ALLOWED_TAGS = {'Release', 'Neu', 'KI', 'Cloud', 'Compliance', 'Perspektive', 'News'}
 DATE_RE = re.compile(r'^\d{1,2}\.\s+[A-Za-zÄÖÜäöü]+\s+\d{4}$')
 READTIME_RE = re.compile(r'^\d+\s+min$')
+ISO_DATE_RE = re.compile(r'^(\d{4}-\d{2}-\d{2})-')
+
+# Kopf- und Fusszeile teilen sich Artikel- und Kategorieseiten. Root-absolute
+# Pfade, damit derselbe Baustein in /slug/ und /kategorie/slug/ funktioniert.
+SITE_HEADER = '<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08)"><div style="max-width:1140px;margin:0 auto;padding:0 16px"><div style="display:flex;align-items:center;height:64px;gap:16px"><a href="/" title="Zur Startseite" style="background:none;border:none;cursor:pointer;padding:0;flex-shrink:0;line-height:0;text-decoration:none"><img src="/assets/sage-news_logo_3.png" alt="sage news" style="height:52px;width:auto;display:block;mix-blend-mode:lighten"></a><div class="sn-nav-divider" style="width:1px;height:28px;background:rgba(255,255,255,0.12);flex-shrink:0"></div><nav class="sn-desktop-nav" style="display:flex;gap:2px;align-items:center;flex:1;overflow:hidden"><a href="/" style="background:#ffd22e;color:#07172f;font-weight:700;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Alle News</a><a href="/kategorie/sage-100/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage 100</a><a href="/kategorie/sage-x3/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage X3</a><a href="/kategorie/sage-operations/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage Operations</a><a href="/systemcheck" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Systemcheck</a><a href="/#info" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Info</a></nav><div style="margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:10px"><span style="background:#ffd22e;color:#07172f;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.04em">BETA</span><a class="sn-backlink-mobile" href="/" style="display:none;font-size:14px;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;white-space:nowrap">← Zur Übersicht</a></div></div></div><style>@media (max-width:680px){.sn-nav-divider,.sn-desktop-nav{display:none !important}.sn-backlink-mobile{display:inline-block !important}}</style></header>'
+SITE_FOOTER = '<footer class="footer"><div class="footer-inner"><div>© 2026 René Münz</div><a href="/">Zurück zu sage news</a></div></footer>'
+
+# Lokale Inter-Schnitte statt fonts.googleapis.com: identische Schrift,
+# aber kein render-blockierender Fremdzugriff.
+FONT_FACE_CSS = ''.join(
+    f"@font-face{{font-family:'Inter';font-style:normal;font-weight:{w};"
+    f"font-display:swap;src:url('/assets/fonts/Inter-{w}.ttf') format('truetype');}}"
+    for w in (400, 500, 600, 700, 800, 900)
+)
 
 
 @dataclass
@@ -226,6 +263,117 @@ def split_tags(tag_string: str) -> list[str]:
     return [part.strip() for part in tag_string.split(',') if part.strip()]
 
 
+def iso_date(post: Post) -> str:
+    """ISO-Datum aus dem Dateinamen. Das Frontmatter-Feld `date` ist deutscher
+    Fließtext ("27. Juli 2026") und für Maschinen unbrauchbar."""
+    match = ISO_DATE_RE.match(post.file_stem)
+    if not match:
+        raise ValueError(f'{post.file_stem}: kein ISO-Datum am Dateinamen-Anfang')
+    return match.group(1)
+
+
+def category_path(category: str) -> str:
+    return f'/kategorie/{CATEGORY_SLUGS[category]}/'
+
+
+def render_card(post: Post) -> str:
+    """Kartenmarkup mit exakt den Inline-Styles aus PostCard (src/app.jsx).
+    React ersetzt das auf der Startseite beim Mount; auf den Kategorieseiten
+    ist es die finale Darstellung."""
+    cat = CATEGORY_META.get(post.meta['category'], {'bg': '#dceeff', 'color': '#0a3b93'})
+    tag = post.meta['tag']
+    tag_meta = TAG_COLORS.get(tag, {'bg': '#f0f0f0', 'color': '#374151'})
+    return (
+        f'<a href="/{post.slug}/" style="display:block;text-decoration:none;background:white;'
+        # Keine color-Angabe: der Titel erbt wie auf der Startseite das Blau aus
+        # der a-Regel. Sonst weicht die Kartenoptik vom React-Rendering ab.
+        'border:1.5px solid var(--sn-border);border-radius:14px;padding:22px;'
+        'box-shadow:0 1px 4px rgba(6,27,73,0.05)">'
+        '<div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">'
+        f'<span style="display:inline-block;background:{cat["bg"]};color:{cat["color"]};font-weight:700;'
+        'font-size:11px;letter-spacing:0.03em;padding:2px 8px;border-radius:999px;white-space:nowrap">'
+        f'{escape(post.meta["category"])}</span>'
+        f'<span style="display:inline-block;background:{tag_meta["bg"]};color:{tag_meta["color"]};'
+        'font-weight:600;font-size:11px;padding:2px 8px;border-radius:999px;white-space:nowrap">'
+        f'{escape(tag)}</span>'
+        '</div>'
+        '<h3 style="font-size:15px;font-weight:700;line-height:1.35;margin:0 0 8px">'
+        f'{escape(post.meta["title"])}</h3>'
+        '<p style="font-size:13px;color:var(--sn-muted);line-height:1.6;margin:0 0 14px">'
+        f'{escape(post.meta["summary"])}</p>'
+        '<div style="display:flex;gap:10px;align-items:center">'
+        f'<time datetime="{iso_date(post)}" style="font-size:12px;color:var(--sn-muted)">'
+        f'{escape(post.meta["date"])}</time>'
+        f'<span style="font-size:12px;color:var(--sn-muted)">· {escape(post.meta["readTime"])}</span>'
+        '<span style="margin-left:auto;font-size:12px;font-weight:700;color:var(--sn-blue-600)">'
+        'Weiterlesen →</span>'
+        '</div></a>'
+    )
+
+
+def render_card_grid(posts: list[Post]) -> str:
+    cards = ''.join(render_card(post) for post in posts)
+    return (
+        '<div class="post-grid-regular" style="display:grid;'
+        f'grid-template-columns:repeat(2, 1fr);gap:16px">{cards}</div>'
+    )
+
+
+def build_home_prerender(posts: list[Post], limit: int = 8) -> str:
+    """Inhalt für #root. React leert den Container beim Mount (createRoot, nicht
+    hydrateRoot) — das hier ist also reine Crawler-Nahrung und kann die finale
+    Darstellung nicht verändern. Umfang = was React auch zeigt (postsPerPage)."""
+    cat_links = ''.join(
+        f'<a href="{category_path(name)}">{escape(name)}</a> '
+        for name in CATEGORY_SLUGS
+    )
+    return (
+        '<div style="max-width:1140px;margin:0 auto;padding:24px 20px 64px">'
+        '<h1>sage news – Neuigkeiten zu Sage 100, Sage X3 und Sage Operations</h1>'
+        f'<nav>{cat_links}</nav>'
+        f'{render_card_grid(posts[:limit])}'
+        '</div>'
+    )
+
+
+def article_jsonld(post: Post) -> str:
+    url = f'{SITE}/{post.slug}/'
+    category = post.meta['category']
+    blocks = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'NewsArticle',
+            'headline': post.meta['title'],
+            'description': post.meta['summary'],
+            'datePublished': iso_date(post),
+            'dateModified': iso_date(post),
+            'inLanguage': 'de-DE',
+            'articleSection': category,
+            'author': {'@type': 'Person', 'name': AUTHOR},
+            'publisher': {
+                '@type': 'Organization',
+                'name': 'sage news',
+                'logo': {'@type': 'ImageObject', 'url': f'{SITE}/assets/sage-news_logo_3.png'},
+            },
+            'mainEntityOfPage': {'@type': 'WebPage', '@id': url},
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Startseite', 'item': f'{SITE}/'},
+                {'@type': 'ListItem', 'position': 2, 'name': category,
+                 'item': SITE + category_path(category)},
+                {'@type': 'ListItem', 'position': 3, 'name': post.meta['title'], 'item': url},
+            ],
+        },
+    ]
+    return ''.join(
+        f'<script type="application/ld+json">{json.dumps(b, ensure_ascii=False)}</script>\n'
+        for b in blocks
+    )
+
+
 def build_article_html(post: Post) -> str:
     cat = CATEGORY_META.get(post.meta['category'], {'bg': '#dceeff', 'color': '#0a3b93'})
     tags = split_tags(post.meta['tag'])
@@ -239,6 +387,10 @@ def build_article_html(post: Post) -> str:
         article_html += f'<hr><p class="article-source">{render_inline(source_text)}</p>'
     title = escape(post.meta['title'])
     summary = escape(post.meta['summary'])
+    iso = iso_date(post)
+    category = escape(post.meta['category'])
+    cat_href = category_path(post.meta['category'])
+    jsonld = article_jsonld(post)
     return f'''<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -249,29 +401,196 @@ def build_article_html(post: Post) -> str:
 <link rel="canonical" href="https://sage-news.de/{post.slug}/">
 <link rel="icon" type="image/png" href="../assets/favicon.png">
 <link rel="apple-touch-icon" href="../assets/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
+<link rel="alternate" type="application/atom+xml" title="sage news" href="/feed.xml">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="sage news">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{summary}">
+<meta property="og:url" content="https://sage-news.de/{post.slug}/">
+<meta property="og:image" content="https://sage-news.de/assets/sage-news_logo_3.png">
+<meta property="article:published_time" content="{iso}">
+<meta property="article:section" content="{category}">
+<meta property="article:author" content="{AUTHOR}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{summary}">
+<meta name="twitter:image" content="https://sage-news.de/assets/sage-news_logo_3.png">
+{jsonld}<style>
+{FONT_FACE_CSS}
 :root {{--sn-blue-950:#061b49;--sn-blue-900:#082b6f;--sn-blue-800:#0a3b93;--sn-blue-600:#0d6ecf;--sn-blue-100:#e8f7ff;--sn-ink:#07172f;--sn-muted:#5f728a;--sn-border:#d6e9f8;--sn-bg:#f4f9fe;}}
 *,*::before,*::after{{box-sizing:border-box}} body{{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--sn-bg);color:var(--sn-ink);-webkit-font-smoothing:antialiased}}
-a{{color:var(--sn-blue-600);text-decoration:none}}a:hover{{text-decoration:underline}}.container{{max-width:860px;margin:0 auto;padding:24px 20px 64px}}.hero{{margin-top:24px;background:linear-gradient(135deg,var(--sn-blue-950),var(--sn-blue-800));color:white;border-radius:16px;padding:32px}}.badges{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}}.badge{{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}}.badge-category{{background:{cat['bg']};color:{cat['color']}}}h1{{margin:0 0 12px;font-size:32px;line-height:1.2}}.meta{{font-size:13px;color:rgba(255,255,255,.72)}}.article{{margin-top:24px;background:#fff;border:1.5px solid var(--sn-border);border-radius:16px;padding:32px}}.summary{{background:var(--sn-blue-100);border-left:3px solid var(--sn-blue-600);border-radius:10px;padding:16px 20px;margin-bottom:24px}}.summary-label{{font-size:11px;font-weight:800;color:var(--sn-blue-800);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}}.prose{{font-size:16px;line-height:1.8}}.prose h2{{font-size:22px;line-height:1.3;margin:1.6em 0 .6em;padding-bottom:8px;border-bottom:1.5px solid var(--sn-border)}}.prose h3{{font-size:18px;line-height:1.35;margin:1.35em 0 .55em}}.prose p{{margin:0 0 1em}}.prose ul{{margin:0 0 1em 1.2em;padding:0}}.prose li{{margin:0 0 .5em}}.prose strong{{color:var(--sn-ink)}}.prose code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef6ff;padding:2px 6px;border-radius:5px;font-size:.92em}}.prose hr{{border:none;border-top:1.5px solid var(--sn-border);margin:1.5em 0}}.prose .article-source{{color:var(--sn-muted);font-size:14px;font-style:italic;margin-bottom:0}}.footer{{border-top:1.5px solid var(--sn-border);background:#fff}}.footer-inner{{max-width:1140px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--sn-muted);font-size:12px}}@media (max-width:700px){{h1{{font-size:26px}}.hero,.article{{padding:22px}}.topbar-inner,.footer-inner{{flex-direction:column;align-items:flex-start}}}}
+a{{color:var(--sn-blue-600);text-decoration:none}}a:hover{{text-decoration:underline}}.container{{max-width:860px;margin:0 auto;padding:24px 20px 64px}}.hero{{margin-top:24px;background:linear-gradient(135deg,var(--sn-blue-950),var(--sn-blue-800));color:white;border-radius:16px;padding:32px}}.badges{{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}}.badge{{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}}.badge-category{{background:{cat['bg']};color:{cat['color']};text-decoration:none}}.badge-category:hover{{text-decoration:underline}}h1{{margin:0 0 12px;font-size:32px;line-height:1.2}}.meta{{font-size:13px;color:rgba(255,255,255,.72)}}.article{{margin-top:24px;background:#fff;border:1.5px solid var(--sn-border);border-radius:16px;padding:32px}}.summary{{background:var(--sn-blue-100);border-left:3px solid var(--sn-blue-600);border-radius:10px;padding:16px 20px;margin-bottom:24px}}.summary-label{{font-size:11px;font-weight:800;color:var(--sn-blue-800);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}}.prose{{font-size:16px;line-height:1.8}}.prose h2{{font-size:22px;line-height:1.3;margin:1.6em 0 .6em;padding-bottom:8px;border-bottom:1.5px solid var(--sn-border)}}.prose h3{{font-size:18px;line-height:1.35;margin:1.35em 0 .55em}}.prose p{{margin:0 0 1em}}.prose ul{{margin:0 0 1em 1.2em;padding:0}}.prose li{{margin:0 0 .5em}}.prose strong{{color:var(--sn-ink)}}.prose code{{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef6ff;padding:2px 6px;border-radius:5px;font-size:.92em}}.prose hr{{border:none;border-top:1.5px solid var(--sn-border);margin:1.5em 0}}.prose .article-source{{color:var(--sn-muted);font-size:14px;font-style:italic;margin-bottom:0}}.footer{{border-top:1.5px solid var(--sn-border);background:#fff}}.footer-inner{{max-width:1140px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--sn-muted);font-size:12px}}@media (max-width:700px){{h1{{font-size:26px}}.hero,.article{{padding:22px}}.topbar-inner,.footer-inner{{flex-direction:column;align-items:flex-start}}}}
 </style>
 </head>
 <body>
-<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08)"><div style="max-width:1140px;margin:0 auto;padding:0 16px"><div style="display:flex;align-items:center;height:64px;gap:16px"><a href="../" title="Zur Startseite" style="background:none;border:none;cursor:pointer;padding:0;flex-shrink:0;line-height:0;text-decoration:none"><img src="../assets/sage-news_logo_3.png" alt="sage news" style="height:52px;width:auto;display:block;mix-blend-mode:lighten"></a><div class="sn-nav-divider" style="width:1px;height:28px;background:rgba(255,255,255,0.12);flex-shrink:0"></div><nav class="sn-desktop-nav" style="display:flex;gap:2px;align-items:center;flex:1;overflow:hidden"><a href="../" style="background:#ffd22e;color:#07172f;font-weight:700;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Alle News</a><a href="../#sage100" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage 100</a><a href="../#sagex3" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage X3</a><a href="../#operations" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage Operations</a><a href="../#systemcheck" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Systemcheck</a><a href="../#info" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Info</a></nav><div style="margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:10px"><span style="background:#ffd22e;color:#07172f;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.04em">BETA</span><a class="sn-backlink-mobile" href="../" style="display:none;font-size:14px;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;white-space:nowrap">← Zur Übersicht</a></div></div></div><style>@media (max-width:680px){{.sn-nav-divider,.sn-desktop-nav{{display:none !important}}.sn-backlink-mobile{{display:inline-block !important}}}}</style></header>
+{SITE_HEADER}
 <main class="container">
-<section class="hero"><div class="badges"><span class="badge badge-category">{escape(post.meta['category'])}</span>{tag_html}</div><h1>{title}</h1><div class="meta">{escape(post.meta['date'])} · {escape(post.meta['readTime'])} Lesezeit</div></section>
+<section class="hero"><div class="badges"><a class="badge badge-category" href="{cat_href}">{category}</a>{tag_html}</div><h1>{title}</h1><div class="meta"><time datetime="{iso}">{escape(post.meta['date'])}</time> · {escape(post.meta['readTime'])} Lesezeit</div></section>
 <article class="article"><div class="summary"><div class="summary-label">Kurzfazit</div><div>{summary}</div></div><div class="prose">{article_html}</div></article>
 </main>
-<footer class="footer"><div class="footer-inner"><div>© 2026 René Münz</div><a href="../">Zurück zu sage news</a></div></footer>
+{SITE_FOOTER}
 </body>
 </html>
 '''
 
 
-def sync_index_loader() -> None:
+BASE_CSS = (
+    ':root{--sn-blue-950:#061b49;--sn-blue-900:#082b6f;--sn-blue-800:#0a3b93;'
+    '--sn-blue-600:#0d6ecf;--sn-blue-100:#e8f7ff;--sn-ink:#07172f;--sn-muted:#5f728a;'
+    '--sn-border:#d6e9f8;--sn-bg:#f4f9fe;}'
+    '*,*::before,*::after{box-sizing:border-box}'
+    "body{margin:0;font-family:'Inter',system-ui,-apple-system,sans-serif;"
+    'background:var(--sn-bg);color:var(--sn-ink);-webkit-font-smoothing:antialiased}'
+    'a{color:var(--sn-blue-600);text-decoration:none}a:hover{text-decoration:underline}'
+    '.footer{border-top:1.5px solid var(--sn-border);background:#fff}'
+    '.footer-inner{max-width:1140px;margin:0 auto;padding:18px 20px;display:flex;'
+    'justify-content:space-between;align-items:center;gap:12px;color:var(--sn-muted);font-size:12px}'
+    '@media (max-width:700px){.footer-inner{flex-direction:column;align-items:flex-start}}'
+    '@media (max-width:760px){.post-grid-regular{grid-template-columns:1fr !important}}'
+)
+
+
+def build_category_html(category: str, posts: list[Post]) -> str:
+    slug = CATEGORY_SLUGS[category]
+    url = f'{SITE}/kategorie/{slug}/'
+    intro = CATEGORY_INTRO[category]
+    name = escape(category)
+    count = len(posts)
+    plural = 'Beitrag' if count == 1 else 'Beiträge'
+    jsonld = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            'name': f'{category} – Neuigkeiten',
+            'description': intro,
+            'url': url,
+            'inLanguage': 'de-DE',
+            'hasPart': [
+                {'@type': 'NewsArticle', 'headline': p.meta['title'],
+                 'datePublished': iso_date(p), 'url': f'{SITE}/{p.slug}/'}
+                for p in posts
+            ],
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Startseite', 'item': f'{SITE}/'},
+                {'@type': 'ListItem', 'position': 2, 'name': category, 'item': url},
+            ],
+        },
+    ]
+    jsonld_html = ''.join(
+        f'<script type="application/ld+json">{json.dumps(b, ensure_ascii=False)}</script>\n'
+        for b in jsonld
+    )
+    return f'''<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{name} – Neuigkeiten und Updates | sage news</title>
+<meta name="description" content="{escape(intro)}">
+<link rel="canonical" href="{url}">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/favicon.png">
+<link rel="alternate" type="application/atom+xml" title="sage news" href="/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="sage news">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="{name} – Neuigkeiten und Updates">
+<meta property="og:description" content="{escape(intro)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE}/assets/sage-news_logo_3.png">
+<meta name="twitter:card" content="summary_large_image">
+{jsonld_html}<style>
+{FONT_FACE_CSS}
+{BASE_CSS}
+.wrap{{max-width:1140px;margin:0 auto;padding:24px 20px 64px}}
+.cat-hero{{margin-top:24px;background:linear-gradient(135deg,var(--sn-blue-950),var(--sn-blue-800));color:#fff;border-radius:16px;padding:32px}}
+.cat-hero h1{{margin:0 0 10px;font-size:32px;line-height:1.2}}
+.cat-hero p{{margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.78);max-width:60ch}}
+.cat-count{{margin:24px 0 12px;font-size:13px;color:var(--sn-muted)}}
+@media (max-width:700px){{.cat-hero{{padding:22px}}.cat-hero h1{{font-size:26px}}}}
+</style>
+</head>
+<body>
+{SITE_HEADER}
+<main class="wrap">
+<section class="cat-hero"><h1>{name}</h1><p>{escape(intro)}</p></section>
+<p class="cat-count">{count} {plural}</p>
+{render_card_grid(posts)}
+</main>
+{SITE_FOOTER}
+</body>
+</html>
+'''
+
+
+def build_sitemap(posts: list[Post]) -> str:
+    newest = max((iso_date(p) for p in posts), default='')
+    entries = [(f'{SITE}/', newest, '1.0')]
+    for category, slug in CATEGORY_SLUGS.items():
+        in_cat = [p for p in posts if p.meta['category'] == category]
+        if not in_cat:
+            continue
+        entries.append((f'{SITE}/kategorie/{slug}/', max(iso_date(p) for p in in_cat), '0.8'))
+    entries += [(f'{SITE}/{p.slug}/', iso_date(p), '0.7') for p in posts]
+    entries += [(f'{SITE}{path}', newest, '0.3') for path in STATIC_URLS]
+    body = ''.join(
+        f'  <url><loc>{escape(loc, quote=True)}</loc>'
+        f'<lastmod>{lastmod}</lastmod><priority>{prio}</priority></url>\n'
+        for loc, lastmod, prio in entries
+    )
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f'{body}</urlset>\n')
+
+
+def build_feed(posts: list[Post]) -> str:
+    newest = max((iso_date(p) for p in posts), default='1970-01-01')
+    items = ''.join(
+        f'  <entry>\n'
+        f'    <title>{escape(p.meta["title"])}</title>\n'
+        f'    <link href="{SITE}/{p.slug}/"/>\n'
+        f'    <id>{SITE}/{p.slug}/</id>\n'
+        f'    <updated>{iso_date(p)}T00:00:00Z</updated>\n'
+        f'    <category term="{escape(p.meta["category"], quote=True)}"/>\n'
+        f'    <summary>{escape(p.meta["summary"])}</summary>\n'
+        f'  </entry>\n'
+        for p in posts
+    )
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">\n'
+        '  <title>sage news</title>\n'
+        '  <subtitle>Neuigkeiten zu Sage 100, Sage X3 und Sage Operations</subtitle>\n'
+        f'  <link href="{SITE}/"/>\n'
+        f'  <link rel="self" href="{SITE}/feed.xml"/>\n'
+        f'  <id>{SITE}/</id>\n'
+        f'  <updated>{newest}T00:00:00Z</updated>\n'
+        f'  <author><name>{AUTHOR}</name></author>\n'
+        f'{items}</feed>\n'
+    )
+
+
+def sync_home_prerender(posts: list[Post]) -> None:
+    """Schreibt das vorgerenderte Markup zwischen die SSG-Marker in #root."""
+    begin, end = '<!--SSG:HOME-->', '<!--/SSG:HOME-->'
     text = INDEX_PATH.read_text(encoding='utf-8')
+    if begin not in text or end not in text:
+        raise ValueError('SSG-Marker fehlen in index.html')
+    start = text.index(begin) + len(begin)
+    stop = text.index(end)
+    INDEX_PATH.write_text(
+        text[:start] + build_home_prerender(posts) + text[stop:], encoding='utf-8')
+
+
+def sync_index_loader() -> None:
+    """Der App-Code liegt seit der Vorkompilierung in src/app.jsx, nicht mehr
+    inline in index.html."""
+    text = APP_SRC_PATH.read_text(encoding='utf-8')
     replacement = '''// ── POSTS MANIFEST LOADER ───────────────────────────────────────────────────
 async function loadPostsFromManifest() {
   const manifestUrl = `./posts-manifest.json?v=${Date.now()}`;
@@ -293,7 +612,7 @@ async function loadPostsFromManifest() {
         text = text[:start] + replacement + text[end:]
     if 'loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {' in text:
         text = text.replace('loadPostsFromGitHub(GH_CONFIG).then(({ posts: loaded, source }) => {', 'loadPostsFromManifest().then(({ posts: loaded, source }) => {')
-    INDEX_PATH.write_text(text, encoding='utf-8')
+    APP_SRC_PATH.write_text(text, encoding='utf-8')
 
 
 def cleanup_generated_dirs(valid_slugs: set[str], dry_run: bool = False) -> list[str]:
@@ -310,19 +629,63 @@ def cleanup_generated_dirs(valid_slugs: set[str], dry_run: bool = False) -> list
     return sorted(removed)
 
 
+def cleanup_category_dirs(valid_slugs: set[str], dry_run: bool = False) -> list[str]:
+    """Verwaiste Kategorieordner entfernen, z. B. nach einer Umbenennung."""
+    removed: list[str] = []
+    if not CATEGORY_DIR.exists():
+        return removed
+    for child in CATEGORY_DIR.iterdir():
+        if not child.is_dir() or child.name in valid_slugs:
+            continue
+        removed.append(child.name)
+        if not dry_run:
+            shutil.rmtree(child)
+    return sorted(removed)
+
+
+def categories_with_posts(posts: list[Post]) -> dict[str, list[Post]]:
+    grouped: dict[str, list[Post]] = {}
+    for category in CATEGORY_SLUGS:
+        in_cat = [p for p in posts if p.meta['category'] == category]
+        if in_cat:
+            grouped[category] = in_cat
+    return grouped
+
+
+def check_slug_collisions(posts: list[Post]) -> None:
+    """/kategorie/ darf nie mit einem Beitrags-Slug kollidieren — sonst wäre ein
+    Bericht nicht mehr erreichbar."""
+    slugs = {post.slug for post in posts}
+    if 'kategorie' in slugs:
+        raise ValueError('Beitrags-Slug "kategorie" kollidiert mit den Kategorie-URLs')
+
+
 def build() -> None:
     posts = load_posts()
     validate_posts(posts)
+    check_slug_collisions(posts)
     manifest = build_manifest(posts)
     MANIFEST_PATH.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     sync_index_loader()
+    sync_home_prerender(posts)
     valid_slugs = {post.slug for post in posts}
     cleanup_generated_dirs(valid_slugs)
     for post in posts:
         target = ROOT / post.slug
         target.mkdir(exist_ok=True)
         (target / 'index.html').write_text(build_article_html(post), encoding='utf-8')
-    print(f'Built {len(posts)} posts.')
+
+    grouped = categories_with_posts(posts)
+    cleanup_category_dirs({CATEGORY_SLUGS[c] for c in grouped})
+    CATEGORY_DIR.mkdir(exist_ok=True)
+    for category, in_cat in grouped.items():
+        target = CATEGORY_DIR / CATEGORY_SLUGS[category]
+        target.mkdir(exist_ok=True)
+        (target / 'index.html').write_text(build_category_html(category, in_cat), encoding='utf-8')
+
+    SITEMAP_PATH.write_text(build_sitemap(posts), encoding='utf-8')
+    FEED_PATH.write_text(build_feed(posts), encoding='utf-8')
+    print(f'Built {len(posts)} posts, {len(grouped)} category pages, sitemap and feed.')
 
 
 def validate() -> None:
@@ -342,13 +705,51 @@ def validate() -> None:
         canonical = f'https://sage-news.de/{post.slug}/'
         if canonical not in html:
             raise ValueError(f'Falscher Canonical-Link in {post.slug}/index.html')
-    index_text = INDEX_PATH.read_text(encoding='utf-8')
-    if 'api.github.com' in index_text or 'raw.githubusercontent.com' in index_text:
-        raise ValueError('index.html nutzt noch den alten GitHub-Runtime-Loader')
+    app_text = APP_SRC_PATH.read_text(encoding='utf-8')
+    if 'api.github.com' in app_text or 'raw.githubusercontent.com' in app_text:
+        raise ValueError('src/app.jsx nutzt noch den alten GitHub-Runtime-Loader')
     stale_dirs = cleanup_generated_dirs(set(expected_slugs), dry_run=True)
     if stale_dirs:
         raise ValueError('Verwaiste Artikelordner gefunden: ' + ', '.join(stale_dirs))
-    print(f'Validated {len(posts)} posts.')
+
+    check_slug_collisions(posts)
+    index_text = INDEX_PATH.read_text(encoding='utf-8')
+    for host in ('unpkg.com', 'cdn.jsdelivr.net', 'fonts.googleapis.com'):
+        if host in index_text:
+            raise ValueError(f'index.html laedt noch von {host}')
+    # Das Vorrendering ist der Kern der Auffindbarkeit — leer heisst kaputt.
+    prerender = index_text.split('<!--SSG:HOME-->')[1].split('<!--/SSG:HOME-->')[0]
+    if f'href="/{posts[0].slug}/"' not in prerender:
+        raise ValueError('Vorgerendertes Markup in index.html fehlt oder ist veraltet')
+
+    grouped = categories_with_posts(posts)
+    for category, in_cat in grouped.items():
+        cat_path = CATEGORY_DIR / CATEGORY_SLUGS[category] / 'index.html'
+        if not cat_path.exists():
+            raise ValueError(f'Fehlende Kategorieseite: {cat_path.relative_to(ROOT)}')
+        cat_html = cat_path.read_text(encoding='utf-8')
+        missing = [p.slug for p in in_cat if f'href="/{p.slug}/"' not in cat_html]
+        if missing:
+            raise ValueError(f'Kategorieseite {category} verlinkt nicht: {", ".join(missing)}')
+    stale_cats = cleanup_category_dirs({CATEGORY_SLUGS[c] for c in grouped}, dry_run=True)
+    if stale_cats:
+        raise ValueError('Verwaiste Kategorieordner: ' + ', '.join(stale_cats))
+
+    if not SITEMAP_PATH.exists():
+        raise ValueError('sitemap.xml fehlt')
+    sitemap = SITEMAP_PATH.read_text(encoding='utf-8')
+    expected_urls = 1 + len(grouped) + len(posts) + len(STATIC_URLS)
+    found_urls = sitemap.count('<loc>')
+    if found_urls != expected_urls:
+        raise ValueError(f'sitemap.xml hat {found_urls} URLs, erwartet {expected_urls}')
+    for post in posts:
+        if f'<loc>{SITE}/{post.slug}/</loc>' not in sitemap:
+            raise ValueError(f'sitemap.xml fehlt Beitrag: {post.slug}')
+    if not FEED_PATH.exists():
+        raise ValueError('feed.xml fehlt')
+
+    print(f'Validated {len(posts)} posts, {len(grouped)} category pages, '
+          f'{found_urls} sitemap URLs.')
 
 
 def main() -> None:

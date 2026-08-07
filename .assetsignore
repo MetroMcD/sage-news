@@ -1,0 +1,24 @@
+# Was Cloudflare NICHT ausliefern soll. Syntax wie .gitignore.
+#
+# Wichtig sind vor allem posts/ und die Markdown-Quellen: sie sind inhaltsgleich
+# mit den generierten Artikelseiten und waeren sonst indexierbare Duplikate.
+#
+# NICHT eintragen: index.html, posts-manifest.json (laedt die App zur Laufzeit),
+# assets/, die Beitrags- und Kategorieordner, systemcheck.html, impressum/,
+# datenschutz/, sitemap.xml, feed.xml, das Systemvoraussetzungen-PDF.
+
+posts/
+scripts/
+src/
+uploads/
+node_modules/
+.github/
+.state/
+.claude/
+
+*.md
+*.zip
+
+package.json
+package-lock.json
+wrangler.jsonc
