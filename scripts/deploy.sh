@@ -4,6 +4,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+npm install --no-audit --no-fund
+npm run build:js
+
 ./scripts/build_posts.py build
 ./scripts/build_posts.py validate
 

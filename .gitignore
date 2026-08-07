@@ -7,3 +7,6 @@
 
 # local tooling noise
 .state/notebooklm/queue.log
+
+# node
+node_modules/

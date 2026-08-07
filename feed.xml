@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">
+  <title>sage news</title>
+  <subtitle>Neuigkeiten zu Sage 100, Sage X3 und Sage Operations</subtitle>
+  <link href="https://sage-news.de/"/>
+  <link rel="self" href="https://sage-news.de/feed.xml"/>
+  <id>https://sage-news.de/</id>
+  <updated>2026-07-27T00:00:00Z</updated>
+  <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100 9.0.11.3: LiveUpdate behebt SMTP-, DMS- und Stapeldruck-Probleme</title>
+    <link href="https://sage-news.de/sage-100-9-0-11-3-liveupdate-smtp-dms-stapeldruck/"/>
+    <id>https://sage-news.de/sage-100-9-0-11-3-liveupdate-smtp-dms-stapeldruck/</id>
+    <updated>2026-07-27T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das LiveUpdate 9.0.11.3 fuer Sage 100 behebt Fehler in SMTP, DMS, Stapeldruck, Warenwirtschaft und Rechnungswesen. Fuer Oesterreich ist zusaetzlich die UVA-Anpassung auf 4,9 Prozent enthalten.</summary>
+  </entry>
+  <entry>
+    <title>Sage Operations kündigt API-Update mit möglichem Anpassungsbedarf an</title>
+    <link href="https://sage-news.de/sage-operations-api-update-anpassungsbedarf/"/>
+    <id>https://sage-news.de/sage-operations-api-update-anpassungsbedarf/</id>
+    <updated>2026-07-16T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage Operations bereitet in den kommenden Wochen Aktualisierungen vor, die bestehende Integrationen und individuelle Erweiterungen betreffen können. Technische Änderungen dokumentiert Sage im GraphQL-Schema-Changelog.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 9.0.11: Online-Hilfe zeigt den echten Umfang des Releases</title>
+    <link href="https://sage-news.de/sage-100-9-0-11-neuerungen-online-hilfe/"/>
+    <id>https://sage-news.de/sage-100-9-0-11-neuerungen-online-hilfe/</id>
+    <updated>2026-07-14T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Die Online-Hilfe listet für Sage 100 9.0.11 zahlreiche Neuerungen in Warenwirtschaft, Rechnungswesen, DMS, System und Smart Edition auf.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 zieht Intrastat-.core-Verfahren in Hotfix 9.0.11.2 vor</title>
+    <link href="https://sage-news.de/sage-100-intrastat-core-verfahren-hotfix-9-0-11-2/"/>
+    <id>https://sage-news.de/sage-100-intrastat-core-verfahren-hotfix-9-0-11-2/</id>
+    <updated>2026-06-24T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage 100 unterstützt das Intrastat-.core-Verfahren bereits im Hotfix 9.0.11.2 vom 18. Juni 2026. Die Anpassung wurde vorgezogen und steht damit deutlich früher als geplant bereit.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 Live Update 9.0.11.2 bündelt neue Funktionen und zahlreiche Korrekturen</title>
+    <link href="https://sage-news.de/sage-100-live-update-9-0-11-2-funktionen-korrekturen/"/>
+    <id>https://sage-news.de/sage-100-live-update-9-0-11-2-funktionen-korrekturen/</id>
+    <updated>2026-06-18T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das Live Update 9.0.11.2 für Sage 100 ergänzt das .core-Verfahren für Intrastat und behebt viele fachliche und technische Fehler. Relevant ist es besonders für verteilte Installationen und produktive Prozesse.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 Praxedo-Connector 9.0.11 erweitert Serviceinfos und bereinigt Synchronisationsfehler</title>
+    <link href="https://sage-news.de/sage-100-praxedo-connector-9-0-11-serviceinfos-sync/"/>
+    <id>https://sage-news.de/sage-100-praxedo-connector-9-0-11-serviceinfos-sync/</id>
+    <updated>2026-06-17T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Version 9.0.11 des Praxedo-Connectors fuer Sage 100 erweitert Service- und Batchprozesse und behebt Fehler bei Synchronisation, Speicherverbrauch und Installation.</summary>
+  </entry>
+  <entry>
+    <title>Sage X3 erneut als GoBD-konform zertifiziert</title>
+    <link href="https://sage-news.de/sage-x3-quelle-sage/"/>
+    <id>https://sage-news.de/sage-x3-quelle-sage/</id>
+    <updated>2026-05-21T00:00:00Z</updated>
+    <category term="Sage X3"/>
+    <summary>Sage X3 wurde erneut als GoBD-konform zertifiziert. Damit bestätigt Sage, dass die Lösung weiterhin die Anforderungen an eine nachvollziehbare und prüfsichere Finanzbuchhaltung erfüllt.</summary>
+  </entry>
+  <entry>
+    <title>Sage Operations Mai-Update bringt Sammelrechnungen und mehr Transparenz in der Fertigung</title>
+    <link href="https://sage-news.de/sage-operations/"/>
+    <id>https://sage-news.de/sage-operations/</id>
+    <updated>2026-05-21T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Das Mai-Update für Sage Operations bringt Sammelrechnungen, bessere Auswertungen von Verkaufsrechnungszeilen, zusätzliche Felder im Vertrieb und mehr Transparenz beim Abschluss von Fertigungsaufträgen.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 9.0.11 inkl. Hotfix 9.0.11.1 per LiveUpdate für Kunden ohne Internet</title>
+    <link href="https://sage-news.de/sage-100-liveupdate-9-0-11-1-ohne-internet/"/>
+    <id>https://sage-news.de/sage-100-liveupdate-9-0-11-1-ohne-internet/</id>
+    <updated>2026-05-19T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das Service Pack Sage 100 9.0.11 inklusive Hotfix 9.0.11.1 lässt sich auch ohne direkte Internetverbindung per LiveUpdate bereitstellen. Danach muss der SA-Systembenutzer in jeder Datenbank hinterlegt werden.</summary>
+  </entry>
+  <entry>
+    <title>SQL-Server-Lizenzen für Sage 100 ab August 2026 nur noch über Microsoft-Partner</title>
+    <link href="https://sage-news.de/sql-server-lizenzen-sage-100-ab-august-2026/"/>
+    <id>https://sage-news.de/sql-server-lizenzen-sage-100-ab-august-2026/</id>
+    <updated>2026-05-15T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Microsoft beendet zum 31. Juli 2026 die Sonderregelung für SQL Runtime und Full Use über Sage. Neue Lizenzen und Erweiterungen laufen danach nur noch über das reguläre Microsoft-Lizenzmodell.</summary>
+  </entry>
+  <entry>
+    <title>Sage Operations API-Update: createMultipleWorkOrderTrackings wird asynchron</title>
+    <link href="https://sage-news.de/sage-operations-api-workordertrackings-asynchron/"/>
+    <id>https://sage-news.de/sage-operations-api-workordertrackings-asynchron/</id>
+    <updated>2026-05-15T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage stellt den API-Vorgang createMultipleWorkOrderTrackings in Sage Operations von synchron auf asynchron um. Wer die API nutzt, muss Aufruf und Ergebnisabruf anpassen.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 Versionen und Wartungsinfos</title>
+    <link href="https://sage-news.de/sage-100-versionen-und-wartungsinfos/"/>
+    <id>https://sage-news.de/sage-100-versionen-und-wartungsinfos/</id>
+    <updated>2026-05-12T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>In Sage 100 gibt es ein neues Update oder einen frischen Produkthinweis. Entscheidend ist nicht die Ankündigung selbst, sondern was sich daraus für Alltag, Prozesse oder nächste Schritte ableiten lässt.</summary>
+  </entry>
+  <entry>
+    <title>Sprachpaket Stand 11.05.2026 für Sage 100 9.0.11 verfügbar</title>
+    <link href="https://sage-news.de/sprachpaket-stand-11-05-2026-fuer-sage-100-9-0-11/"/>
+    <id>https://sage-news.de/sprachpaket-stand-11-05-2026-fuer-sage-100-9-0-11/</id>
+    <updated>2026-05-11T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Für Sage 100 9.0.11 steht ein englisches Sprachpaket bereit. Es umfasst Warenwirtschaft inklusive Produktion, Rechnungswesen und xRM.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100: Mailversand mit Outlook 2604 kann fehlschlagen</title>
+    <link href="https://sage-news.de/sage-100-mailversand-mit-outlook-2604-kann-fehlschlagen/"/>
+    <id>https://sage-news.de/sage-100-mailversand-mit-outlook-2604-kann-fehlschlagen/</id>
+    <updated>2026-05-06T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage weist auf einen Fehler beim Mailversand aus Sage 100 mit Outlook Version 2604 hin. Betroffen sind Umgebungen, in denen E-Mails direkt über Outlook aus der Anwendung angestoßen werden.</summary>
+  </entry>
+  <entry>
+    <title>WebView2 wird für Sage 100 9.0.11 zur Pflicht für Sage-ID-Dienste</title>
+    <link href="https://sage-news.de/webview2-fuer-sage-100-9-0-11/"/>
+    <id>https://sage-news.de/webview2-fuer-sage-100-9-0-11/</id>
+    <updated>2026-05-05T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Mit Sage 100 Version 9.0.11 wird WebView2 für Dienste mit Sage-ID-Anmeldung verpflichtend. Vor dem Einsatz sollte geprüft werden, ob die Microsoft-Komponente bereits installiert oder aktiviert ist.</summary>
+  </entry>
+  <entry>
+    <title>Pilotversion der Sage 100 9.0.11 steht vorab für Tests bereit</title>
+    <link href="https://sage-news.de/pilotversion-9-0-11/"/>
+    <id>https://sage-news.de/pilotversion-9-0-11/</id>
+    <updated>2026-05-05T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage stellt Fachhändlern eine Pilotversion des Service Packs 9.0.11 für Sage 100 bereit. Die Vorabversion kann bis 18. Mai 2026 genutzt werden, um Anpassungen und Kundentestumgebungen rechtzeitig zu prüfen.</summary>
+  </entry>
+  <entry>
+    <title>Geplante Neuerungen in Sage 100 9.0.11: Web Client, E-Rechnung und neue Oberfläche</title>
+    <link href="https://sage-news.de/geplante-neuerungen-der-sage-100-9-0-11/"/>
+    <id>https://sage-news.de/geplante-neuerungen-der-sage-100-9-0-11/</id>
+    <updated>2026-05-05T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Für Sage 100 Version 9.0.11 zeichnet sich ein umfangreiches Update ab. Geplante Neuerungen betreffen Warenwirtschaft, E-Rechnung, Varianten, Stapeldruck und den Weg zur neuen Oberfläche.</summary>
+  </entry>
+  <entry>
+    <title>Preislisten-Update für Sage Operations kommt am 8. Mai 2026</title>
+    <link href="https://sage-news.de/sage-operations-preislisten-update-mai-2026/"/>
+    <id>https://sage-news.de/sage-operations-preislisten-update-mai-2026/</id>
+    <updated>2026-05-04T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage Operations bekommt am 8. Mai ein Update mit Änderungen an Preislisten, Paketzuordnungen und Bezeichnungen. Wer eigene Reports, Importe, APIs oder Dashboard-Anker nutzt, sollte jetzt kurz sauber prüfen.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 Service Pack 9.0.11 kommt im Mai per Live-Update</title>
+    <link href="https://sage-news.de/geplantes-service-pack-9-0-11/"/>
+    <id>https://sage-news.de/geplantes-service-pack-9-0-11/</id>
+    <updated>2026-05-04T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Mit dem Service Pack 9.0.11 erweitert Sage die Sage 100 in mehreren zentralen Bereichen. Im Fokus stehen E-Rechnung, Rechnungswesen, DMS, Druckprozesse und die Anbindung an Sage Operations.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 9.0.10.7 behebt Fehler bei ZUGFeRD/XRechnung mit Regel-Zahlungskonditionen</title>
+    <link href="https://sage-news.de/sage-100-9-0-10-7-zugferd-xrechnung-fix/"/>
+    <id>https://sage-news.de/sage-100-9-0-10-7-zugferd-xrechnung-fix/</id>
+    <updated>2026-05-02T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das LiveUpdate 9.0.10.7 für Sage 100 korrigiert einen Ausnahmefehler bei ZUGFeRD/XRechnung mit regelbasierten Zahlungskonditionen. Ein kleines, aber konkretes Stabilitätsupdate.</summary>
+  </entry>
+  <entry>
+    <title>SQL Server 2025 für Sage 100 freigegeben</title>
+    <link href="https://sage-news.de/sql-server-2025-sage-100/"/>
+    <id>https://sage-news.de/sql-server-2025-sage-100/</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage hat SQL Server 2025 für relevante Einsatzszenarien freigegeben. Wer noch auf einer älteren Datenbankversion sitzt – kein Stress, aber langsam mal hinschauen.</summary>
+  </entry>
+  <entry>
+    <title>Nie wieder zu spät bestellt. Nie wieder zu viel im Lager.</title>
+    <link href="https://sage-news.de/sage-operations-beschaffung/"/>
+    <id>https://sage-news.de/sage-operations-beschaffung/</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage Operations macht Schluss mit hektischen Excel-Listen und Lagerräumen, die aussehen wie der Vorratsschrank vor dem Lockdown. Vorausschauende Beschaffung statt reaktives Chaos.</summary>
+  </entry>
+  <entry>
+    <title>EU AI Act: Was Sage-Kunden jetzt im Blick behalten sollten</title>
+    <link href="https://sage-news.de/sage-eu-ai-act/"/>
+    <id>https://sage-news.de/sage-eu-ai-act/</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Der EU AI Act ist kein Thema mehr für Zukunftsfolien, sondern rückt in den operativen Alltag. Wer mit Sage-Systemen, Automatisierung oder KI-Funktionen arbeitet, sollte Zuständigkeiten und Risiken jetzt sauber sortieren.</summary>
+  </entry>
+  <entry>
+    <title>EU AI Act 2026: Was Mittelständler bis August erledigt haben sollten</title>
+    <link href="https://sage-news.de/eu-ai-act-2026-mittelstand-compliance/"/>
+    <id>https://sage-news.de/eu-ai-act-2026-mittelstand-compliance/</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <category term="Sage Intact"/>
+    <summary>Der EU AI Act wird für Unternehmen ab August 2026 spürbar konkret. Wer KI bereits in Recruiting, Vertrieb, Buchhaltung oder Kundenservice nutzt, sollte jetzt Inventur, Zuständigkeiten und Nachweise sauber aufsetzen.</summary>
+  </entry>
+  <entry>
+    <title>E-Rechnung: Was ab 2025 wichtig wird</title>
+    <link href="https://sage-news.de/e-rechnung-pflicht-und-uebergangsregeln/"/>
+    <id>https://sage-news.de/e-rechnung-pflicht-und-uebergangsregeln/</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Die E-Rechnung wird im B2B-Umfeld schrittweise zum Pflichtprogramm. Wer Rechnungen heute noch nur als PDF oder Papier denkt, sollte Prozesse, Formate und Archivierung jetzt sauber vorbereiten.</summary>
+  </entry>
+  <entry>
+    <title>##SAGE WG: Sage Partner Newsletter 30.04.2026</title>
+    <link href="https://sage-news.de/sage-wg-sage-partner-newsletter-30-04-2026/"/>
+    <id>https://sage-news.de/sage-wg-sage-partner-newsletter-30-04-2026/</id>
+    <updated>2026-04-30T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage hat neue Informationen für Sage 100 veröffentlicht. Der Hinweis stammt aus einer Wissensdatenbank- oder Produkt-News-Mail und sollte fachlich geprüft werden.</summary>
+  </entry>
+  <entry>
+    <title>Systemvoraussetzungen für Sage 100 Version 9.0.11 aktualisiert</title>
+    <link href="https://sage-news.de/aktualisierte-systemvoraussetzungen-sage-100-9-0-11/"/>
+    <id>https://sage-news.de/aktualisierte-systemvoraussetzungen-sage-100-9-0-11/</id>
+    <updated>2026-04-22T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage hat die Systemvoraussetzungen für Sage 100, 100cloud und 100cloud Plus Version 9.0.11 aktualisiert. Der Systemcheck auf sage-news.de ist bereits darauf angepasst.</summary>
+  </entry>
+  <entry>
+    <title>Sage 100 9.0.10.6 bringt SQL-Server-2025-Support und wichtige Korrekturen im LiveUpdate</title>
+    <link href="https://sage-news.de/sage-100-9-0-10-6-build-315-liveupdate/"/>
+    <id>https://sage-news.de/sage-100-9-0-10-6-build-315-liveupdate/</id>
+    <updated>2026-03-25T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das LiveUpdate 9.0.10.6 Build 315 für Sage 100 erweitert die Systemvoraussetzungen um Microsoft SQL Server 2025 und behebt mehrere konkrete Fehler in System, Rechnungswesen, Warenwirtschaft, xRM und Hosting.</summary>
+  </entry>
+  <entry>
+    <title>Sage Copilot startet in Sage Operations</title>
+    <link href="https://sage-news.de/sage-copilot-startet-in-sage-operations-20-01-2026/"/>
+    <id>https://sage-news.de/sage-copilot-startet-in-sage-operations-20-01-2026/</id>
+    <updated>2026-01-20T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage bringt mit Sage Copilot erste KI-Unterstützung direkt in Sage Operations. Mitarbeitende in Handel und Fertigung sollen Probleme früher erkennen und Routinearbeit effizienter abwickeln.</summary>
+  </entry>
+  <entry>
+    <title>Sage Operations - Produktupdate 12.12.2025</title>
+    <link href="https://sage-news.de/sage-operations-produktupdate-12-12-2025/"/>
+    <id>https://sage-news.de/sage-operations-produktupdate-12-12-2025/</id>
+    <updated>2025-12-12T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>In Sage Operations gibt es ein neues Update oder einen frischen Produkthinweis. Entscheidend ist nicht die Ankündigung selbst, sondern was sich daraus für Alltag, Prozesse oder nächste Schritte ableiten lässt.</summary>
+  </entry>
+</feed>

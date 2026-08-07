@@ -1,0 +1,11 @@
+{
+  "name": "sage-news",
+  "private": true,
+  "description": "sage news - statische Seite, JSX wird vorkompiliert statt im Browser uebersetzt",
+  "scripts": {
+    "build:js": "esbuild src/tweaks-panel.jsx src/app.jsx --outdir=assets/js --jsx-factory=React.createElement --jsx-fragment=React.Fragment --target=es2019 --minify-whitespace --minify-syntax"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  }
+}

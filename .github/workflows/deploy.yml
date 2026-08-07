@@ -26,6 +26,12 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install build tooling
+        run: npm install --no-audit --no-fund
+
+      - name: Compile JSX
+        run: npm run build:js
+
       - name: Build posts
         run: python3 scripts/build_posts.py build
 
