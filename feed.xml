@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-07-27T00:00:00Z</updated>
+  <updated>2026-08-10T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage Operations R2 2026 bringt mehr Transparenz in Vertrieb, Buchung und Fertigung</title>
+    <link href="https://sage-news.de/sage-operations-r2-2026-vertrieb-buchung-fertigung/"/>
+    <id>https://sage-news.de/sage-operations-r2-2026-vertrieb-buchung-fertigung/</id>
+    <updated>2026-08-10T00:00:00Z</updated>
+    <category term="Sage Operations"/>
+    <summary>Sage Operations R2 2026 bringt neue Herkunftsfelder im Vertrieb, Sammelrechnungen, Hintergrundverarbeitung und Funktionen fuer Fertigung und Oberflaeche. Das macht Alltagsablaeufe robuster und besser auswertbar.</summary>
+  </entry>
   <entry>
     <title>Sage 100 9.0.11.3: LiveUpdate behebt SMTP-, DMS- und Stapeldruck-Probleme</title>
     <link href="https://sage-news.de/sage-100-9-0-11-3-liveupdate-smtp-dms-stapeldruck/"/>

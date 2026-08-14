@@ -28,4 +28,5 @@ Die größte praktische Wirkung dürfte die Hintergrundverarbeitung haben. Wo Bu
 
 Anwender sollten nach dem Update vor allem prüfen, ob die neuen Vertriebsfelder in Auswertungen, Integrationen und internen Prozessen genutzt werden können. Für Finanz- und Vertriebsteams lohnt sich außerdem ein Blick auf Sammelrechnungen und die neue Hintergrundverarbeitung. Produktionsnahe Unternehmen sollten zusätzlich bewerten, ob der neue Abschlussbeleg und die erweiterte WIP-Auswertung ihre Nachkalkulation verbessern.
 
-Quelle: Sage GmbH (mit KI zusammengefasst)
+---
+Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)
