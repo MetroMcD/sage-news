@@ -233,7 +233,8 @@ function Header({ page, setPage, accentColor }) {
                 Passwort teilen
               </a>
               <span className="pw-share-tip" id="pw-share-tip" role="tooltip">
-                Teile sicher das Passwort mit Deinem Empfänger
+                Teile sicher ein Passwort mit Deinem Empfänger - verschlüsselte
+                Passwortübertragung mit Einmal-Link (kostenfrei)
               </span>
             </span>
             <span style={{
@@ -316,8 +317,12 @@ function Header({ page, setPage, accentColor }) {
           transform: translateX(-50%);
           background: var(--sn-blue-950); color: #fff;
           border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
-          padding: 8px 12px; font-size: 12.5px; font-weight: 500;
-          line-height: 1.4; white-space: nowrap;
+          padding: 9px 12px; font-size: 12.5px; font-weight: 500;
+          line-height: 1.45; text-align: left;
+          /* Der Knopf sitzt rechts im Kopf: die Blase muss umbrechen, sonst
+             laeuft sie ueber den Bildschirmrand hinaus. 240px sind schmal
+             genug, dass die auf den Knopf zentrierte Blase innen bleibt. */
+          width: max-content; max-width: 240px;
           box-shadow: 0 6px 20px rgba(6,27,73,0.28);
           opacity: 0; visibility: hidden; pointer-events: none;
           transition: opacity 0.12s; z-index: 200;
