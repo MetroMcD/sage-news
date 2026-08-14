@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import argparse
+import calendar
 import hashlib
 import json
 import re
 from dataclasses import dataclass
+from datetime import date
 from pathlib import Path
 from html import escape
 import shutil
@@ -25,6 +27,9 @@ EXCLUDE_DIRS = {'assets', 'posts', 'uploads', 'datenschutz', 'impressum', '.git'
 # Statische Seiten, die neben Startseite und Beiträgen in die Sitemap gehören.
 # Cloudflare normalisiert /foo.html -> /foo, deshalb steht systemcheck ohne Endung hier.
 STATIC_URLS = ['/impressum/', '/datenschutz/', '/systemcheck']
+# Ab diesem Alter wandert ein Beitrag von der Kategorieseite in deren Archiv.
+# Stichtag ist der Build-Tag, der Build ist damit bewusst datumsabhaengig.
+ARCHIVE_AFTER_MONTHS = 24
 CATEGORY_META = {
     'Sage 100': {'color': '#0a3b93', 'bg': '#dceeff'},
     'Sage X3': {'color': '#1a6b3a', 'bg': '#d4f0e0'},
@@ -453,47 +458,42 @@ BASE_CSS = (
 )
 
 
-def build_category_html(category: str, posts: list[Post]) -> str:
-    slug = CATEGORY_SLUGS[category]
-    url = f'{SITE}/kategorie/{slug}/'
-    intro = CATEGORY_INTRO[category]
-    name = escape(category)
-    count = len(posts)
-    plural = 'Beitrag' if count == 1 else 'Beiträge'
-    jsonld = [
-        {
-            '@context': 'https://schema.org',
-            '@type': 'CollectionPage',
-            'name': f'{category} – Neuigkeiten',
-            'description': intro,
-            'url': url,
-            'inLanguage': 'de-DE',
-            'hasPart': [
-                {'@type': 'NewsArticle', 'headline': p.meta['title'],
-                 'datePublished': iso_date(p), 'url': f'{SITE}/{p.slug}/'}
-                for p in posts
-            ],
-        },
-        {
-            '@context': 'https://schema.org',
-            '@type': 'BreadcrumbList',
-            'itemListElement': [
-                {'@type': 'ListItem', 'position': 1, 'name': 'Startseite', 'item': f'{SITE}/'},
-                {'@type': 'ListItem', 'position': 2, 'name': category, 'item': url},
-            ],
-        },
-    ]
+# Nur ausgeliefert, wenn die Seite tatsaechlich einen Archiv- oder Ruecklink hat.
+LISTING_LINK_CSS = (
+    '.listing-link{display:inline-block;margin-top:28px;background:#fff;'
+    'border:1.5px solid var(--sn-border);border-radius:12px;padding:14px 20px;'
+    'font-size:14px;font-weight:700;color:var(--sn-blue-600);text-decoration:none;'
+    'box-shadow:0 1px 4px rgba(6,27,73,0.05)}'
+    '.listing-link:hover{border-color:var(--sn-blue-600);text-decoration:none}'
+)
+
+
+def render_listing_page(*, head_title: str, og_title: str, description: str, url: str,
+                        jsonld: list[dict], hero_title: str, count_line: str,
+                        posts: list[Post], tail: str = '') -> str:
+    """Gemeinsames Geruest fuer Kategorie- und Archivseiten: identischer Kopf,
+    identisches Kartenraster, nur Texte und der Link am Fuss unterscheiden sich."""
     jsonld_html = ''.join(
         f'<script type="application/ld+json">{json.dumps(b, ensure_ascii=False)}</script>\n'
         for b in jsonld
     )
+    extra_css = f'\n{LISTING_LINK_CSS}' if tail else ''
+    blocks = [
+        f'<section class="cat-hero"><h1>{hero_title}</h1><p>{escape(description)}</p></section>',
+        f'<p class="cat-count">{count_line}</p>',
+    ]
+    if posts:
+        blocks.append(render_card_grid(posts))
+    if tail:
+        blocks.append(tail)
+    main_body = '\n'.join(blocks)
     return f'''<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{name} – Neuigkeiten und Updates | sage news</title>
-<meta name="description" content="{escape(intro)}">
+<title>{head_title}</title>
+<meta name="description" content="{escape(description)}">
 <link rel="canonical" href="{url}">
 <link rel="icon" type="image/png" href="/assets/favicon.png">
 <link rel="apple-touch-icon" href="/assets/favicon.png">
@@ -501,8 +501,8 @@ def build_category_html(category: str, posts: list[Post]) -> str:
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="sage news">
 <meta property="og:locale" content="de_DE">
-<meta property="og:title" content="{name} – Neuigkeiten und Updates">
-<meta property="og:description" content="{escape(intro)}">
+<meta property="og:title" content="{og_title}">
+<meta property="og:description" content="{escape(description)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE}/assets/sage-news_logo_3.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -514,15 +514,13 @@ def build_category_html(category: str, posts: list[Post]) -> str:
 .cat-hero h1{{margin:0 0 10px;font-size:32px;line-height:1.2}}
 .cat-hero p{{margin:0;font-size:15px;line-height:1.6;color:rgba(255,255,255,.78);max-width:60ch}}
 .cat-count{{margin:24px 0 12px;font-size:13px;color:var(--sn-muted)}}
-@media (max-width:700px){{.cat-hero{{padding:22px}}.cat-hero h1{{font-size:26px}}}}
+@media (max-width:700px){{.cat-hero{{padding:22px}}.cat-hero h1{{font-size:26px}}}}{extra_css}
 </style>
 </head>
 <body>
 {SITE_HEADER}
 <main class="wrap">
-<section class="cat-hero"><h1>{name}</h1><p>{escape(intro)}</p></section>
-<p class="cat-count">{count} {plural}</p>
-{render_card_grid(posts)}
+{main_body}
 </main>
 {SITE_FOOTER}
 </body>
@@ -530,7 +528,96 @@ def build_category_html(category: str, posts: list[Post]) -> str:
 '''
 
 
-def build_sitemap(posts: list[Post]) -> str:
+def collection_jsonld(name: str, description: str, url: str, posts: list[Post]) -> dict:
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': name,
+        'description': description,
+        'url': url,
+        'inLanguage': 'de-DE',
+        'hasPart': [
+            {'@type': 'NewsArticle', 'headline': p.meta['title'],
+             'datePublished': iso_date(p), 'url': f'{SITE}/{p.slug}/'}
+            for p in posts
+        ],
+    }
+
+
+def build_category_html(category: str, posts: list[Post], archived: list[Post]) -> str:
+    slug = CATEGORY_SLUGS[category]
+    url = f'{SITE}/kategorie/{slug}/'
+    intro = CATEGORY_INTRO[category]
+    name = escape(category)
+    count = len(posts)
+    plural = 'Beitrag' if count == 1 else 'Beiträge'
+    # Ohne diesen Fall stuende auf einem eingeschlafenen Bereich "0 Beiträge",
+    # obwohl das Archiv voll ist.
+    count_line = f'{count} {plural}' if count else 'Alle Beiträge liegen im Archiv'
+    tail = ''
+    if archived:
+        older = len(archived)
+        tail = (f'<a class="listing-link" href="archiv/">Ältere Beiträge '
+                f'({older}) →</a>')
+    jsonld = [
+        collection_jsonld(f'{category} – Neuigkeiten', intro, url, posts),
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Startseite', 'item': f'{SITE}/'},
+                {'@type': 'ListItem', 'position': 2, 'name': category, 'item': url},
+            ],
+        },
+    ]
+    return render_listing_page(
+        head_title=f'{name} – Neuigkeiten und Updates | sage news',
+        og_title=f'{name} – Neuigkeiten und Updates',
+        description=intro,
+        url=url,
+        jsonld=jsonld,
+        hero_title=name,
+        count_line=count_line,
+        posts=posts,
+        tail=tail,
+    )
+
+
+def build_archive_html(category: str, archived: list[Post]) -> str:
+    slug = CATEGORY_SLUGS[category]
+    cat_url = f'{SITE}/kategorie/{slug}/'
+    url = f'{cat_url}archiv/'
+    name = escape(category)
+    count = len(archived)
+    plural = 'Beitrag' if count == 1 else 'Beiträge'
+    intro = (f'Ältere {category}-Meldungen von sage news: alles, was mehr als '
+             f'{ARCHIVE_AFTER_MONTHS} Monate zurückliegt.')
+    jsonld = [
+        collection_jsonld(f'Archiv – {category}', intro, url, archived),
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {'@type': 'ListItem', 'position': 1, 'name': 'Startseite', 'item': f'{SITE}/'},
+                {'@type': 'ListItem', 'position': 2, 'name': category, 'item': cat_url},
+                {'@type': 'ListItem', 'position': 3, 'name': 'Archiv', 'item': url},
+            ],
+        },
+    ]
+    return render_listing_page(
+        head_title=f'Archiv – {name} | sage news',
+        og_title=f'Archiv – {name}',
+        description=intro,
+        url=url,
+        jsonld=jsonld,
+        hero_title=f'Archiv – {name}',
+        count_line=f'{count} {plural} im Archiv',
+        posts=archived,
+        tail=f'<a class="listing-link" href="../">← Zurück zu {name}</a>',
+    )
+
+
+def build_sitemap(posts: list[Post], cutoff: str) -> str:
     newest = max((iso_date(p) for p in posts), default='')
     entries = [(f'{SITE}/', newest, '1.0')]
     for category, slug in CATEGORY_SLUGS.items():
@@ -538,6 +625,10 @@ def build_sitemap(posts: list[Post]) -> str:
         if not in_cat:
             continue
         entries.append((f'{SITE}/kategorie/{slug}/', max(iso_date(p) for p in in_cat), '0.8'))
+        _, archived = split_archive(in_cat, cutoff)
+        if archived:
+            entries.append((f'{SITE}/kategorie/{slug}/archiv/',
+                            max(iso_date(p) for p in archived), '0.4'))
     entries += [(f'{SITE}/{p.slug}/', iso_date(p), '0.7') for p in posts]
     entries += [(f'{SITE}{path}', newest, '0.3') for path in STATIC_URLS]
     body = ''.join(
@@ -717,6 +808,26 @@ def categories_with_posts(posts: list[Post]) -> dict[str, list[Post]]:
     return grouped
 
 
+def archive_cutoff(today: date | None = None) -> str:
+    """ISO-Stichtag: alles davor gehoert ins Archiv. Gerechnet wird ab dem
+    Build-Tag, nicht ab dem neuesten Beitrag — ein Bereich, in dem nichts mehr
+    erscheint, soll mit der Zeit vollstaendig ins Archiv wandern."""
+    today = today or date.today()
+    months = today.year * 12 + (today.month - 1) - ARCHIVE_AFTER_MONTHS
+    year, month = divmod(months, 12)
+    month += 1
+    day = min(today.day, calendar.monthrange(year, month)[1])
+    return date(year, month, day).isoformat()
+
+
+def split_archive(posts: list[Post], cutoff: str) -> tuple[list[Post], list[Post]]:
+    """Teilt eine Kategorieliste in (aktuell, Archiv). Die Reihenfolge bleibt
+    neueste-zuerst, weil load_posts() bereits sortiert liefert."""
+    recent = [p for p in posts if iso_date(p) >= cutoff]
+    archived = [p for p in posts if iso_date(p) < cutoff]
+    return recent, archived
+
+
 def check_slug_collisions(posts: list[Post]) -> None:
     """/kategorie/ darf nie mit einem Beitrags-Slug kollidieren — sonst wäre ein
     Bericht nicht mehr erreichbar."""
@@ -744,14 +855,29 @@ def build() -> None:
     grouped = categories_with_posts(posts)
     cleanup_category_dirs({CATEGORY_SLUGS[c] for c in grouped})
     CATEGORY_DIR.mkdir(exist_ok=True)
+    cutoff = archive_cutoff()
+    archives = 0
     for category, in_cat in grouped.items():
+        recent, archived = split_archive(in_cat, cutoff)
         target = CATEGORY_DIR / CATEGORY_SLUGS[category]
         target.mkdir(exist_ok=True)
-        (target / 'index.html').write_text(build_category_html(category, in_cat), encoding='utf-8')
+        (target / 'index.html').write_text(
+            build_category_html(category, recent, archived), encoding='utf-8')
+        archive_dir = target / 'archiv'
+        if archived:
+            archive_dir.mkdir(exist_ok=True)
+            (archive_dir / 'index.html').write_text(
+                build_archive_html(category, archived), encoding='utf-8')
+            archives += 1
+        elif archive_dir.exists():
+            # Kann auftreten, wenn ein Beitrag geloescht oder die Schwelle
+            # angehoben wird — sonst bliebe eine verwaiste Seite online.
+            shutil.rmtree(archive_dir)
 
-    SITEMAP_PATH.write_text(build_sitemap(posts), encoding='utf-8')
+    SITEMAP_PATH.write_text(build_sitemap(posts, cutoff), encoding='utf-8')
     FEED_PATH.write_text(build_feed(posts), encoding='utf-8')
-    print(f'Built {len(posts)} posts, {len(grouped)} category pages, sitemap and feed.')
+    print(f'Built {len(posts)} posts, {len(grouped)} category pages, '
+          f'{archives} archive pages, sitemap and feed.')
 
 
 def validate() -> None:
@@ -789,11 +915,25 @@ def validate() -> None:
         raise ValueError('Vorgerendertes Markup in index.html fehlt oder ist veraltet')
 
     grouped = categories_with_posts(posts)
+    cutoff = archive_cutoff()
+    archives = 0
     for category, in_cat in grouped.items():
-        cat_path = CATEGORY_DIR / CATEGORY_SLUGS[category] / 'index.html'
+        cat_dir = CATEGORY_DIR / CATEGORY_SLUGS[category]
+        cat_path = cat_dir / 'index.html'
         if not cat_path.exists():
             raise ValueError(f'Fehlende Kategorieseite: {cat_path.relative_to(ROOT)}')
         cat_html = cat_path.read_text(encoding='utf-8')
+        archive_path = cat_dir / 'archiv' / 'index.html'
+        _, archived = split_archive(in_cat, cutoff)
+        if archived:
+            if not archive_path.exists():
+                raise ValueError(f'Fehlende Archivseite: {archive_path.relative_to(ROOT)}')
+            # Ein Beitrag darf auf der Kategorie- ODER der Archivseite stehen,
+            # aber er darf nirgends verschwinden.
+            cat_html += archive_path.read_text(encoding='utf-8')
+            archives += 1
+        elif archive_path.exists():
+            raise ValueError(f'Verwaiste Archivseite: {archive_path.relative_to(ROOT)}')
         missing = [p.slug for p in in_cat if f'href="/{p.slug}/"' not in cat_html]
         if missing:
             raise ValueError(f'Kategorieseite {category} verlinkt nicht: {", ".join(missing)}')
@@ -804,7 +944,7 @@ def validate() -> None:
     if not SITEMAP_PATH.exists():
         raise ValueError('sitemap.xml fehlt')
     sitemap = SITEMAP_PATH.read_text(encoding='utf-8')
-    expected_urls = 1 + len(grouped) + len(posts) + len(STATIC_URLS)
+    expected_urls = 1 + len(grouped) + archives + len(posts) + len(STATIC_URLS)
     found_urls = sitemap.count('<loc>')
     if found_urls != expected_urls:
         raise ValueError(f'sitemap.xml hat {found_urls} URLs, erwartet {expected_urls}')
@@ -816,7 +956,7 @@ def validate() -> None:
     check_fingerprint()
 
     print(f'Validated {len(posts)} posts, {len(grouped)} category pages, '
-          f'{found_urls} sitemap URLs.')
+          f'{archives} archive pages, {found_urls} sitemap URLs.')
 
 
 def main() -> None:
