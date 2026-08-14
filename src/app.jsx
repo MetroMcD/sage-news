@@ -227,10 +227,15 @@ function Header({ page, setPage, accentColor }) {
           </nav>
 
           <div style={{ marginLeft: "auto", flexShrink: 0, display: "flex", alignItems: "center", gap: "10px" }}>
-            <a href="https://share.sage-news.de" target="_blank" rel="noopener noreferrer"
-              className="pw-share-btn">
-              Passwort teilen
-            </a>
+            <span className="pw-share-wrap">
+              <a href="https://share.sage-news.de" target="_blank" rel="noopener noreferrer"
+                className="pw-share-btn" aria-describedby="pw-share-tip">
+                Passwort teilen
+              </a>
+              <span className="pw-share-tip" id="pw-share-tip" role="tooltip">
+                Teile sicher das Passwort mit Deinem Empfänger
+              </span>
+            </span>
             <span style={{
               background: accentColor, color: "#07172f",
               fontSize: "11px", fontWeight: 800,
@@ -303,10 +308,36 @@ function Header({ page, setPage, accentColor }) {
           transition: background 0.15s;
         }
         .pw-share-btn:hover { background: rgba(255,255,255,0.15); }
+        .pw-share-wrap { position: relative; display: inline-flex; }
+        /* Die Blase faellt aus dem dunklen Header auf den hellen Seiten-
+           hintergrund — deshalb deckend statt transparent. */
+        .pw-share-tip {
+          position: absolute; top: calc(100% + 10px); left: 50%;
+          transform: translateX(-50%);
+          background: var(--sn-blue-950); color: #fff;
+          border: 1px solid rgba(255,255,255,0.15); border-radius: 8px;
+          padding: 8px 12px; font-size: 12.5px; font-weight: 500;
+          line-height: 1.4; white-space: nowrap;
+          box-shadow: 0 6px 20px rgba(6,27,73,0.28);
+          opacity: 0; visibility: hidden; pointer-events: none;
+          transition: opacity 0.12s; z-index: 200;
+        }
+        .pw-share-tip::before {
+          content: ""; position: absolute; top: -4px; left: 50%;
+          width: 8px; height: 8px; margin-left: -4px;
+          background: var(--sn-blue-950);
+          border-left: 1px solid rgba(255,255,255,0.15);
+          border-top: 1px solid rgba(255,255,255,0.15);
+          transform: rotate(45deg);
+        }
+        .pw-share-wrap:hover .pw-share-tip,
+        .pw-share-btn:focus-visible ~ .pw-share-tip {
+          opacity: 1; visibility: visible;
+        }
         @media (max-width: 680px) {
           .desktop-nav { display: none !important; }
           .hamburger { display: flex !important; }
-          .pw-share-btn { display: none !important; }
+          .pw-share-btn, .pw-share-wrap { display: none !important; }
           .post-grid-featured, .post-grid-regular { grid-template-columns: 1fr !important; }
           .post-grid-featured article { grid-column: 1 !important; }
           .info-hero { flex-direction: column !important; align-items: stretch !important; }
