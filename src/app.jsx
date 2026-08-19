@@ -237,12 +237,6 @@ function Header({ page, setPage, accentColor }) {
                 Passwortübertragung mit Einmal-Link (kostenfrei)
               </span>
             </span>
-            <span style={{
-              background: accentColor, color: "#07172f",
-              fontSize: "11px", fontWeight: 800,
-              padding: "3px 10px", borderRadius: "999px", letterSpacing: "0.04em"
-            }}>BETA</span>
-
             {/* Hamburger — mobile only */}
             <button onClick={() => setMenuOpen(o => !o)}
               className="hamburger"
