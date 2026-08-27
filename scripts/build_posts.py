@@ -63,7 +63,9 @@ TAG_COLORS = {
 }
 REQUIRED_META = ['title', 'date', 'category', 'tag', 'summary', 'readTime', 'featured']
 SOURCE_SUFFIX = '(zusammengefasst mit KI für Sage-News.de)'
-SOURCE_BLOCK_RE = re.compile(r'\n\s*---\s*\n(Quelle:[^\n]+)\s*$')
+SOURCE_BLOCK_RE = re.compile(
+    r'\n\s*---\s*\n(Quelle:[^\n]+(?:\nGast Author:[^\n]+)?)\s*$'
+)
 ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact'}
 ALLOWED_TAGS = {'Release', 'Neu', 'KI', 'Cloud', 'Compliance', 'Perspektive', 'News'}
 DATE_RE = re.compile(r'^\d{1,2}\.\s+[A-Za-zÄÖÜäöü]+\s+\d{4}$')
@@ -196,6 +198,34 @@ def split_source(body: str) -> tuple[str, str]:
     return body[:match.start()].rstrip(), match.group(1).strip()
 
 
+def source_lines(source_block: str) -> list[str]:
+    return [line.strip() for line in source_block.splitlines() if line.strip()]
+
+
+def validate_source_block(path: Path, source_block: str) -> None:
+    lines = source_lines(source_block)
+    if not lines:
+        raise ValueError(f'{path.name}: Quellen-Fußzeile fehlt am Textende')
+    if not lines[0].startswith('Quelle:'):
+        raise ValueError(f'{path.name}: Quellen-Fußzeile muss mit Quelle: beginnen')
+    if not lines[0].endswith(SOURCE_SUFFIX):
+        raise ValueError(f'{path.name}: Quellen-Fußzeile ohne KI-Hinweis {SOURCE_SUFFIX}')
+    if len(lines) > 2:
+        raise ValueError(f'{path.name}: Zu viele Zeilen im Quellenblock')
+    if len(lines) == 2:
+        if not lines[1].startswith('Gast Author:'):
+            raise ValueError(f'{path.name}: Zweite Quellenzeile muss mit Gast Author: beginnen')
+        if lines[1] == 'Gast Author:':
+            raise ValueError(f'{path.name}: Gast Author darf nicht leer sein')
+
+
+def render_source_block(source_block: str) -> str:
+    return ''.join(
+        f'<p class="article-source">{render_inline(line)}</p>'
+        for line in source_lines(source_block)
+    )
+
+
 def load_posts() -> list[Post]:
     posts: list[Post] = []
     for path in sorted(POSTS_DIR.glob('*.md')):
@@ -239,10 +269,7 @@ def validate_posts(posts: list[Post]) -> None:
         if len(post.slug) > 60:
             raise ValueError(f'{post.source_path.name}: slug zu lang (>60 Zeichen)')
         source = split_source(post.body)[1]
-        if not source:
-            raise ValueError(f'{post.source_path.name}: Quellen-Fußzeile fehlt am Textende')
-        if not source.endswith(SOURCE_SUFFIX):
-            raise ValueError(f'{post.source_path.name}: Quellen-Fußzeile ohne KI-Hinweis {SOURCE_SUFFIX}')
+        validate_source_block(post.source_path, source)
 
 
 def build_manifest(posts: list[Post]) -> dict:
@@ -391,7 +418,7 @@ def build_article_html(post: Post) -> str:
     body_text, source_text = split_source(post.body)
     article_html = markdown_to_html(body_text)
     if source_text:
-        article_html += f'<hr><p class="article-source">{render_inline(source_text)}</p>'
+        article_html += f'<hr>{render_source_block(source_text)}'
     title = escape(post.meta['title'])
     summary = escape(post.meta['summary'])
     iso = iso_date(post)

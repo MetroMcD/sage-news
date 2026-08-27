@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-08-10T00:00:00Z</updated>
+  <updated>2026-08-27T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100 9.0.11.4: LiveUpdate behebt Probleme bei SMTP, Stapeldruck, Rewe und DMS</title>
+    <link href="https://sage-news.de/sage-100-9-0-11-4-liveupdate-smtp-stapeldruck-rewe-dms/"/>
+    <id>https://sage-news.de/sage-100-9-0-11-4-liveupdate-smtp-stapeldruck-rewe-dms/</id>
+    <updated>2026-08-27T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das LiveUpdate 9.0.11.4 für Sage 100 bringt Korrekturen für SMTP mit OAuth 2.0, Stapeldruck, Rechnungswesen, DMS und weitere Alltagsprobleme in System und Warenwirtschaft.</summary>
+  </entry>
   <entry>
     <title>Sage Operations R2 2026 bringt mehr Transparenz in Vertrieb, Buchung und Fertigung</title>
     <link href="https://sage-news.de/sage-operations-r2-2026-vertrieb-buchung-fertigung/"/>
