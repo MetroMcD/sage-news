@@ -21,4 +21,3 @@ Wichtig bleibt die Reihenfolge bei verteilten Installationen: zuerst der Applica
 
 ---
 Quelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)
-Gast Author: Dirk Pohl

@@ -63,9 +63,7 @@ TAG_COLORS = {
 }
 REQUIRED_META = ['title', 'date', 'category', 'tag', 'summary', 'readTime', 'featured']
 SOURCE_SUFFIX = '(zusammengefasst mit KI für Sage-News.de)'
-SOURCE_BLOCK_RE = re.compile(
-    r'\n\s*---\s*\n(Quelle:[^\n]+(?:\nGast Author:[^\n]+)?)\s*$'
-)
+SOURCE_BLOCK_RE = re.compile(r'\n\s*---\s*\n(Quelle:[^\n]+)\s*$')
 ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact'}
 ALLOWED_TAGS = {'Release', 'Neu', 'KI', 'Cloud', 'Compliance', 'Perspektive', 'News'}
 DATE_RE = re.compile(r'^\d{1,2}\.\s+[A-Za-zÄÖÜäöü]+\s+\d{4}$')
@@ -210,13 +208,8 @@ def validate_source_block(path: Path, source_block: str) -> None:
         raise ValueError(f'{path.name}: Quellen-Fußzeile muss mit Quelle: beginnen')
     if not lines[0].endswith(SOURCE_SUFFIX):
         raise ValueError(f'{path.name}: Quellen-Fußzeile ohne KI-Hinweis {SOURCE_SUFFIX}')
-    if len(lines) > 2:
-        raise ValueError(f'{path.name}: Zu viele Zeilen im Quellenblock')
-    if len(lines) == 2:
-        if not lines[1].startswith('Gast Author:'):
-            raise ValueError(f'{path.name}: Zweite Quellenzeile muss mit Gast Author: beginnen')
-        if lines[1] == 'Gast Author:':
-            raise ValueError(f'{path.name}: Gast Author darf nicht leer sein')
+    if len(lines) > 1:
+        raise ValueError(f'{path.name}: Quellenblock darf nur eine Zeile enthalten')
 
 
 def render_source_block(source_block: str) -> str:
