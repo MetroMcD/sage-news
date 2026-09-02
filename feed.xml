@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-08-27T00:00:00Z</updated>
+  <updated>2026-09-02T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>DMS-Eigenschaften nach Sage-100-LiveUpdate auf 9.0.11.x – Fehlende Dokumentenarten und Metadaten</title>
+    <link href="https://sage-news.de/dms-eigenschaften-sage-100-9-0-11-x/"/>
+    <id>https://sage-news.de/dms-eigenschaften-sage-100-9-0-11-x/</id>
+    <updated>2026-09-02T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Nach dem Update auf Sage 100 9.0.11.x können eigene DMS-Dokumentenarten ihre Eigenschaften verlieren. Grund ist die Umstellung der DMS-Masken auf neue Technik. Ab Version 9.0.12 wird das Verfahren erneut umgestellt.</summary>
+  </entry>
   <entry>
     <title>Sage 100 9.0.11.4: LiveUpdate behebt Probleme bei SMTP, Stapeldruck, Rewe und DMS</title>
     <link href="https://sage-news.de/sage-100-9-0-11-4-liveupdate-smtp-stapeldruck-rewe-dms/"/>
