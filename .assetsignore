@@ -15,9 +15,21 @@ node_modules/
 .github/
 .state/
 .claude/
+# Lokaler Zustand von "wrangler dev". Ohne diese Zeile sieht der Asset-Watcher
+# Wranglers eigene Schreibvorgaenge (assets.directory ist "."), laedt neu,
+# schreibt wieder — und dev haengt in einer Endlosschleife.
+.wrangler/
 
 *.md
 *.zip
+
+# Original des PLAN-and-DISPATCH-Icons; ausgeliefert wird die 96px-Fassung
+# unter assets/plan-and-dispatch_icon.png.
+#
+# Der fuehrende Schraegstrich ist zwingend: ohne ihn matcht das Muster auf jeder
+# Ebene und case-insensitiv — und schluckt damit auch assets/plan-and-dispatch_icon.png,
+# das Icon im Seitenkopf waere dann 404.
+/Plan-and-Dispatch_icon.png
 
 package.json
 package-lock.json

@@ -30,6 +30,13 @@ STATIC_URLS = ['/impressum/', '/datenschutz/', '/systemcheck']
 # Ab diesem Alter wandert ein Beitrag von der Kategorieseite in deren Archiv.
 # Stichtag ist der Build-Tag, der Build ist damit bewusst datumsabhaengig.
 ARCHIVE_AFTER_MONTHS = 24
+# Der Falz davor: aelter als das, aber noch nicht im Archiv, heisst "steht im
+# selben HTML, ist aber erst nach Klick auf 'Mehr anzeigen' sichtbar".
+FOLD_AFTER_MONTHS = 12
+# ... ausser die Kategorie hat so wenig Aktuelles, dass die Seite sonst leer
+# wirkt. Dann werden aeltere Beitraege nach vorn geholt, bis so viele sichtbar
+# sind wie auf der Startseite.
+FOLD_MIN_VISIBLE = 8
 CATEGORY_META = {
     'Sage 100': {'color': '#0a3b93', 'bg': '#dceeff'},
     'Sage X3': {'color': '#1a6b3a', 'bg': '#d4f0e0'},
@@ -72,7 +79,49 @@ ISO_DATE_RE = re.compile(r'^(\d{4}-\d{2}-\d{2})-')
 
 # Kopf- und Fusszeile teilen sich Artikel- und Kategorieseiten. Root-absolute
 # Pfade, damit derselbe Baustein in /slug/ und /kategorie/slug/ funktioniert.
-SITE_HEADER = '<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08)"><div style="max-width:1140px;margin:0 auto;padding:0 16px"><div style="display:flex;align-items:center;height:64px;gap:16px"><a href="/" title="Zur Startseite" style="background:none;border:none;cursor:pointer;padding:0;flex-shrink:0;line-height:0;text-decoration:none"><img src="/assets/sage-news_logo_3.png" alt="sage news" style="height:52px;width:auto;display:block;mix-blend-mode:lighten"></a><div class="sn-nav-divider" style="width:1px;height:28px;background:rgba(255,255,255,0.12);flex-shrink:0"></div><nav class="sn-desktop-nav" style="display:flex;gap:2px;align-items:center;flex:1;overflow:hidden"><a href="/" style="background:#ffd22e;color:#07172f;font-weight:700;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Alle News</a><a href="/kategorie/sage-100/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage 100</a><a href="/kategorie/sage-x3/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage X3</a><a href="/kategorie/sage-operations/" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Sage Operations</a><a href="/systemcheck" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Systemcheck</a><a href="/#info" style="color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap">Info</a></nav><div style="margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:10px"><a class="sn-backlink-mobile" href="/" style="display:none;font-size:14px;font-weight:600;color:rgba(255,255,255,0.85);text-decoration:none;white-space:nowrap">← Zur Übersicht</a></div></div></div><style>@media (max-width:680px){.sn-nav-divider,.sn-desktop-nav{display:none !important}.sn-backlink-mobile{display:inline-block !important}}</style></header>'
+SITE_NAV = [
+    ('/', 'Alle News'),
+    ('/kategorie/sage-100/', 'Sage 100'),
+    ('/kategorie/sage-x3/', 'Sage X3'),
+    ('/kategorie/sage-operations/', 'Sage Operations'),
+    ('/systemcheck', 'Systemcheck'),
+    ('/#info', 'Info'),
+]
+NAV_ACTIVE_STYLE = ('background:#ffd22e;color:#07172f;font-weight:700;font-size:13.5px;'
+                    'padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap')
+NAV_STYLE = ('color:rgba(255,255,255,0.72);font-weight:500;font-size:13.5px;'
+             'padding:7px 13px;border-radius:8px;text-decoration:none;white-space:nowrap')
+
+
+def site_header(active: str = '/') -> str:
+    """Kopfzeile der statischen Seiten. active ist der href des Menuepunkts, der
+    hervorgehoben wird — auf einer Kategorieseite ihr eigener, sonst die
+    Startseite. Die Hervorhebung spiegelt exakt NavItem in src/app.jsx."""
+    links = ''.join(
+        f'<a href="{href}" style="{NAV_ACTIVE_STYLE if href == active else NAV_STYLE}">{label}</a>'
+        for href, label in SITE_NAV
+    )
+    return (
+        '<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08)">'
+        '<div style="max-width:1140px;margin:0 auto;padding:0 16px">'
+        '<div style="display:flex;align-items:center;height:64px;gap:16px">'
+        '<a href="/" title="Zur Startseite" style="background:none;border:none;cursor:pointer;'
+        'padding:0;flex-shrink:0;line-height:0;text-decoration:none">'
+        '<img src="/assets/sage-news_logo_3.png" alt="sage news" '
+        'style="height:52px;width:auto;display:block;mix-blend-mode:lighten"></a>'
+        '<div class="sn-nav-divider" style="width:1px;height:28px;'
+        'background:rgba(255,255,255,0.12);flex-shrink:0"></div>'
+        '<nav class="sn-desktop-nav" style="display:flex;gap:2px;align-items:center;'
+        f'flex:1;overflow:hidden">{links}</nav>'
+        '<div style="margin-left:auto;flex-shrink:0;display:flex;align-items:center;gap:10px">'
+        '<a class="sn-backlink-mobile" href="/" style="display:none;font-size:14px;font-weight:600;'
+        'color:rgba(255,255,255,0.85);text-decoration:none;white-space:nowrap">← Zur Übersicht</a>'
+        '</div></div></div>'
+        '<style>@media (max-width:680px){.sn-nav-divider,.sn-desktop-nav{display:none !important}'
+        '.sn-backlink-mobile{display:inline-block !important}}</style></header>'
+    )
+
+
 SITE_FOOTER = '<footer class="footer"><div class="footer-inner"><div>© 2026 René Münz</div><a href="/">Zurück zu sage news</a></div></footer>'
 
 # Lokale Inter-Schnitte statt fonts.googleapis.com: identische Schrift,
@@ -303,15 +352,16 @@ def category_path(category: str) -> str:
     return f'/kategorie/{CATEGORY_SLUGS[category]}/'
 
 
-def render_card(post: Post) -> str:
+def render_card(post: Post, extra_class: str = '') -> str:
     """Kartenmarkup mit exakt den Inline-Styles aus PostCard (src/app.jsx).
     React ersetzt das auf der Startseite beim Mount; auf den Kategorieseiten
     ist es die finale Darstellung."""
     cat = CATEGORY_META.get(post.meta['category'], {'bg': '#dceeff', 'color': '#0a3b93'})
     tag = post.meta['tag']
     tag_meta = TAG_COLORS.get(tag, {'bg': '#f0f0f0', 'color': '#374151'})
+    cls = f' class="{extra_class}"' if extra_class else ''
     return (
-        f'<a href="/{post.slug}/" style="display:block;text-decoration:none;background:white;'
+        f'<a href="/{post.slug}/"{cls} style="display:block;text-decoration:none;background:white;'
         # Keine color-Angabe: der Titel erbt wie auf der Startseite das Blau aus
         # der a-Regel. Sonst weicht die Kartenoptik vom React-Rendering ab.
         'border:1.5px solid var(--sn-border);border-radius:14px;padding:22px;'
@@ -338,8 +388,12 @@ def render_card(post: Post) -> str:
     )
 
 
-def render_card_grid(posts: list[Post]) -> str:
+def render_card_grid(posts: list[Post], folded: list[Post] | None = None) -> str:
+    """Sichtbare und gefaltete Karten liegen im selben Raster, damit das Layout
+    beim Aufklappen einfach weiterlaeuft. Zwei getrennte Raster wuerden bei einer
+    ungeraden Zahl sichtbarer Karten eine Luecke in der letzten Zeile lassen."""
     cards = ''.join(render_card(post) for post in posts)
+    cards += ''.join(render_card(post, 'sn-folded') for post in folded or [])
     return (
         '<div class="post-grid-regular" style="display:grid;'
         f'grid-template-columns:repeat(2, 1fr);gap:16px">{cards}</div>'
@@ -418,6 +472,9 @@ def build_article_html(post: Post) -> str:
     category = escape(post.meta['category'])
     cat_href = category_path(post.meta['category'])
     jsonld = article_jsonld(post)
+    # Beitragsseiten heben weiterhin "Alle News" hervor — der Bereich steht
+    # bereits als Badge im Kopf der Seite.
+    nav_active = '/'
     return f'''<!DOCTYPE html>
 <html lang="de">
 <head>
@@ -451,7 +508,7 @@ a{{color:var(--sn-blue-600);text-decoration:none}}a:hover{{text-decoration:under
 </style>
 </head>
 <body>
-{SITE_HEADER}
+{site_header(nav_active)}
 <main class="container">
 <section class="hero"><div class="badges"><a class="badge badge-category" href="{cat_href}">{category}</a>{tag_html}</div><h1>{title}</h1><div class="meta"><time datetime="{iso}">{escape(post.meta['date'])}</time> · {escape(post.meta['readTime'])} Lesezeit</div></section>
 <article class="article"><div class="summary"><div class="summary-label">Kurzfazit</div><div>{summary}</div></div><div class="prose">{article_html}</div></article>
@@ -487,23 +544,59 @@ LISTING_LINK_CSS = (
     '.listing-link:hover{border-color:var(--sn-blue-600);text-decoration:none}'
 )
 
+# Der Knopf ist ein <button> statt eines <a> — er fuehrt nirgendwohin. Damit er
+# aussieht wie der Archiv-Link daneben, fehlen ihm nur die Eigenschaften, die
+# ein Button nicht erbt.
+FOLD_CSS = (
+    '.sn-fold-more{cursor:pointer;font-family:inherit;line-height:inherit}'
+)
+
+# Der Falz ist bewusst umgekehrt gebaut: im ausgelieferten HTML sind alle Karten
+# sichtbar und der Knopf verborgen. Erst dieses Skript dreht das um. Ohne
+# JavaScript steht damit die vollstaendige Liste da, statt hinter einem Knopf zu
+# verschwinden, den nur JavaScript oeffnen kann.
+#
+# Versteckt wird per style.display, nicht per CSS-Klasse: Karten und Raster
+# tragen Inline-Styles aus render_card() (display:block bzw. display:grid), und
+# gegen die kommt eine Klassenregel ohne !important nicht an.
+FOLD_SCRIPT = (
+    '<script>(function(){'
+    'var c=document.querySelectorAll(".sn-folded"),'
+    'b=document.querySelector(".sn-fold-more"),i;'
+    'for(i=0;i<c.length;i++)c[i].style.display="none";'
+    'b.style.display="inline-block";'
+    'b.addEventListener("click",function(){'
+    'for(var j=0;j<c.length;j++)c[j].style.display="block";'
+    'b.remove()})})()</script>'
+)
+
 
 def render_listing_page(*, head_title: str, og_title: str, description: str, url: str,
                         jsonld: list[dict], hero_title: str, count_line: str,
-                        posts: list[Post], tail: str = '') -> str:
+                        posts: list[Post], folded: list[Post] | None = None,
+                        tail: str = '', nav_active: str = '/') -> str:
     """Gemeinsames Geruest fuer Kategorie- und Archivseiten: identischer Kopf,
     identisches Kartenraster, nur Texte und der Link am Fuss unterscheiden sich."""
     jsonld_html = ''.join(
         f'<script type="application/ld+json">{json.dumps(b, ensure_ascii=False)}</script>\n'
         for b in jsonld
     )
-    extra_css = f'\n{LISTING_LINK_CSS}' if tail else ''
+    folded = folded or []
+    extra_css = f'\n{LISTING_LINK_CSS}' if tail or folded else ''
+    if folded:
+        extra_css += f'\n{FOLD_CSS}'
     blocks = [
         f'<section class="cat-hero"><h1>{hero_title}</h1><p>{escape(description)}</p></section>',
         f'<p class="cat-count">{count_line}</p>',
     ]
-    if posts:
-        blocks.append(render_card_grid(posts))
+    if posts or folded:
+        blocks.append(render_card_grid(posts, folded))
+    if folded:
+        blocks.append(
+            f'<button type="button" class="listing-link sn-fold-more" '
+            f'style="display:none">Mehr anzeigen ({len(folded)}) ↓</button>'
+        )
+        blocks.append(FOLD_SCRIPT)
     if tail:
         blocks.append(tail)
     main_body = '\n'.join(blocks)
@@ -538,7 +631,7 @@ def render_listing_page(*, head_title: str, og_title: str, description: str, url
 </style>
 </head>
 <body>
-{SITE_HEADER}
+{site_header(nav_active)}
 <main class="wrap">
 {main_body}
 </main>
@@ -564,12 +657,17 @@ def collection_jsonld(name: str, description: str, url: str, posts: list[Post]) 
     }
 
 
-def build_category_html(category: str, posts: list[Post], archived: list[Post]) -> str:
+def build_category_html(category: str, posts: list[Post], archived: list[Post],
+                        folded: list[Post] | None = None) -> str:
     slug = CATEGORY_SLUGS[category]
     url = f'{SITE}/kategorie/{slug}/'
     intro = CATEGORY_INTRO[category]
     name = escape(category)
-    count = len(posts)
+    folded = folded or []
+    # Gezaehlt wird, was auf der Seite steht — gefaltete Beitraege sind nur
+    # zugeklappt, nicht weg. Sonst widerspraeche die Zeile den Karten darunter.
+    on_page = posts + folded
+    count = len(on_page)
     plural = 'Beitrag' if count == 1 else 'Beiträge'
     # Ohne diesen Fall stuende auf einem eingeschlafenen Bereich "0 Beiträge",
     # obwohl das Archiv voll ist.
@@ -580,7 +678,7 @@ def build_category_html(category: str, posts: list[Post], archived: list[Post]) 
         tail = (f'<a class="listing-link" href="archiv/">Ältere Beiträge '
                 f'({older}) →</a>')
     jsonld = [
-        collection_jsonld(f'{category} – Neuigkeiten', intro, url, posts),
+        collection_jsonld(f'{category} – Neuigkeiten', intro, url, on_page),
         {
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
@@ -599,7 +697,9 @@ def build_category_html(category: str, posts: list[Post], archived: list[Post]) 
         hero_title=name,
         count_line=count_line,
         posts=posts,
+        folded=folded,
         tail=tail,
+        nav_active=f'/kategorie/{slug}/',
     )
 
 
@@ -634,6 +734,7 @@ def build_archive_html(category: str, archived: list[Post]) -> str:
         count_line=f'{count} {plural} im Archiv',
         posts=archived,
         tail=f'<a class="listing-link" href="../">← Zurück zu {name}</a>',
+        nav_active=f'/kategorie/{slug}/',
     )
 
 
@@ -828,12 +929,16 @@ def categories_with_posts(posts: list[Post]) -> dict[str, list[Post]]:
     return grouped
 
 
-def archive_cutoff(today: date | None = None) -> str:
+def archive_cutoff(today: date | None = None,
+                   months_back: int = ARCHIVE_AFTER_MONTHS) -> str:
     """ISO-Stichtag: alles davor gehoert ins Archiv. Gerechnet wird ab dem
     Build-Tag, nicht ab dem neuesten Beitrag — ein Bereich, in dem nichts mehr
-    erscheint, soll mit der Zeit vollstaendig ins Archiv wandern."""
+    erscheint, soll mit der Zeit vollstaendig ins Archiv wandern.
+
+    months_back macht dieselbe Rechnung fuer den Falz nutzbar, damit es die
+    Monatsarithmetik nur einmal gibt."""
     today = today or date.today()
-    months = today.year * 12 + (today.month - 1) - ARCHIVE_AFTER_MONTHS
+    months = today.year * 12 + (today.month - 1) - months_back
     year, month = divmod(months, 12)
     month += 1
     day = min(today.day, calendar.monthrange(year, month)[1])
@@ -846,6 +951,23 @@ def split_archive(posts: list[Post], cutoff: str) -> tuple[list[Post], list[Post
     recent = [p for p in posts if iso_date(p) >= cutoff]
     archived = [p for p in posts if iso_date(p) < cutoff]
     return recent, archived
+
+
+def split_fold(posts: list[Post], cutoff: str,
+               minimum: int = FOLD_MIN_VISIBLE) -> tuple[list[Post], list[Post]]:
+    """Teilt die Beitraege einer Kategorieseite in (sichtbar, gefaltet).
+
+    Gefaltete Beitraege stehen im selben HTML — sie sind nur ausgeblendet, bis
+    der Leser "Mehr anzeigen" klickt. Fallen weniger als `minimum` Beitraege ins
+    Zeitfenster, werden aeltere nach vorn geholt: eine Kategorie mit drei
+    Meldungen im letzten Jahr soll keine Seite mit drei Karten und einem Knopf
+    ergeben."""
+    visible, folded = split_archive(posts, cutoff)
+    if len(visible) < minimum:
+        fill = minimum - len(visible)
+        visible = visible + folded[:fill]
+        folded = folded[fill:]
+    return visible, folded
 
 
 def check_slug_collisions(posts: list[Post]) -> None:
@@ -876,13 +998,18 @@ def build() -> None:
     cleanup_category_dirs({CATEGORY_SLUGS[c] for c in grouped})
     CATEGORY_DIR.mkdir(exist_ok=True)
     cutoff = archive_cutoff()
+    fold_cutoff = archive_cutoff(months_back=FOLD_AFTER_MONTHS)
     archives = 0
+    folds = 0
     for category, in_cat in grouped.items():
         recent, archived = split_archive(in_cat, cutoff)
+        visible, folded = split_fold(recent, fold_cutoff)
+        if folded:
+            folds += 1
         target = CATEGORY_DIR / CATEGORY_SLUGS[category]
         target.mkdir(exist_ok=True)
         (target / 'index.html').write_text(
-            build_category_html(category, recent, archived), encoding='utf-8')
+            build_category_html(category, visible, archived, folded), encoding='utf-8')
         archive_dir = target / 'archiv'
         if archived:
             archive_dir.mkdir(exist_ok=True)
@@ -897,7 +1024,7 @@ def build() -> None:
     SITEMAP_PATH.write_text(build_sitemap(posts, cutoff), encoding='utf-8')
     FEED_PATH.write_text(build_feed(posts), encoding='utf-8')
     print(f'Built {len(posts)} posts, {len(grouped)} category pages, '
-          f'{archives} archive pages, sitemap and feed.')
+          f'{archives} archive pages, {folds} folded pages, sitemap and feed.')
 
 
 def validate() -> None:
@@ -936,7 +1063,9 @@ def validate() -> None:
 
     grouped = categories_with_posts(posts)
     cutoff = archive_cutoff()
+    fold_cutoff = archive_cutoff(months_back=FOLD_AFTER_MONTHS)
     archives = 0
+    folds = 0
     for category, in_cat in grouped.items():
         cat_dir = CATEGORY_DIR / CATEGORY_SLUGS[category]
         cat_path = cat_dir / 'index.html'
@@ -954,6 +1083,22 @@ def validate() -> None:
             archives += 1
         elif archive_path.exists():
             raise ValueError(f'Verwaiste Archivseite: {archive_path.relative_to(ROOT)}')
+        # Gefaltete Karten stehen im selben HTML — der Link-Test unten sieht sie
+        # also. Fehlt aber der Knopf, bleiben sie fuer immer zugeklappt: sichtbar
+        # nur im Quelltext. Genau der Fall wuerde sonst still durchrutschen.
+        recent, _ = split_archive(in_cat, cutoff)
+        _, folded = split_fold(recent, fold_cutoff)
+        has_button = 'sn-fold-more' in cat_html
+        if folded and not has_button:
+            raise ValueError(
+                f'Kategorieseite {category} hat {len(folded)} gefaltete Beitraege, '
+                f'aber keinen "Mehr anzeigen"-Knopf')
+        if has_button and not folded:
+            raise ValueError(
+                f'Kategorieseite {category} hat einen "Mehr anzeigen"-Knopf, '
+                f'aber nichts zum Aufklappen')
+        if folded:
+            folds += 1
         missing = [p.slug for p in in_cat if f'href="/{p.slug}/"' not in cat_html]
         if missing:
             raise ValueError(f'Kategorieseite {category} verlinkt nicht: {", ".join(missing)}')
@@ -976,7 +1121,8 @@ def validate() -> None:
     check_fingerprint()
 
     print(f'Validated {len(posts)} posts, {len(grouped)} category pages, '
-          f'{archives} archive pages, {found_urls} sitemap URLs.')
+          f'{archives} archive pages, {folds} folded pages, '
+          f'{found_urls} sitemap URLs.')
 
 
 def main() -> None:

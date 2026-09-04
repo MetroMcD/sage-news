@@ -181,15 +181,21 @@ function LogoSVG() {
 // ── HEADER ─────────────────────────────────────────────────────────────────
 function Header({ page, setPage, accentColor }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  // href = echte, crawlbare URL. Der Klick bleibt clientseitig (siehe NavItem),
-  // die Seite laedt also nicht neu — Google folgt trotzdem dem href.
+  // href = echte, crawlbare URL. spa:true faengt den Klick clientseitig ab
+  // (siehe NavItem), die Seite laedt dann nicht neu.
+  //
+  // Die Bereiche sind bewusst NICHT clientseitig: sie zeigten sonst eine
+  // zweite, eigene Ansicht mit nur 8 Beitraegen, waehrend derselbe Menuepunkt
+  // auf einer Beitragsseite — die kein app.js laedt — zur vollstaendigen
+  // Kategorieseite fuehrte. Ein Menuepunkt, zwei Ergebnisse. Jetzt fuehren
+  // beide Wege auf dieselbe Seite.
   const navItems = [
-    { id: "home",        label: "Alle News",       href: "/" },
+    { id: "home",        label: "Alle News",       href: "/", spa: true },
     { id: "sage100",     label: "Sage 100",        href: "/kategorie/sage-100/" },
     { id: "sagex3",      label: "Sage X3",         href: "/kategorie/sage-x3/" },
     { id: "operations",  label: "Sage Operations", href: "/kategorie/sage-operations/" },
-    { id: "systemcheck", label: "Systemcheck",    href: "/systemcheck" },
-    { id: "info",        label: "Info",           href: "/#info" }
+    { id: "systemcheck", label: "Systemcheck",    href: "/systemcheck", spa: true },
+    { id: "info",        label: "Info",           href: "/#info", spa: true }
   ];
 
   function handleNav(id) { setPage(id); setMenuOpen(false); }
@@ -221,7 +227,7 @@ function Header({ page, setPage, accentColor }) {
             className="desktop-nav">
             {navItems.map(item => (
               <NavItem key={item.id} label={item.label} active={page === item.id}
-                href={item.href}
+                href={item.href} spa={item.spa}
                 accentColor={accentColor} onClick={() => handleNav(item.id)} />
             ))}
           </nav>
@@ -237,6 +243,19 @@ function Header({ page, setPage, accentColor }) {
                 Passwortübertragung mit Einmal-Link (kostenfrei)
               </span>
             </span>
+
+            <span className="pw-share-wrap">
+              <a href="https://dispatcher-ai.de" target="_blank" rel="noopener noreferrer"
+                className="pnd-link" aria-describedby="pnd-tip" aria-label="PLAN and DISPATCH">
+                <img src="assets/plan-and-dispatch_icon.png" alt="" width="28" height="28" />
+              </a>
+              <span className="pw-share-tip pnd-tip-wide" id="pnd-tip" role="tooltip">
+                PLAN and DISPATCH – KI-gestütztes, self-hosted Dispatch-Board für
+                Beratungs- und Serviceteams: Aufgabenverteilung, Zeiterfassung und
+                Projektcontrolling im Browser.
+              </span>
+            </span>
+
             {/* Hamburger — mobile only */}
             <button onClick={() => setMenuOpen(o => !o)}
               className="hamburger"
@@ -270,16 +289,24 @@ function Header({ page, setPage, accentColor }) {
           }}>
             {navItems.map(item => {
               const isActive = page === item.id;
-              return (
-                <button key={item.id} onClick={() => handleNav(item.id)} style={{
-                  background: isActive ? accentColor : "transparent",
-                  color: isActive ? "#07172f" : "rgba(255,255,255,0.85)",
-                  fontWeight: isActive ? 700 : 500,
-                  fontSize: "15px", padding: "11px 14px",
-                  borderRadius: "8px", border: "none",
-                  cursor: "pointer", textAlign: "left",
-                  width: "100%"
-                }}>{item.label}</button>
+              const style = {
+                background: isActive ? accentColor : "transparent",
+                color: isActive ? "#07172f" : "rgba(255,255,255,0.85)",
+                fontWeight: isActive ? 700 : 500,
+                fontSize: "15px", padding: "11px 14px",
+                borderRadius: "8px", border: "none",
+                cursor: "pointer", textAlign: "left",
+                width: "100%"
+              };
+              // Wie in der Desktop-Nav: die Bereiche fuehren auf die echte
+              // Kategorieseite, alles andere bleibt clientseitig.
+              return item.spa ? (
+                <button key={item.id} onClick={() => handleNav(item.id)}
+                  style={style}>{item.label}</button>
+              ) : (
+                <a key={item.id} href={item.href}
+                  style={{ ...style, display: "block", textDecoration: "none", boxSizing: "border-box" }}
+                >{item.label}</a>
               );
             })}
             <a href="https://share.sage-news.de" target="_blank" rel="noopener noreferrer" style={{
@@ -287,6 +314,11 @@ function Header({ page, setPage, accentColor }) {
               color: "rgba(255,255,255,0.6)", fontSize: "15px", fontWeight: 500,
               textDecoration: "none"
             }}>Passwort teilen ↗</a>
+            <a href="https://dispatcher-ai.de" target="_blank" rel="noopener noreferrer" style={{
+              display: "block", padding: "11px 14px", borderRadius: "8px",
+              color: "rgba(255,255,255,0.6)", fontSize: "15px", fontWeight: 500,
+              textDecoration: "none"
+            }}>PLAN and DISPATCH ↗</a>
           </nav>
         )}
       </div>
@@ -304,6 +336,15 @@ function Header({ page, setPage, accentColor }) {
         }
         .pw-share-btn:hover { background: rgba(255,255,255,0.15); }
         .pw-share-wrap { position: relative; display: inline-flex; }
+        .pnd-link {
+          display: inline-flex; align-items: center;
+          border-radius: 8px; padding: 2px;
+          line-height: 0; text-decoration: none;
+          opacity: 0.9; transition: opacity 0.15s, background 0.15s;
+        }
+        .pnd-link:hover { opacity: 1; background: rgba(255,255,255,0.12); }
+        .pnd-link img { width: 28px; height: 28px; border-radius: 7px; display: block; }
+        .pnd-link:focus-visible ~ .pw-share-tip { opacity: 1; visibility: visible; }
         /* Die Blase faellt aus dem dunklen Header auf den hellen Seiten-
            hintergrund — deshalb deckend statt transparent. */
         .pw-share-tip {
@@ -329,6 +370,14 @@ function Header({ page, setPage, accentColor }) {
           border-top: 1px solid rgba(255,255,255,0.15);
           transform: rotate(45deg);
         }
+        /* Laengerer Text als beim Passwort-Knopf, und das Icon sitzt ganz
+           aussen: die Blase haengt rechtsbuendig statt zentriert, sonst
+           laeuft sie bei schmalen Fenstern ueber den Rand. */
+        .pnd-tip-wide {
+          max-width: 300px;
+          left: auto; right: 0; transform: none;
+        }
+        .pnd-tip-wide::before { left: auto; right: 12px; margin-left: 0; }
         .pw-share-wrap:hover .pw-share-tip,
         .pw-share-btn:focus-visible ~ .pw-share-tip {
           opacity: 1; visibility: visible;
@@ -371,7 +420,7 @@ function Header({ page, setPage, accentColor }) {
   );
 }
 
-function NavItem({ label, active, accentColor, onClick, href }) {
+function NavItem({ label, active, accentColor, onClick, href, spa = false }) {
   const [hovered, setHovered] = useState(false);
   const highlight = active || hovered;
   // Die Nav bestand frueher aus <button>. Buttons erben font-family nicht und
@@ -395,10 +444,11 @@ function NavItem({ label, active, accentColor, onClick, href }) {
     onMouseLeave: () => setHovered(false)
   };
   if (href) {
+    // Ohne spa laeuft der Klick normal weiter — der Browser folgt dem href.
     return (
       <a
         href={href}
-        onClick={e => { e.preventDefault(); onClick(); }}
+        onClick={spa ? (e => { e.preventDefault(); onClick(); }) : undefined}
         {...handlers}
         style={{ ...style, display: "inline-block", textDecoration: "none" }}
       >{label}</a>
@@ -421,38 +471,6 @@ function HeroBanner({ headerStyle }) {
 }
 
 // ── CATEGORY PAGE HEADER ───────────────────────────────────────────────────
-function PageHeader({ page }) {
-  const map = {
-    "sage100":    { title: "Sage 100",         sub: "Updates, Releases & Praxis-Tipps",       cat: "Sage 100" },
-    "sagex3":     { title: "Sage X3",           sub: "Cloud, Module & Neuigkeiten",             cat: "Sage X3" },
-    "operations": { title: "Sage Operations",   sub: "Fertigung, Planung & API-Updates",        cat: "Sage Operations" }
-  };
-  const meta = map[page];
-  if (!meta) return null;
-  const catMeta = CATEGORY_META[meta.cat];
-  return (
-    <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "24px 20px 0" }}>
-      <div style={{
-        background: "linear-gradient(135deg, var(--sn-blue-950), var(--sn-blue-800))",
-        borderRadius: "14px", padding: "24px 28px", color: "white",
-        display: "flex", alignItems: "center", gap: "16px"
-      }}>
-        <div style={{
-          width: "44px", height: "44px", borderRadius: "10px",
-          background: catMeta.bg, flexShrink: 0,
-          display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px"
-        }}>
-          {meta.cat === "Sage 100" ? "💼" : meta.cat === "Sage X3" ? "⚡" : "🏭"}
-        </div>
-        <div>
-          <h1 style={{ fontSize: "20px", fontWeight: 900 }}>{meta.title}</h1>
-          <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.65)", marginTop: "2px" }}>{meta.sub}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // ── POST CARD ──────────────────────────────────────────────────────────────
 function PostCard({ post, featured, onClick, tweaks }) {
   const [hovered, setHovered] = useState(false);
@@ -851,11 +869,17 @@ function App() {
 
   const routeMap = {
     home: "home",
-    sage100: "sage100",
-    sagex3: "sagex3",
-    operations: "operations",
     systemcheck: "systemcheck",
     info: "info"
+  };
+
+  // Alte Lesezeichen auf die frueheren Bereichsansichten. Sie sollen nicht
+  // stillschweigend auf der Startseite landen, sondern auf der Seite, die den
+  // Bereich heute zeigt.
+  const LEGACY_CATEGORY_HASHES = {
+    sage100: "/kategorie/sage-100/",
+    sagex3: "/kategorie/sage-x3/",
+    operations: "/kategorie/sage-operations/"
   };
 
   function getPageFromHash() {
@@ -883,6 +907,9 @@ function App() {
 
   useEffect(() => {
     const syncFromHash = () => {
+      const hash = (window.location.hash || "").replace(/^#/, "").trim().toLowerCase();
+      const legacy = LEGACY_CATEGORY_HASHES[hash];
+      if (legacy) { window.location.replace(legacy); return; }
       setPage(getPageFromHash());
       if (!currentSlug) setSelectedPost(null);
     };
@@ -891,10 +918,10 @@ function App() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, [currentSlug]);
 
-  const catMap = { "sage100": "Sage 100", "sagex3": "Sage X3", "operations": "Sage Operations" };
-  const filteredPosts = catMap[page] ? posts.filter(p => p.category === catMap[page]) : posts;
-  const displayedPosts = filteredPosts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
-  const showFeed = ["home", "sage100", "sagex3", "operations"].includes(page);
+  // Nur noch die Startseite hat einen Feed in der App — die Bereiche liegen
+  // unter /kategorie/. postsPerPage gilt damit ausschliesslich hier.
+  const displayedPosts = posts.slice(0, tweaks?.postsPerPage ?? TWEAK_DEFAULTS.postsPerPage);
+  const showFeed = page === "home";
 
   function navTo(p) {
     setSelectedPost(null);
@@ -922,7 +949,6 @@ function App() {
       <Header page={page} setPage={navTo} accentColor={tweaks?.accentColor ?? TWEAK_DEFAULTS.accentColor} />
 
       {page === "home" && !selectedPost && <HeroBanner headerStyle={tweaks?.headerStyle ?? "banner"} />}
-      {!selectedPost && <PageHeader page={page} />}
 
       <div style={{ maxWidth: "1140px", margin: "0 auto", padding: "24px 20px 64px" }}>
 
@@ -938,7 +964,7 @@ function App() {
         ) : showFeed ? (
           <div>
             <div style={{ display: "grid", gridTemplateColumns: tweaks?.showSidebar ? "1fr 280px" : "1fr", gap: "24px", alignItems: "start" }}>
-              <PostGrid posts={displayedPosts} tweaks={tweaks} onlyNewestFeatured={page === "home"} onReadPost={onReadPost} />
+              <PostGrid posts={displayedPosts} tweaks={tweaks} onlyNewestFeatured onReadPost={onReadPost} />
               <Sidebar posts={posts} tweaks={tweaks} />
             </div>
           </div>
