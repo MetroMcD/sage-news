@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-09-02T00:00:00Z</updated>
+  <updated>2026-09-25T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100 9.0.11.5: LiveUpdate bringt SEPA 3.9, SIX 2026 und Korrekturen für DMS, SMTP und Rewe</title>
+    <link href="https://sage-news.de/sage-100-9-0-11-5-liveupdate-sepa-six-dms-smtp/"/>
+    <id>https://sage-news.de/sage-100-9-0-11-5-liveupdate-sepa-six-dms-smtp/</id>
+    <updated>2026-09-25T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Das LiveUpdate 9.0.11.5 (Build 917) für Sage 100 aktualisiert die SEPA-Spezifikation auf 3.9 nach GBIC-5, integriert SIX 2026 für die Schweiz und behebt Fehler in DMS, SMTP, Buchungserfassung und Warenwirtschaft.</summary>
+  </entry>
   <entry>
     <title>DMS-Eigenschaften nach Sage-100-LiveUpdate auf 9.0.11.x – Fehlende Dokumentenarten und Metadaten</title>
     <link href="https://sage-news.de/dms-eigenschaften-sage-100-9-0-11-x/"/>
