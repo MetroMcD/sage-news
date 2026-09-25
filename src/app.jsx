@@ -1,14 +1,5 @@
 const { useState, useEffect, useCallback, useRef } = React;
 
-// ── GITHUB CONFIG ──────────────────────────────────────────────────────────
-// Set these to your repo. Leave POSTS_PATH as "posts" to use a /posts folder.
-const GH_CONFIG = {
-  owner: "MetroMcD",
-  repo:  "sage-news",
-  branch: "main",
-  postsPath: "posts"
-};
-
 // ── TWEAK DEFAULTS ─────────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accentColor": "#ffd22e",
@@ -17,58 +8,6 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "showSidebar": false,
   "headerStyle": "banner"
 }/*EDITMODE-END*/;
-
-// ── FALLBACK SAMPLE POSTS (shown when GitHub is not configured) ────────────
-const SAMPLE_POSTS = [
-  {
-    id: "sample-1",
-    slug: "sage-100-release",
-    title: "Sage 100 v9.0.3 – Was das neue Release bringt",
-    summary: "Das März-Update bringt überarbeitete Buchungsmasken, verbesserte DATEV-Schnittstelle und Korrekturen bei der Umsatzsteuer-Voranmeldung.",
-    category: "Sage 100", tag: "Release", date: "28. Apr 2026", readTime: "4 min", featured: true,
-    body: ""
-  },
-  {
-    id: "sample-2",
-    slug: "sage-x3-self-service",
-    title: "Sage X3 People: HR-Modul bekommt Self-Service-Portal",
-    summary: "Ab Version 12.1 können Mitarbeitende Urlaubsanträge, Zeitkorrekturen und Gehaltsabrechnungen direkt im Browser bearbeiten.",
-    category: "Sage X3", tag: "Neu", date: "22. Apr 2026", readTime: "5 min", featured: false,
-    body: ""
-  },
-  {
-    id: "sample-3",
-    slug: "sage-operations-ki",
-    title: "Sage Operations: Produktionsplanung jetzt mit KI-Unterstützung",
-    summary: "Sage Operations erhält eine Kapazitätsplanung mit KI-gestützten Vorschlägen für Maschinenauslastung und Schichtplanung.",
-    category: "Sage Operations", tag: "KI", date: "18. Apr 2026", readTime: "6 min", featured: true,
-    body: ""
-  },
-  {
-    id: "sample-4",
-    slug: "gobd-2026",
-    title: "GoBD 2026: Was Sage-Anwender jetzt prüfen müssen",
-    summary: "Die aktualisierte GoBD-Fassung stellt neue Anforderungen an die Unveränderbarkeit von Belegen. Checkliste für Sage 100 und X3.",
-    category: "Sage 100", tag: "Compliance", date: "14. Apr 2026", readTime: "7 min", featured: false,
-    body: ""
-  },
-  {
-    id: "sample-5",
-    slug: "sage-x3-cloud-frankfurt",
-    title: "Sage X3 Cloud: Verfügbarkeit in deutschen Rechenzentren",
-    summary: "Sage bestätigt: X3 läuft ab Q3 2026 in AWS Frankfurt mit DSGVO-konformer Datenhaltung.",
-    category: "Sage X3", tag: "Cloud", date: "10. Apr 2026", readTime: "5 min", featured: false,
-    body: ""
-  },
-  {
-    id: "sample-6",
-    slug: "sage-intact-deutschland",
-    title: "Sage Intact: Was der Einstieg in Deutschland bedeutet",
-    summary: "Sage Intact ist in den USA ein etabliertes Mid-Market-ERP. Ein erster Überblick zur perspektivischen Deutschland-Einführung.",
-    category: "Sage Intact", tag: "Perspektive", date: "5. Apr 2026", readTime: "8 min", featured: false,
-    body: ""
-  }
-];
 
 // ── MARKDOWN FRONTMATTER PARSER ────────────────────────────────────────────
 function parseFrontmatter(raw) {
@@ -615,7 +554,7 @@ function PostDetail({ post, onBack, tweaks }) {
           <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
         ) : (
           <p style={{ fontSize: "15px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
-            Noch kein Artikeltext vorhanden. Füge eine Markdown-Datei mit dem Body-Inhalt in deinem GitHub-Repo hinzu.
+            Noch kein Artikeltext vorhanden.
           </p>
         )}
       </div>
@@ -704,7 +643,7 @@ function SystemcheckPage() {
 }
 
 // ── INFO PAGE ──────────────────────────────────────────────────────────────
-function InfoPage({ postsSource }) {
+function InfoPage() {
   const heroBtnStyle = {
     display: "inline-flex",
     alignItems: "center",
@@ -817,40 +756,7 @@ function InfoPage({ postsSource }) {
           ))}
         </div>
       </div>
-      <GitHubSetupHint source={postsSource} />
     </div>
-  );
-}
-
-// ── GITHUB INFO BOX ────────────────────────────────────────────────────────
-function GitHubSetupHint({ source }) {
-  if (source === "github") return null;
-  return (
-    <details style={{
-      background: "white", border: "1.5px solid var(--sn-border)",
-      borderRadius: "12px", padding: "12px 16px", marginTop: "20px"
-    }}>
-      <summary style={{
-        cursor: "pointer", listStyle: "none", fontSize: "12px", color: "var(--sn-muted)",
-        display: "flex", alignItems: "center", gap: "8px", fontWeight: 600
-      }}>
-        <span style={{
-          width: "24px", height: "24px", borderRadius: "6px",
-          background: "var(--sn-blue-100)",
-          display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "13px"
-        }}>📁</span>
-        Hinweis zu den Quelldaten
-      </summary>
-      <div style={{ paddingTop: "10px" }}>
-        <div style={{ fontWeight: 700, fontSize: "13px", marginBottom: "4px", color: "var(--sn-ink)" }}>
-          Beispieldaten – GitHub noch nicht konfiguriert
-        </div>
-        <p style={{ fontSize: "12px", color: "var(--sn-muted)", lineHeight: 1.6, margin: 0 }}>
-          Trage in <code style={{ background: "var(--sn-blue-100)", padding: "1px 5px", borderRadius: "3px" }}>GH_CONFIG</code> deinen GitHub-Benutzernamen und Repo-Namen ein.
-          Lege dann Markdown-Dateien im Ordner <code style={{ background: "var(--sn-blue-100)", padding: "1px 5px", borderRadius: "3px" }}>posts/</code> ab – sie erscheinen automatisch hier.
-        </p>
-      </div>
-    </details>
   );
 }
 
@@ -860,7 +766,6 @@ function App() {
   const [page, setPage] = useState("home");
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [postsSource, setPostsSource] = useState("github");
   const [loading, setLoading] = useState(false);
   const [currentSlug, setCurrentSlug] = useState(() => {
     const parts = window.location.pathname.split("/").filter(Boolean);
@@ -887,12 +792,11 @@ function App() {
     return routeMap[hash] || "home";
   }
 
-  // Load posts from GitHub on mount
+  // Load posts on mount
   useEffect(() => {
     setLoading(true);
     loadPostsFromManifest().then(({ posts: loaded, source }) => {
       setPosts(loaded);
-      setPostsSource(source);
       if (currentSlug) {
         const matched = loaded.find(p => p.permalink === currentSlug || p.slug === currentSlug);
         setSelectedPost(matched || null);
@@ -900,7 +804,6 @@ function App() {
       setLoading(false);
     }).catch(() => {
       setPosts([]);
-      setPostsSource("github");
       setLoading(false);
     });
   }, []);
@@ -971,7 +874,7 @@ function App() {
         ) : page === "systemcheck" ? (
           <SystemcheckPage tweaks={tweaks} />
         ) : page === "info" ? (
-          <InfoPage postsSource={postsSource} />
+          <InfoPage />
         ) : null}
       </div>
 
