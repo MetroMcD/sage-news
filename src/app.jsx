@@ -737,6 +737,20 @@ function InfoPage() {
         </p>
       </div>
       <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px", marginBottom: "16px" }}>
+        <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "10px" }}>So entsteht ein Bericht</h2>
+        <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7, marginBottom: "16px" }}>
+          Sieben Schritte vom ersten Hinweis bis zum veröffentlichten Bericht, mit Korrekturschleifen unterwegs.
+          <strong style={{ color: "var(--sn-ink)" }}> René entscheidet, die Agenten arbeiten.</strong> Eine interaktive Grafik zeigt jeden Schritt im Detail.
+        </p>
+        <a href="redaktionsfluss/" style={{
+          display: "inline-flex", alignItems: "center", gap: "6px",
+          background: "var(--sn-blue-600)", color: "white", fontWeight: 700, fontSize: "13px",
+          padding: "9px 16px", borderRadius: "999px", textDecoration: "none"
+        }}>
+          Redaktionsprozess ansehen →
+        </a>
+      </div>
+      <div style={{ background: "white", border: "1.5px solid var(--sn-border)", borderRadius: "14px", padding: "26px", marginBottom: "16px" }}>
         <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "12px" }}>Produkte im Fokus</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           {[

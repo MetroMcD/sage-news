@@ -23,10 +23,10 @@ SITEMAP_PATH = ROOT / 'sitemap.xml'
 FEED_PATH = ROOT / 'feed.xml'
 SITE = 'https://sage-news.de'
 AUTHOR = 'René Münz'
-EXCLUDE_DIRS = {'assets', 'posts', 'uploads', 'datenschutz', 'impressum', '.git', '.github', '.state', 'scripts', 'node_modules', 'kategorie', 'src'}
+EXCLUDE_DIRS = {'assets', 'posts', 'uploads', 'datenschutz', 'impressum', 'redaktionsfluss', '.git', '.github', '.state', 'scripts', 'node_modules', 'kategorie', 'src'}
 # Statische Seiten, die neben Startseite und Beiträgen in die Sitemap gehören.
 # Cloudflare normalisiert /foo.html -> /foo, deshalb steht systemcheck ohne Endung hier.
-STATIC_URLS = ['/impressum/', '/datenschutz/', '/systemcheck']
+STATIC_URLS = ['/impressum/', '/datenschutz/', '/systemcheck', '/redaktionsfluss/']
 # Ab diesem Alter wandert ein Beitrag von der Kategorieseite in deren Archiv.
 # Stichtag ist der Build-Tag, der Build ist damit bewusst datumsabhaengig.
 ARCHIVE_AFTER_MONTHS = 24
