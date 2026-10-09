@@ -63,7 +63,8 @@ const CATEGORY_META = {
   "Sage 100":         { color: "#0a3b93", bg: "#dceeff" },
   "Sage X3":          { color: "#1a6b3a", bg: "#d4f0e0" },
   "Sage Operations":  { color: "#7b3a00", bg: "#fde8cc" },
-  "Sage Intact":      { color: "#5a1d8a", bg: "#ede0f8" }
+  "Sage Intact":      { color: "#5a1d8a", bg: "#ede0f8" },
+  "Sage HR":          { color: "#9d174d", bg: "#fce7f3" }
 };
 const TAG_COLORS = {
   "Release":    { bg: "#e8f0fe", color: "#1a56db" },
@@ -133,6 +134,7 @@ function Header({ page, setPage, accentColor }) {
     { id: "sage100",     label: "Sage 100",        href: "/kategorie/sage-100/" },
     { id: "sagex3",      label: "Sage X3",         href: "/kategorie/sage-x3/" },
     { id: "operations",  label: "Sage Operations", href: "/kategorie/sage-operations/" },
+    { id: "sagehr",      label: "Sage HR",         href: "/kategorie/sage-hr/" },
     { id: "systemcheck", label: "Systemcheck",    href: "/systemcheck", spa: true },
     { id: "info",        label: "Info",           href: "/#info", spa: true }
   ];
@@ -729,7 +731,7 @@ function InfoPage() {
         <h2 style={{ fontSize: "15px", fontWeight: 800, marginBottom: "10px" }}>Über diese Seite</h2>
         <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7, marginBottom: "10px" }}>
           <strong style={{ color: "var(--sn-ink)" }}>sage news</strong> ist eine private Wissensplattform rund um die Sage-Produktwelt in Deutschland.
-          Schwerpunkt: Sage 100, Sage X3, Sage Operations – mit Blick auf Sage Intact.
+          Schwerpunkt: Sage 100, Sage X3, Sage Operations, Sage HR – mit Blick auf Sage Intact.
         </p>
         <p style={{ fontSize: "14px", color: "var(--sn-muted)", lineHeight: 1.7 }}>
           Kompakte Berichte, technische Einordnungen und Praxiserfahrungen aus dem Projektalltag.
@@ -757,7 +759,8 @@ function InfoPage() {
             { name: "Sage 100",        desc: "ERP für den deutschen Mittelstand",                     cat: "Sage 100" },
             { name: "Sage X3",         desc: "ERP für internationale Unternehmensstrukturen",         cat: "Sage X3" },
             { name: "Sage Operations", desc: "Fertigungsplanung, MES & Produktionssteuerung",         cat: "Sage Operations" },
-            { name: "Sage Intact",     desc: "Cloud-ERP – perspektivisch für den deutschen Markt",   cat: "Sage Intact" }
+            { name: "Sage Intact",     desc: "Cloud-ERP – perspektivisch für den deutschen Markt",   cat: "Sage Intact" },
+            { name: "Sage HR",         desc: "Cloud-HR-Software für Personalmanagement & Self-Service", cat: "Sage HR" }
           ].map(item => (
             <div key={item.name} style={{
               display: "flex", alignItems: "center", gap: "10px",

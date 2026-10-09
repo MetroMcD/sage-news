@@ -1,6 +1,19 @@
 {
   "posts": [
     {
+      "id": "2026-10-09-sage-hr-neue-berichtskategorie",
+      "slug": "sage-hr-neue-berichtskategorie",
+      "permalink": "sage-hr-neue-berichtskategorie",
+      "title": "Sage HR: Ab jetzt eigene Berichtskategorie auf sage news",
+      "summary": "sage news erweitert die Berichterstattung um Sage HR, die eigenständige Cloud-HR-Software von Sage für Personalmanagement und Mitarbeiter-Self-Service.",
+      "category": "Sage HR",
+      "tag": "News",
+      "date": "9. Okt 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "**Kurzfazit:** sage news deckt ab sofort auch Sage HR ab – die eigenständige Cloud-Software von Sage für Personalmanagement, Self-Service und Recruiting. Berichte dazu erscheinen künftig in dieser neuen Kategorie.\n\n## Warum ein eigener Bereich?\n\nSage HR ist ein eigenständiges Produkt im Sage-Portfolio – nicht zu verwechseln mit dem internen People-Modul von Sage X3. Für diesen Bereich gab es bisher keine passende Kategorie auf dieser Seite. Das ändert sich jetzt.\n\n## Was hier künftig steht\n\n- Release- und Funktionsupdates zu Sage HR\n- Hinweise zu Self-Service-Portal, Urlaubsanträgen, Zeiterfassung, Recruiting und Onboarding\n- Einordnungen, was neue Funktionen für den Praxisbetrieb bedeuten\n\n## Einordnung\n\nWie bei den anderen Bereichen gilt auch hier: kompakt, sachlich, ohne Marketing-Sprech. Der erste inhaltliche Bericht zu Sage HR folgt, sobald es etwas zu berichten gibt.\n\n---\nQuelle: Redaktion sage news (zusammengefasst mit KI für Sage-News.de)"
+    },
+    {
       "id": "2026-09-25-sage-100-9-0-11-5-liveupdate-sepa-six-dms-smtp",
       "slug": "sage-100-9-0-11-5-liveupdate-sepa-six-dms-smtp",
       "permalink": "sage-100-9-0-11-5-liveupdate-sepa-six-dms-smtp",

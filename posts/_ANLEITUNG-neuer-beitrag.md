@@ -36,7 +36,7 @@ featured: false
 
 | Feld       | Beispielwerte                                              |
 |------------|------------------------------------------------------------|
-| category   | `Sage 100` · `Sage X3` · `Sage Operations` · `Sage Intact` |
+| category   | `Sage 100` · `Sage X3` · `Sage Operations` · `Sage Intact` · `Sage HR` |
 | tag        | `Release` · `Neu` · `KI` · `Cloud` · `Compliance` · `News` · `Perspektive` |
 | featured   | `true` (großes Kachel-Layout) oder `false` (normales Layout) |
 | readTime   | `3 min` · `5 min` · `8 min` usw.                          |

@@ -40,9 +40,15 @@ Prüfe den Inhalt der E-Mail und weise **eine** Hauptkategorie zu:
 | Kategorie          | Erkennungshinweise                                                         |
 |--------------------|----------------------------------------------------------------------------|
 | `Sage 100`         | „Sage 100", „S100", Fibu, DATEV, GoBD, Jahresabschluss, Warenwirtschaft   |
-| `Sage X3`          | „Sage X3", „X3", Multi-Site, HR-Modul, People, internationale Prozesse    |
+| `Sage X3`          | „Sage X3", „X3", Multi-Site, internationale Prozesse, X3-People-/HR-Modul (nur wenn explizit als Teil von Sage X3 genannt) |
 | `Sage Operations`  | „Sage Operations", Produktion, Fertigung, Kapazitätsplanung, MRP, Lager   |
 | `Sage Intact`      | „Sage Intact", „Intacct", Mid-Market-Finance, mehrdimensionales Reporting |
+| `Sage HR`          | „Sage HR" als eigenständiges Produkt, Personalmanagement-Software, Self-Service-Portal für Mitarbeitende, Urlaubsanträge, Zeiterfassung, Recruiting, Onboarding |
+
+**Abgrenzung Sage X3 vs. Sage HR:** Sage X3 hat ein eigenes internes People-/
+HR-Modul. Ist im Text eindeutig von Sage X3 die Rede (z. B. „Sage X3 People",
+„X3-HR-Modul"), bleibt es Kategorie `Sage X3`. Ist von „Sage HR" als
+eigenständigem Produkt die Rede – ohne X3-Bezug –, gilt Kategorie `Sage HR`.
 
 Wenn mehrere Kategorien zutreffen: Die **meistgenannte** gewinnt.
 Wenn keine passt: `Sage 100` als Fallback.
@@ -179,7 +185,7 @@ Regeln:
 ---
 title: [Präziser Titel – Nutzen oder Änderung, kein Clickbait]
 date: [Tag. Monat Jahreszahl]  ← deutsches Format: "1. Mai 2026"
-category: [Sage 100 | Sage X3 | Sage Operations | Sage Intact]
+category: [Sage 100 | Sage X3 | Sage Operations | Sage Intact | Sage HR]
 tag: [Release | Neu | KI | Cloud | Compliance | Perspektive | News]
 summary: [1–2 Sätze Vorschau – erscheint auf der Hauptseite]
 readTime: [X min]

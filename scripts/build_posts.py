@@ -42,6 +42,7 @@ CATEGORY_META = {
     'Sage X3': {'color': '#1a6b3a', 'bg': '#d4f0e0'},
     'Sage Operations': {'color': '#7b3a00', 'bg': '#fde8cc'},
     'Sage Intact': {'color': '#5a1d8a', 'bg': '#ede0f8'},
+    'Sage HR': {'color': '#9d174d', 'bg': '#fce7f3'},
 }
 # Eigene URLs für die Kategorien. Das Präfix /kategorie/ ist zwingend:
 # "sage-operations" ist bereits der Slug eines Beitrags.
@@ -50,12 +51,14 @@ CATEGORY_SLUGS = {
     'Sage X3': 'sage-x3',
     'Sage Operations': 'sage-operations',
     'Sage Intact': 'sage-intact',
+    'Sage HR': 'sage-hr',
 }
 CATEGORY_INTRO = {
     'Sage 100': 'Alle Meldungen zu Sage 100: LiveUpdates, Service Packs, Systemvoraussetzungen und Hinweise zum laufenden Betrieb.',
     'Sage X3': 'Meldungen rund um Sage X3.',
     'Sage Operations': 'Alle Meldungen zu Sage Operations: Produktupdates, API-Änderungen und Neuerungen der Plattform.',
     'Sage Intact': 'Meldungen rund um Sage Intacct.',
+    'Sage HR': 'Alle Meldungen zu Sage HR: Personalmanagement, Self-Service-Portale, Recruiting und Onboarding für den deutschen Mittelstand.',
 }
 TAG_COLORS = {
     'Release': {'bg': '#e8f0fe', 'color': '#1a56db'},
@@ -71,7 +74,7 @@ TAG_COLORS = {
 REQUIRED_META = ['title', 'date', 'category', 'tag', 'summary', 'readTime', 'featured']
 SOURCE_SUFFIX = '(zusammengefasst mit KI für Sage-News.de)'
 SOURCE_BLOCK_RE = re.compile(r'\n\s*---\s*\n(Quelle:[^\n]+)\s*$')
-ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact'}
+ALLOWED_CATEGORIES = {'Sage 100', 'Sage X3', 'Sage Operations', 'Sage Intact', 'Sage HR'}
 ALLOWED_TAGS = {'Release', 'Neu', 'KI', 'Cloud', 'Compliance', 'Perspektive', 'News'}
 DATE_RE = re.compile(r'^\d{1,2}\.\s+[A-Za-zÄÖÜäöü]+\s+\d{4}$')
 READTIME_RE = re.compile(r'^\d+\s+min$')
@@ -84,6 +87,7 @@ SITE_NAV = [
     ('/kategorie/sage-100/', 'Sage 100'),
     ('/kategorie/sage-x3/', 'Sage X3'),
     ('/kategorie/sage-operations/', 'Sage Operations'),
+    ('/kategorie/sage-hr/', 'Sage HR'),
     ('/systemcheck', 'Systemcheck'),
     ('/#info', 'Info'),
 ]
@@ -410,7 +414,7 @@ def build_home_prerender(posts: list[Post], limit: int = 8) -> str:
     )
     return (
         '<div style="max-width:1140px;margin:0 auto;padding:24px 20px 64px">'
-        '<h1>sage news – Neuigkeiten zu Sage 100, Sage X3 und Sage Operations</h1>'
+        '<h1>sage news – Neuigkeiten zu Sage 100, Sage X3, Sage Operations und Sage HR</h1>'
         f'<nav>{cat_links}</nav>'
         f'{render_card_grid(posts[:limit])}'
         '</div>'
@@ -779,7 +783,7 @@ def build_feed(posts: list[Post]) -> str:
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de">\n'
         '  <title>sage news</title>\n'
-        '  <subtitle>Neuigkeiten zu Sage 100, Sage X3 und Sage Operations</subtitle>\n'
+        '  <subtitle>Neuigkeiten zu Sage 100, Sage X3, Sage Operations und Sage HR</subtitle>\n'
         f'  <link href="{SITE}/"/>\n'
         f'  <link rel="self" href="{SITE}/feed.xml"/>\n'
         f'  <id>{SITE}/</id>\n'
