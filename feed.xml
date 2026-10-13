@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-10-09T00:00:00Z</updated>
+  <updated>2026-10-13T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage X3 SaaS: Geplante Hotfix-Wartung für SyracuseServer am 15. Oktober 2026</title>
+    <link href="https://sage-news.de/sage-x3-saas-hotfix-syracuse-server-15-oktober-2026/"/>
+    <id>https://sage-news.de/sage-x3-saas-hotfix-syracuse-server-15-oktober-2026/</id>
+    <updated>2026-10-13T00:00:00Z</updated>
+    <category term="Sage X3"/>
+    <summary>Für Sage X3 SaaS steht am 15. Oktober 2026 ein nächtliches Wartungsfenster an. Eingespielt wird ein Hotfix für die Komponente SyracuseServer auf Version 12.24.7.5.</summary>
+  </entry>
   <entry>
     <title>Sage HR: Ab jetzt eigene Berichtskategorie auf sage news</title>
     <link href="https://sage-news.de/sage-hr-neue-berichtskategorie/"/>
