@@ -14,6 +14,19 @@
       "body": "Für die Cloud-Lösung **Sage Operations** steht die Veröffentlichung des Oktober-Releases 2026 an. Die Version bringt neue Funktionalitäten und Workflow-Verbesserungen mit sich, zu denen Sage detaillierte Informationen bereitstellt, sobald das Release live ist.\n\n## Geplantes Bereitstellungsfenster\n\nDer Rollout für die Region Europa und Südafrika findet am kommenden Wochenende statt:\n\n- **Datum:** Samstag, 17. Oktober 2026\n- **Zeitfenster:** Zwischen 05:00 Uhr und 08:00 Uhr MEZ\n- **Betroffene:** Alle Benutzer, Partner und Organisationen in Europa und Südafrika\n\n## Wichtige Handlungsempfehlung für Anwender\n\nUm Datenkonsistenz zu gewährleisten und Sitzungsabbrüche zu vermeiden, sollten sich alle Anwender **etwa eine Stunde vor dem geplanten Start** (also bis spätestens 04:00 Uhr MEZ) von ihrem Sage Operations Tenant abmelden.\n\nDetaillierte Release Notes zu den einzelnen Funktionserweiterungen werden im Anschluss an das Deployment zur Verfügung gestellt.\n\n---\nQuelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)"
     },
     {
+      "id": "2026-10-15-sage-operations-oktober-2026-neuerungen",
+      "slug": "sage-operations-oktober-2026-neuerungen",
+      "permalink": "sage-operations-oktober-2026-neuerungen",
+      "title": "Sage Operations: Oktober-Update bringt E-Rechnung und mehr Transparenz im Vertrieb",
+      "summary": "Das Oktober-Update für Sage Operations bereitet die E-Rechnung in Deutschland vor, zeigt Margen und Mengen direkt im Verkaufsauftrag und macht gebuchte Rechnungen nachträglich bearbeitbar.",
+      "category": "Sage Operations",
+      "tag": "Release, Neu",
+      "date": "15. Oktober 2026",
+      "readTime": "1 min",
+      "featured": false,
+      "body": "Das Oktober-Update für Sage Operations erweitert die E-Rechnung und verbessert Vertrieb und Belegverwaltung.\n\n## E-Rechnung für Deutschland vorbereitet\n\nDas Update legt die Grundlagen für Erstellung und Versand von E-Rechnungen in Deutschland. Die nötigen Stammdaten und Einstellungen sind zentral konfigurierbar: Unternehmens- und Steuerdaten, Bankverbindungen und Zahlungsarten sowie Maßeinheiten für konforme Rechnungsformate.\n\n## Verkaufsaufträge mit mehr Übersicht\n\nNeue Datenfelder zeigen die berechnete Marge sowie reservierte und versendete Mengen direkt in der Auftragserfassung.\n\n## Gebuchte Rechnungen flexibler nachpflegen\n\nAnlagen lassen sich jetzt auch nach der Buchung hochladen, benutzerdefinierte Felder bleiben nachträglich bearbeitbar — ohne die Buchungsintegrität zu gefährden.\n\n## Automatische Aktualisierung bei parallelem Zugriff\n\nÄndert ein anderer Benutzer oder Workflow einen geöffneten Datensatz, aktualisiert das System das Feld direkt in der Ansicht und informiert den aktiven Benutzer.\n\n---\nQuelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)"
+    },
+    {
       "id": "2026-10-13-sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
       "slug": "sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
       "permalink": "sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
