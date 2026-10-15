@@ -1,6 +1,19 @@
 {
   "posts": [
     {
+      "id": "2026-10-15-sage-operations-release-zeitplan-oktober-2026",
+      "slug": "sage-operations-release-zeitplan-oktober-2026",
+      "permalink": "sage-operations-release-zeitplan-oktober-2026",
+      "title": "Sage Operations: Release-Zeitplan und Wartungsfenster für Oktober 2026",
+      "summary": "Für Sage Operations steht das Oktober-Release 2026 an. Die Bereitstellung für Europa und Südafrika erfolgt am Samstag, den 17. Oktober 2026, zwischen 05:00 und 08:00 Uhr MEZ.",
+      "category": "Sage Operations",
+      "tag": "Release, Cloud",
+      "date": "15. Oktober 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Für die Cloud-Lösung **Sage Operations** steht die Veröffentlichung des Oktober-Releases 2026 an. Die Version bringt neue Funktionalitäten und Workflow-Verbesserungen mit sich, zu denen Sage detaillierte Informationen bereitstellt, sobald das Release live ist.\n\n## Geplantes Bereitstellungsfenster\n\nDer Rollout für die Region Europa und Südafrika findet am kommenden Wochenende statt:\n\n- **Datum:** Samstag, 17. Oktober 2026\n- **Zeitfenster:** Zwischen 05:00 Uhr und 08:00 Uhr MEZ\n- **Betroffene:** Alle Benutzer, Partner und Organisationen in Europa und Südafrika\n\n## Wichtige Handlungsempfehlung für Anwender\n\nUm Datenkonsistenz zu gewährleisten und Sitzungsabbrüche zu vermeiden, sollten sich alle Anwender **etwa eine Stunde vor dem geplanten Start** (also bis spätestens 04:00 Uhr MEZ) von ihrem Sage Operations Tenant abmelden.\n\nDetaillierte Release Notes zu den einzelnen Funktionserweiterungen werden im Anschluss an das Deployment zur Verfügung gestellt.\n\n---\nQuelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)"
+    },
+    {
       "id": "2026-10-13-sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
       "slug": "sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
       "permalink": "sage-x3-saas-hotfix-syracuse-server-15-oktober-2026",
