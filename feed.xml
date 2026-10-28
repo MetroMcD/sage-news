@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-10-15T00:00:00Z</updated>
+  <updated>2026-10-23T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100: PHP-Schwachstellen CVE-2026-109618 und CVE-2026-109619 im Überblick</title>
+    <link href="https://sage-news.de/sage-100-php-schwachstellen-ueberblick/"/>
+    <id>https://sage-news.de/sage-100-php-schwachstellen-ueberblick/</id>
+    <updated>2026-10-23T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage hat die Auswirkungen der PHP-Schwachstellen CVE-2026-109618 und CVE-2026-109619 geprüft: Kernprodukte wie Sage 100 und DMS nutzen kein PHP, die Onlinehilfe wird noch analysiert.</summary>
+  </entry>
   <entry>
     <title>Sage Operations: Release-Zeitplan und Wartungsfenster für Oktober 2026</title>
     <link href="https://sage-news.de/sage-operations-release-zeitplan-oktober-2026/"/>
