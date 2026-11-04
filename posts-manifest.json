@@ -1,6 +1,19 @@
 {
   "posts": [
     {
+      "id": "2026-11-03-sage-operations-e-rechnung-stammdaten-oktober-update",
+      "slug": "sage-operations-e-rechnung-stammdaten-oktober-update",
+      "permalink": "sage-operations-e-rechnung-stammdaten-oktober-update",
+      "title": "Sage Operations: Stammdaten und Konfiguration für die E-Rechnung in Deutschland",
+      "summary": "Mit dem Oktober-Update erhalten Anwender von Sage Operations neue Stammdaten- und Einstellungsoptionen zur E-Rechnung in Deutschland. Unternehmen sollten ihre Stammdaten jetzt prüfen.",
+      "category": "Sage Operations",
+      "tag": "Compliance, Release",
+      "date": "3. November 2026",
+      "readTime": "2 min",
+      "featured": false,
+      "body": "Mit dem aktuellen Oktober-Update stellt Sage neue Stammdaten und Konfigurationsmöglichkeiten für die E-Rechnung in Deutschland in Sage Operations bereit. Sie bilden die technische und organisatorische Grundlage für die spätere Erstellung und den rechtssicheren Versand von E-Rechnungen.\n\n**Wichtige Erweiterungsbereiche.** Die Anpassungen und neuen Stammdatenfelder betreffen im System insbesondere:\n- **Unternehmen:** Ergänzende Pflichtangaben und Kennungen für den elektronischen Rechnungsaustausch.\n- **Steuerverwaltung:** Erweiterte Steuerkategorien und Konfigurationen.\n- **Bankkonten:** Präzisierte Bankverbindungen und Zahlungsdaten.\n- **Maßeinheiten:** Standardisierte und e-rechnungskonforme Einheitencodes.\n- **Zahlungsarten:** Spezifische Einstellungen und Zahlungswege für E-Rechnungsformate.\n\n**Handlungsempfehlung für Kunden und Partner.** Sage empfiehlt Anwendern und betreuenden Partnern, die Stammdaten und Systemeinstellungen in den genannten Bereichen zeitnah auf Vollständigkeit sowie Richtigkeit zu überprüfen und bei Bedarf zu aktualisieren.\n\nDetaillierte Schritt-für-Schritt-Anleitungen zu den neuen Konfigurationsfeldern sind in der Sage Operations Online-Hilfe hinterlegt.\n\n---\nQuelle: Sage GmbH (zusammengefasst mit KI für Sage-News.de)"
+    },
+    {
       "id": "2026-10-23-sage-100-php-schwachstellen-ueberblick",
       "slug": "sage-100-php-schwachstellen-ueberblick",
       "permalink": "sage-100-php-schwachstellen-ueberblick",
