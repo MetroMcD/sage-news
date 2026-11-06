@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-11-03T00:00:00Z</updated>
+  <updated>2026-11-06T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100 9.0.12 Pilotversion – Anlagenbuchhaltung im neuen Gewand, DMS-Mehrfachablage und ein Berg E-Rechnungs-Fixes</title>
+    <link href="https://sage-news.de/sage-100-9-0-12-pilotversion-neuerungen/"/>
+    <id>https://sage-news.de/sage-100-9-0-12-pilotversion-neuerungen/</id>
+    <updated>2026-11-06T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Unverbindliche Vorab-Info zur Pilotversion der Sage 100 9.0.12. Anlagenbuchhaltung in neuer Technik, DMS-Mehrfachablage, DATEV-Altlasten raus und reichlich E-Rechnungs-Korrekturen.</summary>
+  </entry>
   <entry>
     <title>Sage Operations: Stammdaten und Konfiguration für die E-Rechnung in Deutschland</title>
     <link href="https://sage-news.de/sage-operations-e-rechnung-stammdaten-oktober-update/"/>
