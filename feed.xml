@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-11-09T00:00:00Z</updated>
+  <updated>2026-11-19T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Sage 100 9.0.12 ist live: Access-Dialoge im Ruhestand, E-Rechnung mit Nebenjob und ein englisches Sprachpaket zum Nachladen</title>
+    <link href="https://sage-news.de/sage-100-9-0-12-live-sprachpaket-englisch/"/>
+    <id>https://sage-news.de/sage-100-9-0-12-live-sprachpaket-englisch/</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage 100 9.0.12 ist live: neue Oberfläche, viele E-Rechnungs-Stellschrauben, Intrastat-CORE und DATEV-Altlasten raus. Das englische Sprachpaket gibt es separat.</summary>
+  </entry>
   <entry>
     <title>Sage Operations: November-Update — Avalara, Margen-Transparenz und ein Lügendetektor für die API</title>
     <link href="https://sage-news.de/sage-operations-november-2026-neuerungen/"/>
