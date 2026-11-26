@@ -5,8 +5,16 @@
   <link href="https://sage-news.de/"/>
   <link rel="self" href="https://sage-news.de/feed.xml"/>
   <id>https://sage-news.de/</id>
-  <updated>2026-11-19T00:00:00Z</updated>
+  <updated>2026-11-26T00:00:00Z</updated>
   <author><name>René Münz</name></author>
+  <entry>
+    <title>Systemvoraussetzungen für Sage 100 Version 9.0.12 veröffentlicht</title>
+    <link href="https://sage-news.de/systemvoraussetzungen-sage-100-9-0-12/"/>
+    <id>https://sage-news.de/systemvoraussetzungen-sage-100-9-0-12/</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <category term="Sage 100"/>
+    <summary>Sage hat die Systemvoraussetzungen für Sage 100 Version 9.0.12 (Stand Oktober 2026) veröffentlicht. Neu ist ein Firewall-Eintrag für die Online-Kursabfrage. Der Systemcheck auf sage-news.de ist bereits angepasst.</summary>
+  </entry>
   <entry>
     <title>Sage 100 9.0.12 ist live: Access-Dialoge im Ruhestand, E-Rechnung mit Nebenjob und ein englisches Sprachpaket zum Nachladen</title>
     <link href="https://sage-news.de/sage-100-9-0-12-live-sprachpaket-englisch/"/>
