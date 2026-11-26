@@ -106,7 +106,7 @@ def site_header(active: str = '/') -> str:
         for href, label in SITE_NAV
     )
     return (
-        '<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08)">'
+        '<header style="background:var(--sn-blue-950);border-bottom:1.5px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100">'
         '<div style="max-width:1140px;margin:0 auto;padding:0 16px">'
         '<div style="display:flex;align-items:center;height:64px;gap:16px">'
         '<a href="/" title="Zur Startseite" style="background:none;border:none;cursor:pointer;'
